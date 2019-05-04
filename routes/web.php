@@ -22,6 +22,7 @@ Route::post('/aeronaves', 'AeronaveController@store')->name('aeronaves.store')->
 Route::get('/aeronaves/{aeronave}/edit', 'AeronaveController@edit')->name('aeronaves.edit')->middleware('auth');
 Route::put('/aeronaves/{aeronave}', 'AeronaveController@update')->name('aeronaves.update')->middleware('auth');
 Route::delete('/aeronaves/{aeronave}', 'AeronaveController@destroy')->name('aeronaves.destroy')->middleware('auth');
+Route::get('/aeronaves/{aeronave}/pilotos', 'AeronaveController@pilotosAutorizados')->name('aeronaves.pilotosAutorizados')->middleware('auth');
 
-Auth::routes();
+Auth::routes(['register' => false]);
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');

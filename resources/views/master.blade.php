@@ -8,11 +8,16 @@
         <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <a class="btn btn-primary" href="{{route('logout')}}">Sair</a>
     <div class="container">
         <div class="jumbotron">
-          <h1>@yield('title')</h1>
+            <h1>@yield('title')</h1>
+            @if(Auth::check())
+                @include('shared.menu')
+            @endif
         </div>
+        @if (session('sucesso'))
+            @include('shared.sucesso')
+        @endif
         @yield('content')
     </div>
     <script src="//code.jquery.com/jquery.js"></script>

@@ -12,24 +12,25 @@
             <th>Número de lugares</th>
             <th>Conta Horas</th>
             <th>Preço Hora</th>
+            <th>Pilotos Autorizados</th>
             <th>Ações</th>
         </tr>
     </thead>
     <tbody>
     @foreach ($aeronaves as $aeronave)
         <tr>
-            <td>{{($aeronave->matricula)}}</td>
             <td>{{($aeronave->marca)}}</td>
             <td>{{($aeronave->modelo)}}</td>
             <td>{{$aeronave->num_lugares}}</td>
             <td>{{$aeronave->conta_horas}}</td>
             <td>{{$aeronave->preco_hora}}</td>
+            <td>{{$aeronave->preco_hora}}</td>
+            <td><a href="{{route('aeronaves.pilotosAutorizados',$aeronave)}}">Listagem</a></td>
             <td>
                 <a class="btn btn-xs btn-primary" href="{{route('aeronaves.edit',$aeronave)}}">Editar</a>
                 <form action="{{route('aeronaves.destroy',$aeronave)}}" method="POST" role="form" class="inline">
                     @method('delete')
                     @csrf
-                    <input type="hidden" name="aeronave_matricula" value="<?=($aeronave->matricula)?>">
                     <button type="submit" class="btn btn-xs btn-danger">Eliminar</button>
                 </form>
             </td>
