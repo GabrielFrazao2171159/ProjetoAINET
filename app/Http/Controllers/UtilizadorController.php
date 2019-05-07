@@ -8,29 +8,34 @@ use App\User;
 class UtilizadorController extends Controller
 {
 	public function index(){
-		$utilizadores=User::all();
-		return view('utilizadores.index',compact('utilizadores'));
+		$socios=User::paginate(15);
+		return view('utilizadores.index',compact('socios'));
 	}
 
 	public function create(){
-		$utilizadores = new User();
-		return view('utilizadores.create',compact('utilizadores'));
+		$socio = new User();
+		return view('utilizadores.create',compact('socio'));
 	}
 
-	public function store(Request $request){
-		dd($request);
+	public function store(StoreUpdateUserRequest $request){
+		$socio = $request->validated();
+		User::create($socio);
+		return redirect()->route('socios.index')->with('sucesso', 'Utilzador inserida com sucesso!');
 	}
 
-	public function edit(User $utilizador){
-		return view('utilizadores.edit',compact('utilizador'));
+	public function edit(User $socio){
+		return view('utilizadores.edit',compact('socio'));
 	}
 
-	public function update(Request $request, User $utilizador){
-		dd($request);
+	public function update(StoreUpdateUserRequest $request, User $socio){
+        $socio->fill($request->validated());
+        $socio->save();
+
+        return redirect()->route('socios.index')->with('sucesso', 'Utilzador editado com sucesso!');;
 	}
 
 	public function destroy(User $utilizador){
-		dd($utilizador);
+        $socio->delete();
+		return redirect()->route('socios.index')->with('sucesso', 'Utilzador eliminado com sucesso!');
 	}
-
 }

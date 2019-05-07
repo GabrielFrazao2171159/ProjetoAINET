@@ -1,10 +1,10 @@
 @extends('master')
-@section('title','Editar Aeronave')
+@section('title','Editar Sócio')
 @section('content')
-<form action="{{route('socios.update',$utilizador)}}" method="post" class="form-group">
+<form action="{{route('socios.update',$socio)}}" method="post" class="form-group">
 	@method('put')
     @csrf
-    @include('utilizadores.create-edit')   <!-- É assim a maneira correta?? -->
+    @include('utilizadores.create-edit')  
     <div class="form-group">
         <button type="submit" class="btn btn-success" name="ok">Save</button>
         <a href="{{route('socios.index')}}" class="btn btn-default">Cancel</a>
