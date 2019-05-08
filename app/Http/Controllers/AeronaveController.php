@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Aeronave;
+use App\User;
 use App\Http\Requests\StoreUpdateAeronaveRequest;
+use Illuminate\Support\Facades\DB;
 
 class AeronaveController extends Controller
 {
@@ -40,6 +42,12 @@ class AeronaveController extends Controller
 	}
 
     public function pilotosAutorizados(Aeronave $aeronave){
-        dd($aeronave);
+        $pilotos = Aeronave::find($aeronave->matricula)->pilotos()->paginate(15);
+        return view('aeronaves.listagemPilotos',compact('pilotos','aeronave'));
+    }
+
+    public function adicionarPiloto(Aeronave $aeronave, User $piloto){
+        $aeronave->pilotos()->detach($piloto->id);
+        return redirect()->route('aeronaves.pilotosAutorizados',$aeronave)->with('sucesso', 'Piloto adicionado à lista de não autorizados!');
     }
 }
