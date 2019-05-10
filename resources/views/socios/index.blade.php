@@ -6,6 +6,7 @@
     <table class="table table-striped">
     <thead>
         <tr>
+            <th></th>    
             <th>Número de sócio</th>
             <th>Nome</th>
             <th>Email</th>
@@ -19,13 +20,14 @@
     <tbody>
     @foreach ($socios as $socio)
         <tr>
+            <td>{{($socio->foto_url)}}</td>
             <td>{{($socio->num_socio)}}</td>
             <td>{{($socio->nome_informal)}}</td>
             <td>{{($socio->email)}}</td>
-            <td>{{($socio->tipo_socio)}}</td>
-            <td>{{($socio->direcao)}}</td>
-            <td>{{($socio->quota_paga)}}</td>
-            <td>{{($socio->ativo)}}</td>
+            <td>{{($socio->typeToStr())}}</td>
+            <td>{{($socio->binaryToStr())}}</td>
+            <td>{{($socio->binaryToStr())}}</td>
+            <td>{{($socio->binaryToStr())}}</td>
             <td>
                 <a class="btn btn-xs btn-primary" href="{{route('socios.edit',$socio)}}">Editar</a>
                 <form action="{{route('socios.destroy',$socio)}}" method="POST" role="form" class="inline">

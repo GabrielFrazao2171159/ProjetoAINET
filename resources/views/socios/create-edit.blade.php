@@ -42,25 +42,26 @@
         <label class="form-check-label" for="inputDirecao">Direção</label>
         <input 
         type="checkbox" class="form-check-input" 
-        id="inputDirecao" name="direcao" value="{{old('direcao',$socio->direcao)}}"/>
+        id="inputDirecao" name="direcao" {{old('direcao',$socio->direcao) == 1 ? 'checked' : ''}}/>
         @if ($errors->has('direcao'))
             <em>{{ $errors->first('direcao') }}</em>
         @endif 
     </div>
     <div class="form-group col-md-4">
-        <label class="form-check-label" for="inputQuotasPagas">Quotas pagas</label>
+        <label class="form-check-label" for="inputQuotaPaga">Quotas pagas</label>
         <input
             type="checkbox" class="form-check-input"
-            name="quotas_pagas" id="inputQuotasPagas" value="{{old('quotas_pagas',$socio->quotas_pagas)}}"/>
-        @if ($errors->has('quotas_pagas'))
-            <em>{{ $errors->first('quotas_pagas') }}</em>
+            name="quota_paga" id="inputQuotaPaga" 
+            {{old('quota_paga',$socio->quota_paga) == 1 ? 'checked' : ''}}/>
+        @if ($errors->has('quota_paga'))
+            <em>{{ $errors->first('quota_paga') }}</em>
         @endif 
     </div>
     <div class="form-group col-md-4">
         <label class="form-check-label" for="inputAtivo">Ativo</label>
         <input
             type="checkbox" class="form-check-input"
-            name="ativo" id="inputAtivo" value="{{old('ativo',$socio->ativo)}}"/>
+            name="ativo" id="inputAtivo" {{old('ativo',$socio->ativo) == 1 ? 'checked' : ''}}/>
         @if ($errors->has('ativo'))
             <em>{{ $errors->first('ativo') }}</em>
         @endif 

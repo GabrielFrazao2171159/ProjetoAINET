@@ -9,12 +9,12 @@ class UtilizadorController extends Controller
 {
 	public function index(){
 		$socios=User::paginate(15);
-		return view('utilizadores.index',compact('socios'));
+		return view('socios.index',compact('socios'));
 	}
 
 	public function create(){
 		$socio = new User();
-		return view('utilizadores.create',compact('socio'));
+		return view('socios.create',compact('socio'));
 	}
 
 	public function store(StoreUpdateUserRequest $request){
@@ -24,7 +24,7 @@ class UtilizadorController extends Controller
 	}
 
 	public function edit(User $socio){
-		return view('utilizadores.edit',compact('socio'));
+		return view('socios.edit',compact('socio'));
 	}
 
 	public function update(StoreUpdateUserRequest $request, User $socio){

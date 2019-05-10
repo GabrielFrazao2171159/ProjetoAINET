@@ -41,4 +41,30 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Aeronave', 'aeronaves_pilotos', 'matricula', 'piloto_id');
     }
+
+    public function typeToStr()
+    {
+        switch ($this->tipo_socio) {
+            case 'P':
+                return 'Piloto';
+            case 'NP':
+                return 'Não piloto';
+            case 'A':
+                return 'Aeromodelista';
+        }
+
+        return 'Desconhecido';
+    }
+
+    public function binaryToStr()
+    {
+        if($this->direcao==0 || $this->quota_paga==0 || $this->ativo==0){
+            return 'Não';
+        }elseif ($this->direcao==1 || $this->quota_paga==1 || $this->ativo==1) {
+           return 'Sim';
+        }else{
+            return 'Desconhecido';
+        }
+
+    }
 }
