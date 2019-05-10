@@ -23,7 +23,8 @@ Route::get('/aeronaves/{aeronave}/edit', 'AeronaveController@edit')->name('aeron
 Route::put('/aeronaves/{aeronave}', 'AeronaveController@update')->name('aeronaves.update')->middleware('auth');
 Route::delete('/aeronaves/{aeronave}', 'AeronaveController@destroy')->name('aeronaves.destroy')->middleware('auth');
 Route::get('/aeronaves/{aeronave}/pilotos', 'AeronaveController@pilotosAutorizados')->name('aeronaves.pilotosAutorizados')->middleware('auth');
-Route::delete('/aeronaves/{aeronave}/pilotos/{piloto}', 'AeronaveController@adicionarPiloto')->name('aeronaves.adicionarPiloto')->middleware('auth');
+Route::delete('/aeronaves/{aeronave}/pilotos/{piloto}', 'AeronaveController@naoAutorizarPiloto')->name('aeronaves.naoAutorizarPiloto')->middleware('auth');
+Route::get('/aeronaves/{aeronave}/pilotosNaoAutorizados', 'AeronaveController@pilotosNaoAutorizados')->name('aeronaves.pilotosNaoAutorizados')->middleware('auth');
 
 Route::get('/socios', 'UtilizadorController@index')->name('socios.index')->middleware('auth');
 Route::get('/socios/create', 'UtilizadorController@create')->name('socios.create')->middleware('auth');

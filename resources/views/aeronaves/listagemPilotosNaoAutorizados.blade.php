@@ -1,7 +1,6 @@
 @extends('master')
-@section('title','Lista de Pilotos Autorizados')
+@section('title','Lista de Pilotos Não Autorizados')
 @section('content')
-<!-- <div><a class="btn btn-primary" href="{{route('aeronaves.create')}}">Adicionar aeronave</a></div> -->
 @if (count($pilotos))
     <table class="table table-striped">
     <thead>
@@ -27,17 +26,13 @@
             <td>{{($piloto->quota_paga)}}</td>
             <td>{{($piloto->ativo)}}</td>
             <td>
-                <form action="{{route('aeronaves.adicionarPiloto',[$aeronave,$piloto])}}" method="POST" role="form" class="inline">
-                    @method('delete')
-                    @csrf
-                    <button type="submit" class="btn btn-xs btn-danger">Não Autorizar</button>
-                </form>
+             
             </td>
         </tr>       
     @endforeach
     </table>
 @else 
-    <h2>Não foram encontradas pilotos autorizados</h2>
+    <h2>Não foram encontradas pilotos não autorizados</h2>
 @endif
 <div style="text-align: center;">{{ $pilotos->links() }}</div>
 @endsection

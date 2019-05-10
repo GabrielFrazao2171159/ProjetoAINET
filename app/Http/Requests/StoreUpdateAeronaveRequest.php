@@ -29,7 +29,7 @@ class StoreUpdateAeronaveRequest extends FormRequest
             'modelo' => 'required|max:40',
             'num_lugares' => 'required|integer|between:1,10',
             'conta_horas' => 'required|integer|min:0',
-            'preco_hora' => 'required|min:0'
+            'preco_hora' => 'required|numeric|min:0.00'
         ];
     }
 
