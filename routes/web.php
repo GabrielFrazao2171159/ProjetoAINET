@@ -34,5 +34,7 @@ Route::get('/socios/{socio}/edit', 'UtilizadorController@edit')->name('socios.ed
 Route::put('/socios/{socio}', 'UtilizadorController@update')->name('socios.update')->middleware('auth');
 Route::delete('/socios/{socio}', 'UtilizadorController@destroy')->name('socios.destroy')->middleware('auth');
 
+Route::get('/movimentos', 'MovimentoController@index')->name('movimentos.index')->middleware('auth');
+
 Auth::routes(['register' => false]);
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
