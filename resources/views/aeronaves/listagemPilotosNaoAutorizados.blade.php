@@ -26,7 +26,10 @@
             <td>{{($piloto->quota_paga)}}</td>
             <td>{{($piloto->ativo)}}</td>
             <td>
-             
+                <form action="{{route('aeronaves.autorizarPiloto',[$aeronave,$piloto])}}" method="POST" role="form" class="inline">
+                    @csrf
+                    <button type="submit" class="btn btn-xs btn-primary">Autorizar</button>
+                </form>
             </td>
         </tr>       
     @endforeach

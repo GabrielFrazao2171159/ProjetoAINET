@@ -55,4 +55,9 @@ class AeronaveController extends Controller
     	$pilotos = User::where('tipo_socio','P')->whereNotIn('id',$todosPilotos)->orderBy('id')->paginate(15);
         return view('aeronaves.listagemPilotosNaoAutorizados',compact('pilotos','aeronave'));
     }
+
+    public function autorizarPiloto(Aeronave $aeronave, User $piloto){
+        $aeronave->pilotos()->attach($piloto->id);
+        return redirect()->route('aeronaves.pilotosAutorizados',$aeronave)->with('sucesso', 'Piloto adicionado à lista de autorizados!');
+    }
 }
