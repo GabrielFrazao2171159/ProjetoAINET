@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Http\Requests\StoreUpdateUserRequest;
 
 class UtilizadorController extends Controller
 {
@@ -18,7 +19,14 @@ class UtilizadorController extends Controller
 	}
 
 	public function store(StoreUpdateUserRequest $request){
+        $image = $request->file('image');
+        $name = time().'.'.$image->getClientOriginalExtension();
+
+        $path = $request->file('image')->storeAs('/fotos', $name);
+
 		$socio = $request->validated();
+        $socio->image = $name;
+
 		User::create($socio);
 		return redirect()->route('socios.index')->with('sucesso', 'Utilzador inserida com sucesso!');
 	}
@@ -27,14 +35,27 @@ class UtilizadorController extends Controller
 		return view('socios.edit',compact('socio'));
 	}
 
+	public function myPerfil(){
+		$socio=Auth::id();
+		return view('socios.myperfil',compact('socio'));
+	}
+
 	public function update(StoreUpdateUserRequest $request, User $socio){
+    	if(! is_null($request['image'])) {
+            $image = $request->file('image');
+            $name = time().'.'.$image->getClientOriginalExtension();
+
+            $path = $request->file('image')->storeAs('/fotos', $name);
+        }
+
         $socio->fill($request->validated());
+        $socio->image = $name;
         $socio->save();
 
         return redirect()->route('socios.index')->with('sucesso', 'Utilzador editado com sucesso!');;
 	}
 
-	public function destroy(User $utilizador){
+	public function destroy(User $socio){
         $socio->delete();
 		return redirect()->route('socios.index')->with('sucesso', 'Utilzador eliminado com sucesso!');
 	}

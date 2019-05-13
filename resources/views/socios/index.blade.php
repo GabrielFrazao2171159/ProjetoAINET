@@ -1,7 +1,10 @@
 @extends('master')
 @section('title','Lista de Sócios')
 @section('content')
-<div><a class="btn btn-primary" href="{{route('socios.create')}}">Adicionar sócio</a></div>
+<div>
+    <a class="btn btn-primary" href="{{route('socios.create')}}">Adicionar sócio</a>
+    <a class="btn btn-primary" href="#">Meu perfil</a>
+</div>
 @if (count($socios))
     <table class="table table-striped">
     <thead>
