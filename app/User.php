@@ -56,15 +56,30 @@ class User extends Authenticatable
         return 'Desconhecido';
     }
 
-    public function binaryToStr()
+    public function binaryToStr($valor)
     {
-        if($this->direcao==0 || $this->quota_paga==0 || $this->ativo==0){
+        if($valor == 0){
             return 'Não';
-        }elseif ($this->direcao==1 || $this->quota_paga==1 || $this->ativo==1) {
+        }elseif ($valor == 1) {
            return 'Sim';
         }else{
             return 'Desconhecido';
         }
 
+    }
+
+    public function direcaoToStr()
+    {
+        return $this->binaryToStr($this->direcao);
+    }
+
+    public function quotaToStr()
+    {
+        return $this->binaryToStr($this->quota_paga);
+    }
+
+    public function ativoToStr()
+    {
+        return $this->binaryToStr($this->ativo);
     }
 }

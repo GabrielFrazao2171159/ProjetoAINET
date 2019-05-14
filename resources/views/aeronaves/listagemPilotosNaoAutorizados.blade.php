@@ -21,10 +21,10 @@
             <td>{{($piloto->num_socio)}}</td>
             <td>{{($piloto->nome_informal)}}</td>
             <td>{{($piloto->email)}}</td>
-            <td>{{($piloto->tipo_socio)}}</td>
-            <td>{{($piloto->direcao)}}</td>
-            <td>{{($piloto->quota_paga)}}</td>
-            <td>{{($piloto->ativo)}}</td>
+            <td>{{($piloto->typeToStr())}}</td>
+            <td>{{($piloto->direcaoToStr())}}</td>
+            <td>{{($piloto->quotaToStr())}}</td>
+            <td>{{($piloto->ativoToStr())}}</td>
             <td>
                 <form action="{{route('aeronaves.autorizarPiloto',[$aeronave,$piloto])}}" method="POST" role="form" class="inline">
                     @csrf
