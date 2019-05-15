@@ -8,6 +8,19 @@
         <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+            <span class="navbar-brand">FlightClub</span>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="">Pagina Principal</a></li>
+            <li><a href="{{route('socios.index')}}">Sócios</a></li>
+            <li><a href="{{route('aeronaves.index')}}">Aeronaves</a></li>
+            <li><a href="{{route('movimentos.index')}}">Movimentos</a></li>
+        </ul>
+      </div>
+    </nav>
     <div class="container">
         <div class="jumbotron">
             <h1>@yield('title')</h1>

@@ -24,7 +24,7 @@ class StoreUpdateAeronaveRequest extends FormRequest
     public function rules()
     {
         return [
-            'matricula' => 'required|max:8',
+            'matricula' => 'required|unique:aeronaves|max:8',
             'marca' => 'required|regex:/^[\pL\s]+$/u|max:40',
             'modelo' => 'required|max:40',
             'num_lugares' => 'required|integer|between:1,10',

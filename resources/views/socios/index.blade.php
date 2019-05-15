@@ -28,9 +28,9 @@
             <td>{{($socio->nome_informal)}}</td>
             <td>{{($socio->email)}}</td>
             <td>{{($socio->typeToStr())}}</td>
-            <td>{{($socio->binaryToStr())}}</td>
-            <td>{{($socio->binaryToStr())}}</td>
-            <td>{{($socio->binaryToStr())}}</td>
+            <td>{{($socio->direcaoToStr())}}</td>
+            <td>{{($socio->quotaToStr())}}</td>
+            <td>{{($socio->ativoToStr())}}</td>
             <td>
                 <a class="btn btn-xs btn-primary" href="{{route('socios.edit',$socio)}}">Editar</a>
                 <form action="{{route('socios.destroy',$socio)}}" method="POST" role="form" class="inline">
