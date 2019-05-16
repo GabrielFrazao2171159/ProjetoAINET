@@ -27,9 +27,13 @@ class StoreUpdateUserRequest extends FormRequest
         return [
             'num_socio' => 'required|max:11',
             'nome_informal' => 'required|regex:/^[\pL\s]+$/u|max:40',
+            'name' => 'required|regex:/^[\pL\s]+$/u|max:40',
             'email:' => 'email|email',
             'tipo' => 'required',
-        ];
+            'sexo' => 'required',
+            'password' => 'required',
+            'data_nascimento' => 'required'
+        ]; 
     }
 
     public function messages()
