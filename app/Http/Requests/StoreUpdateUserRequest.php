@@ -28,7 +28,7 @@ class StoreUpdateUserRequest extends FormRequest
             'num_socio' => 'required|max:11',
             'nome_informal' => 'required|regex:/^[\pL\s]+$/u|max:40',
             'name' => 'required|regex:/^[\pL\s]+$/u|max:40',
-            'email:' => 'email|email',
+            'email' => 'email',
             'tipo' => 'required',
             'sexo' => 'required',
             'password' => 'required',
