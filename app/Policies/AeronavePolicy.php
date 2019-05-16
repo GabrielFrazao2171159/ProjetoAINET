@@ -9,18 +9,25 @@ class AeronavePolicy
 {
     use HandlesAuthorization;
 
-    public function update()
+    public function before($user, $ability)
     {
-    
+        if ($user->isDirecao()) {
+            return true;
+        }
     }
 
-    public function create()
+    public function create(User $auth)
     {
-        
+        return false;
     }
 
-    public function destroy()
+    public function update(User $auth)
     {
-        
+        return false;
+    }
+
+    public function delete(User $auth)
+    {
+        return false;
     }
 }

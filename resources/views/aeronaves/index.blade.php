@@ -1,7 +1,9 @@
 @extends('master')
 @section('title','Lista de Aeronaves')
 @section('content')
+@can('create', App\Aeronave::class)
 <div><a class="btn btn-primary" href="{{route('aeronaves.create')}}">Adicionar aeronave</a></div>
+@endcan
 @if (count($aeronaves))
     <table class="table table-striped">
     <thead>
@@ -27,12 +29,16 @@
             <td>{{$aeronave->preco_hora}}</td>
             <td><a href="{{route('aeronaves.pilotosAutorizados',$aeronave)}}">Listagem</a></td>
             <td>
+                @can('update', App\Aeronave::class)
                 <a class="btn btn-xs btn-primary" href="{{route('aeronaves.edit',$aeronave)}}">Editar</a>
+                @endcan
+                @can('delete', App\Aeronave::class)
                 <form action="{{route('aeronaves.destroy',$aeronave)}}" method="POST" role="form" class="inline">
                     @method('delete')
                     @csrf
                     <button type="submit" class="btn btn-xs btn-danger">Eliminar</button>
                 </form>
+                @endcan
             </td>
         </tr>       
     @endforeach

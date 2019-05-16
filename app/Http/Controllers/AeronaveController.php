@@ -6,6 +6,8 @@ use App\Aeronave;
 use App\User;
 use App\Http\Requests\StoreUpdateAeronaveRequest;
 
+use Illuminate\Support\Facades\Auth;
+
 class AeronaveController extends Controller
 {
 	public function index(){
@@ -14,21 +16,29 @@ class AeronaveController extends Controller
 	}
 
 	public function create(){
+		$this->authorize('create', Aeronave::class);
+		
 		$aeronave = new Aeronave;
 		return view('aeronaves.create',compact('aeronave'));
 	}
 
 	public function store(StoreUpdateAeronaveRequest $request){
+		$this->authorize('create', Aeronave::class);
+
 		$aeronave = $request->validated();
 		Aeronave::create($aeronave);
 		return redirect()->route('aeronaves.index')->with('sucesso', 'Aeronave inserida com sucesso!');
 	}
 
 	public function edit(Aeronave $aeronave){
+		$this->authorize('update', Aeronave::class);
+
 		return view('aeronaves.edit',compact('aeronave'));
 	}
 
 	public function update(StoreUpdateAeronaveRequest $request, Aeronave $aeronave){
+		$this->authorize('update', Aeronave::class);
+
         $aeronave->fill($request->validated());
         $aeronave->save();
 
@@ -36,6 +46,8 @@ class AeronaveController extends Controller
 	}
 
 	public function destroy(Aeronave $aeronave){
+		$this->authorize('delete', Aeronave::class);
+
         $aeronave->delete();
 		return redirect()->route('aeronaves.index')->with('sucesso', 'Aeronave eliminada com sucesso!');
 	}

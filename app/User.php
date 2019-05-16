@@ -82,4 +82,9 @@ class User extends Authenticatable
     {
         return $this->binaryToStr($this->ativo);
     }
+
+    public function isDirecao()
+    {
+        return $this->direcao == 1;
+    }
 }
