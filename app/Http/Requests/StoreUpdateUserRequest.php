@@ -37,5 +37,5 @@ class StoreUpdateUserRequest extends FormRequest
         return [
             'nome_informal.regex' => 'O campo marca apenas deve conter letras e espaços.',
         ];
-    }*/
+    }
 }

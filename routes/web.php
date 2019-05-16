@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/aeronaves', 'AeronaveController@index')->name('aeronaves.index')->middleware('auth');
+Route::get('/aeronaves', 'AeronaveController@index')->name('aeronaves.index')->middleware('verified');
 Route::get('/aeronaves/create', 'AeronaveController@create')->name('aeronaves.create')->middleware('auth');
 Route::post('/aeronaves', 'AeronaveController@store')->name('aeronaves.store')->middleware('auth');
 Route::get('/aeronaves/{aeronave}/edit', 'AeronaveController@edit')->name('aeronaves.edit')->middleware('auth');
@@ -37,5 +37,5 @@ Route::delete('/socios/{socio}', 'UtilizadorController@destroy')->name('socios.d
 
 Route::get('/movimentos', 'MovimentoController@index')->name('movimentos.index')->middleware('auth');
 
-Auth::routes(['register' => false]);
+Auth::routes(['verify' => true,'register' => false]);
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');

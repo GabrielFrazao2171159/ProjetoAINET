@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Http\Requests\StoreUpdateUserRequest;
 
+//Verificação do mail
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
+use Illuminate\Support\Facades\Mail;
+
 class UtilizadorController extends Controller
 {
 	public function index(){
@@ -19,16 +24,20 @@ class UtilizadorController extends Controller
 	}
 
 	public function store(StoreUpdateUserRequest $request){
+		/*
         $image = $request->file('image');
         $name = time().'.'.$image->getClientOriginalExtension();
 
         $path = $request->file('image')->storeAs('/fotos', $name);
+        */
 
 		$socio = $request->validated();
-        $socio->image = $name;
-
+        //$socio->image = $name;
+dd($socio);
+		Mail::to($socio['email'])->send(new VerifyMail($socio));
+        dd($socio);
 		User::create($socio);
-		return redirect()->route('socios.index')->with('sucesso', 'Utilzador inserida com sucesso!');
+		return redirect()->route('socios.index')->with('sucesso', 'Utilizador inserida com sucesso!');
 	}
 
 	public function edit(User $socio){
