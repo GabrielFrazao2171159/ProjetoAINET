@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Http\Requests\StoreAddUserRequest;
 use App\Http\Requests\StoreUpdateUserRequest;
+
 
 //Verificação do mail
 use Illuminate\Auth\Events\Registered;
@@ -24,7 +26,7 @@ class UtilizadorController extends Controller
 		return view('socios.create',compact('socio'));
 	}
 
-	public function store(StoreUpdateUserRequest $request){
+	public function store(StoreAddUserRequest $request){
 //        $image = $request->file('image');
 //        $name = time().'.'.$image->getClientOriginalExtension();
 //
@@ -37,17 +39,15 @@ class UtilizadorController extends Controller
 		Mail::to($socio['email'])->send(new VerifyMail($socio));
         dd($socio);
         */
+        $socio['password']=$socio['data_nascimento'];
+//		dd($socio);
+
 		User::create($socio);
 		return redirect()->route('socios.index')->with('sucesso', 'Sócio inserido com sucesso!');
 	}
 
 	public function edit(User $socio){
 		return view('socios.edit',compact('socio'));
-	}
-
-	public function myPerfil(){
-		$socio=Auth::id();
-		return view('socios.myperfil',compact('socio'));
 	}
 
 	public function update(StoreUpdateUserRequest $request, User $socio){
@@ -58,8 +58,10 @@ class UtilizadorController extends Controller
 //            $path = $request->file('image')->storeAs('/fotos', $name);
 //        }
 
-        $socio->fill($request->validated());
+        $socio->fill($request->all());
+
         //$socio->image = $name;
+       //dd($socio);
         $socio->save();
 
         return redirect()->route('socios.index')->with('sucesso', 'Sócio editado com sucesso!');;
