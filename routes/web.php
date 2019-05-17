@@ -31,7 +31,6 @@ Route::get('/socios', 'UtilizadorController@index')->name('socios.index')->middl
 Route::get('/socios/create', 'UtilizadorController@create')->name('socios.create')->middleware('auth');
 Route::post('/socios', 'UtilizadorController@store')->name('socios.store')->middleware('auth');
 Route::get('/socios/{socio}/edit', 'UtilizadorController@edit')->name('socios.edit')->middleware('auth');
-//Route::get('/socios/{socio}/edit', 'UtilizadorController@myPerfil')->name('socios.perfil')->middleware('auth');
 Route::put('/socios/{socio}', 'UtilizadorController@update')->name('socios.update')->middleware('auth');
 Route::delete('/socios/{socio}', 'UtilizadorController@destroy')->name('socios.destroy')->middleware('auth');
 

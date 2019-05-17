@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUpdateUserRequest extends FormRequest
+class StoreAddUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,24 +21,18 @@ class StoreUpdateUserRequest extends FormRequest
      *
      * @return array
      */
-
-    protected function prepareForValidation()
-    {
-        $this->merge([
-            'ativo' => isset($this->ativo) ? 1 : 0,
-            'quota_paga' => isset($this->quota_paga) ? 1 : 0,
-            'direcao' => isset($this->direcao) ? 1 : 0,
-        ]);
-    }
-
+    
     public function rules()
     {
         return [
             'num_socio' => 'required|max:11',
             'nome_informal' => 'required|regex:/^[\pL\s]+$/u|max:40',
+            'name' => 'required|regex:/^[\pL\s]+$/u|max:40',
             'email' => 'email',
             'tipo_socio' => 'required',
-        ];
+            'sexo' => 'required',
+            'data_nascimento' => 'required'
+        ]; 
     }
 
     public function messages()

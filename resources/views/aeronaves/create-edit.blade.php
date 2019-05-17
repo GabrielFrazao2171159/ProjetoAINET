@@ -52,3 +52,26 @@
         <em>{{ $errors->first('preco_hora') }}</em>
     @endif 
 </div>
+<div class="form-group">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Conta Horas</th>            
+                <th>Minutos</th>
+                <th>Preço</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for ($i = 0; $i < 10; $i++)
+                <tr>
+                    <th>{{$i+1}}</th>            
+                    <th>{{round((($i+1)*60/10)/5)*5}}</th>
+                    <th><input type="text" name="preco_{{$i}}" 
+                    value="{{old('preco_'.$i,$aeronave->precos[$i])}}"/></th>
+                </tr>
+            @endfor
+    </table>
+    @if ($errors->has('preco_9'))
+        <em>{{ $errors->first('preco_9') }}</em>
+    @endif 
+</div>

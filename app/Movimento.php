@@ -12,6 +12,7 @@ class Movimento extends Model
         'id', 'aeronave', 'data_inf', 'data_sup', 'natureza', 'confirmado', 'piloto', 'instrutor', 'meus_movimentos'
     ];
 
+
     public function typeToStr()
     {
         switch ($this->natureza) {
@@ -25,7 +26,7 @@ class Movimento extends Model
 
         return 'Desconhecido';
     }
-
+    
     public function aeronave()
     {
         return $this->belongsTo('App\Aeronave');
