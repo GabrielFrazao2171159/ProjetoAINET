@@ -16,6 +16,11 @@ class AeronavePolicy
         }
     }
 
+    public function pilotosAutorizados(User $auth)
+    {
+        return false;
+    }
+
     public function create(User $auth)
     {
         return false;

@@ -14,7 +14,9 @@
             <th>Número de lugares</th>
             <th>Conta Horas</th>
             <th>Preço Hora</th>
+            @can('pilotosAutorizados', App\Aeronave::class)
             <th>Pilotos Autorizados</th>
+            @endcan
             @can('update', App\Aeronave::class)
             <th>Ações</th>
             @endcan
@@ -29,19 +31,23 @@
             <td>{{$aeronave->num_lugares}}</td>
             <td>{{$aeronave->conta_horas}}</td>
             <td>{{$aeronave->preco_hora}}</td>
+
+            @can('pilotosAutorizados', App\Aeronave::class)
             <td><a href="{{route('aeronaves.pilotosAutorizados',$aeronave)}}">Listagem</a></td>
+            @endcan
+           
+            @can('update', App\Aeronave::class)
             <td>
-                @can('update', App\Aeronave::class)
-                <a class="btn btn-xs btn-primary" href="{{route('aeronaves.edit',$aeronave)}}">Editar</a>
-                @endcan
-                @can('delete', App\Aeronave::class)
-                <form action="{{route('aeronaves.destroy',$aeronave)}}" method="POST" role="form" class="inline">
-                    @method('delete')
-                    @csrf
-                    <button type="submit" class="btn btn-xs btn-danger">Eliminar</button>
-                </form>
-                @endcan
+            <a class="btn btn-xs btn-primary" href="{{route('aeronaves.edit',$aeronave)}}">Editar</a>
+            @endcan
+            @can('delete', App\Aeronave::class)
+            <form action="{{route('aeronaves.destroy',$aeronave)}}" method="POST" role="form" class="inline">
+                @method('delete')
+                @csrf
+                <button type="submit" class="btn btn-xs btn-danger">Eliminar</button>
+            </form>
             </td>
+            @endcan
         </tr>       
     @endforeach
     </table>
