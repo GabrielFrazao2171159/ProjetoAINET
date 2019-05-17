@@ -14,7 +14,7 @@ class Movimento extends Model
 
     public function aeronaves()
     {
-        return $this->belongsToMany('App\User', 'matricula', 'marca', 'modelo');
+        return $this->belongsTo('App\Aeronave');
     }
 
 }

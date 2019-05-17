@@ -10,6 +10,8 @@ class Aeronave extends Model
 
 	protected $primaryKey = 'matricula';	//Por default ele vai à procura do 'id'
 
+    protected $keyType = 'string'; //Por default é inteira a chave primária
+
     public $incrementing = false;	//Isto impedirá que ele seja um campo de incremento automático
 
     protected $fillable = [
@@ -19,5 +21,10 @@ class Aeronave extends Model
     public function pilotos()
     {
         return $this->belongsToMany('App\User', 'aeronaves_pilotos', 'matricula', 'piloto_id');
+    }
+
+    public function movimentos()
+    {
+        return $this->hasMany('App\Movimento','aeronave');
     }
 }

@@ -15,7 +15,9 @@
             <th>Conta Horas</th>
             <th>Preço Hora</th>
             <th>Pilotos Autorizados</th>
+            @can('update', App\Aeronave::class)
             <th>Ações</th>
+            @endcan
         </tr>
     </thead>
     <tbody>
