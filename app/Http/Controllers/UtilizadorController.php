@@ -32,12 +32,8 @@ class UtilizadorController extends Controller
         //dd($request);
 		$socio = $request->validated();
        // $socio->image = $name;
-		/*PARTE DO MAIL
-		$socio['id']=1;
-		Mail::to($socio['email'])->send(new VerifyMail($socio));
-        dd($socio);
-        */
-		User::create($socio);
+		$user=User::create($socio);
+		$user->SendEmailVerificationNotification();
 		return redirect()->route('socios.index')->with('sucesso', 'Sócio inserido com sucesso!');
 	}
 

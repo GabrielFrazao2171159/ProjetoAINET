@@ -29,7 +29,17 @@ class StoreUpdateAeronaveRequest extends FormRequest
             'modelo' => 'required|max:40',
             'num_lugares' => 'required|integer|between:1,10',
             'conta_horas' => 'required|integer|min:0',
-            'preco_hora' => 'required|numeric|min:0.00'
+            'preco_hora' => 'required|numeric|min:0.00',
+            'preco_0' => 'required|numeric|min:0.00',
+            'preco_1' => 'required|numeric|min:0.00',
+            'preco_2' => 'required|numeric|min:0.00',
+            'preco_3' => 'required|numeric|min:0.00',
+            'preco_4' => 'required|numeric|min:0.00',
+            'preco_5' => 'required|numeric|min:0.00',
+            'preco_6' => 'required|numeric|min:0.00',
+            'preco_7' => 'required|numeric|min:0.00',
+            'preco_8' => 'required|numeric|min:0.00',
+            'preco_9' => 'required|numeric|min:0.00'
         ];
     }
 
@@ -37,7 +47,7 @@ class StoreUpdateAeronaveRequest extends FormRequest
     {
         return [
             'marca.regex' => 'O campo marca apenas deve conter letras e espaços.',
-            'num_lugares.between' => 'O número de lugares deve estar entre 1 e 10.',
+            'num_lugares.between' => 'O número de lugares deve estar entre 1 e 10.'
         ];
     }
 }

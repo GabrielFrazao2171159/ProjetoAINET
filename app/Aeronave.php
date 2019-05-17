@@ -12,10 +12,10 @@ class Aeronave extends Model
 
     protected $keyType = 'string'; //Por default é inteira a chave primária
 
-    public $incrementing = false;	//Isto impedirá que ele seja um campo de incremento automático
+    public $incrementing = false;	//Isto impedirá que a matricula seja um campo de incremento automático
 
     protected $fillable = [
-        'matricula', 'marca', 'modelo', 'num_lugares', 'conta_horas', 'preco_hora',
+        'matricula', 'marca', 'modelo', 'num_lugares', 'conta_horas', 'preco_hora'
     ];
 
     public function pilotos()
@@ -26,5 +26,10 @@ class Aeronave extends Model
     public function movimentos()
     {
         return $this->hasMany('App\Movimento','aeronave');
+    }
+
+    public function valores()
+    {
+        return $this->hasMany('App\ValorTabela','matricula');
     }
 }

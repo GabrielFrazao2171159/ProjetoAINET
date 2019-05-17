@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Aeronave;
 use App\User;
+use App\ValorTabela;
 use App\Http\Requests\StoreUpdateAeronaveRequest;
 
 use Illuminate\Support\Facades\Auth;
@@ -26,7 +27,13 @@ class AeronaveController extends Controller
 		$this->authorize('create', Aeronave::class);
 
 		$aeronave = $request->validated();
-		Aeronave::create($aeronave);
+
+		$aeronaveCriada = Aeronave::create($aeronave);
+/*
+		for($i=0;$i<10;$i++){
+			ValorTabela::create();			
+		}*/
+
 		return redirect()->route('aeronaves.index')->with('sucesso', 'Aeronave inserida com sucesso!');
 	}
 
