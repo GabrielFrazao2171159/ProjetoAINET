@@ -1,6 +1,7 @@
 @extends('master')
 @section('title', 'Lista de Voos')
 @section('content')
+<div><a class="btn btn-primary" href="{{route('movimentos.create')}}">Adicionar voo</a></div>
 @if (count($movimentos))
     <table class="table table-striped">
     <thead>
@@ -12,6 +13,7 @@
             <th>Aeronave</th>
             <th>Natureza</th>
             <th>Piloto</th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
@@ -19,11 +21,13 @@
         <tr>
             <td>{{($movimento->id)}}</td>
             <td>{{($movimento->data)}}</td>
-            <td>{{($movimento->hora_descolagem)}}</td>
-            <td>{{($movimento->hora_aterragem)}}</td>
+            <td>{{date("H:i", strtotime($movimento->hora_descolagem))}}</td>
+            <td>{{date("H:i", strtotime($movimento->hora_aterragem))}}</td>
             <td>{{($movimento->aeronave)}}</td>
-            <td>{{($movimento->natureza)}}</td>
-            <td>{{$movimento->piloto_id}}</td>
+            <td>{{($movimento->typeToStr())}}</td>
+            <td>{{$movimento->piloto->name}}</td>
+            <td><a class="btn btn-xs btn-primary" >Editar</a>
+            <a type="submit" class="btn btn-xs btn-danger" >Eliminar</a></td>
         </tr> 
     @endforeach
     </table>

@@ -87,4 +87,9 @@ class User extends Authenticatable
     {
         return $this->direcao == 1;
     }
+
+    public function movimentos()
+    {
+        return $this->hasMany('App\Movimento', 'piloto_id');
+    }
 }
