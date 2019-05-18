@@ -11,8 +11,9 @@
             <th>Hora de descolagem</th>
             <th>Hora de aterragem</th>
             <th>Aeronave</th>
-            <th>Natureza</th>
             <th>Piloto</th>
+            <th>Instrutor</th>
+            <th>Natureza</th>
             <th>Ações</th>
         </tr>
     </thead>
@@ -24,11 +25,12 @@
             <td>{{date("H:i", strtotime($movimento->hora_descolagem))}}</td>
             <td>{{date("H:i", strtotime($movimento->hora_aterragem))}}</td>
             <td>
-            {{App\Aeronave::find($movimento->aeronave)->matricula}}/
-            {{App\Aeronave::find($movimento->aeronave)->marca}}/
-            {{App\Aeronave::find($movimento->aeronave)->modelo}}
+            <p>{{App\Aeronave::find($movimento->aeronave)->matricula}}</p>
+            <p>{{App\Aeronave::find($movimento->aeronave)->marca}}</p>
+            <p>{{App\Aeronave::find($movimento->aeronave)->modelo}}</p>
             </td>
             <td>{{$movimento->piloto->name}}</td>
+            <td>{{$movimento->hasPiloto($movimento->instrutor_id)}}</td>
             <td>{{$movimento->typeToStr()}}</td>
             <td>
             <a class="btn btn-xs btn-primary" href="{{route('movimentos.edit',$movimento)}}">Editar</a>

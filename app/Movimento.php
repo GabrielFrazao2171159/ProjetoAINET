@@ -26,6 +26,15 @@ class Movimento extends Model
 
         return 'Desconhecido';
     }
+
+    public function hasPiloto($piloto){
+        if($piloto == NULL){
+            return 'Sem Instrutor';
+        }
+        else{
+            return (\App\User::find($piloto)->name);
+        }
+    }
     
     public function aeronave()
     {
