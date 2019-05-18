@@ -67,7 +67,7 @@
                     <th>{{$i+1}}</th>            
                     <th>{{round((($i+1)*60/10)/5)*5}}</th>
                     <th><input type="text" name="preco_{{$i}}" 
-                    value="{{old('preco_'.$i,$aeronave->precos[$i])}}"/></th>
+                    value="{{old('preco_'.$i,$valores[$i]['preco'])}}"/></th>
                 </tr>
             @endfor
     </table>

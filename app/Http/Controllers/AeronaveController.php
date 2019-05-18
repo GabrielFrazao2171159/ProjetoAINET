@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Aeronave;
 use App\User;
 use App\ValorTabela;
-use App\Http\Requests\StoreUpdateAeronaveRequest;
+use App\Http\Requests\StoreAeronaveRequest;
+use App\Http\Requests\UpdateAeronaveRequest;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -23,31 +24,46 @@ class AeronaveController extends Controller
 		return view('aeronaves.create',compact('aeronave'));
 	}
 
-	public function store(StoreUpdateAeronaveRequest $request){
+	public function store(StoreAeronaveRequest $request){
 		$this->authorize('create', Aeronave::class);
 
 		$aeronave = $request->validated();
-
 		$aeronaveCriada = Aeronave::create($aeronave);
-/*
+		
+		$valor = array();
 		for($i=0;$i<10;$i++){
-			ValorTabela::create();			
-		}*/
+			$valor['matricula'] = $aeronaveCriada->matricula;
+			$valor['unidade_conta_horas'] = $i+1;
+			$valor['minutos'] = round((($i+1)*60/10)/5)*5;
+			$valor['preco'] = $aeronave['preco_'."$i"];
+			ValorTabela::create($valor);			
+		}
 
 		return redirect()->route('aeronaves.index')->with('sucesso', 'Aeronave inserida com sucesso!');
 	}
 
 	public function edit(Aeronave $aeronave){
 		$this->authorize('update', Aeronave::class);
+		$valores = $aeronave->valores;
 
-		return view('aeronaves.edit',compact('aeronave'));
+		return view('aeronaves.edit',compact('aeronave','valores'));
 	}
 
-	public function update(StoreUpdateAeronaveRequest $request, Aeronave $aeronave){
+	public function update(UpdateAeronaveRequest $request, Aeronave $aeronave){
 		$this->authorize('update', Aeronave::class);
 
         $aeronave->fill($request->validated());
         $aeronave->save();
+
+		$valor = array();
+		for($i=0;$i<10;$i++){
+			$valor['matricula'] = $aeronave->matricula;
+			$valor['unidade_conta_horas'] = $i+1;
+			$valor['minutos'] = round((($i+1)*60/10)/5)*5;
+			$valor['preco'] = $aeronave['preco_'."$i"];
+			$valor = new ValorTabela($valor);
+			dd($valor);			
+		}
 
         return redirect()->route('aeronaves.index')->with('sucesso', 'Aeronave editada com sucesso!');;
 	}
@@ -59,6 +75,10 @@ class AeronaveController extends Controller
 
 		if(count($movimentos)==0){
 			$aeronave->forceDelete();
+			$valores = $aeronave->valores;
+			foreach ($valores as $valor) {
+    			$valor->delete();
+			}
 		}else{
 			$aeronave->delete();
 		}
