@@ -17,9 +17,10 @@ class AeronaveController extends Controller
 
 	public function create(){
 		$this->authorize('create', Aeronave::class);
-		
+
+		$valores = array(new ValorTabela,new ValorTabela,new ValorTabela,new ValorTabela,new ValorTabela,new ValorTabela,new ValorTabela,new ValorTabela,new ValorTabela,new ValorTabela);
 		$aeronave = new Aeronave;
-		return view('aeronaves.create',compact('aeronave'));
+		return view('aeronaves.create',compact('aeronave','valores'));
 	}
 
 	public function store(StoreAeronaveRequest $request){
@@ -43,6 +44,7 @@ class AeronaveController extends Controller
 	public function edit(Aeronave $aeronave){
 		$this->authorize('update', Aeronave::class);
 		$valores = $aeronave->valores;
+
 		return view('aeronaves.edit',compact('aeronave','valores'));
 	}
 
@@ -59,7 +61,7 @@ class AeronaveController extends Controller
         foreach ($valores as $valor){
             $array['matricula'] = $aeronave->matricula;
             $array['unidade_conta_horas'] = $i;
-            $array['minutos'] = round((($i+1)*60/10)/5)*5;
+            $array['minutos'] = round((($i)*60/10)/5)*5;
             $preco = "preco_".($i-1);
             $array['preco'] = $request->$preco;
             $valor->fill($array);
@@ -115,5 +117,13 @@ class AeronaveController extends Controller
     	
         $aeronave->pilotos()->attach($piloto->id);
         return redirect()->route('aeronaves.pilotosAutorizados',$aeronave)->with('sucesso', 'Piloto adicionado à lista de autorizados!');
+    }
+
+    public function mostrarPrecos(Aeronave $aeronave){
+        //$this->authorize('pilotosAutorizados', Aeronave::class);
+
+        $valores = $aeronave->valores;
+
+        return view('aeronaves.precos',compact('valores'));
     }
 }
