@@ -23,11 +23,21 @@
             <td>{{($movimento->data)}}</td>
             <td>{{date("H:i", strtotime($movimento->hora_descolagem))}}</td>
             <td>{{date("H:i", strtotime($movimento->hora_aterragem))}}</td>
-            <td>{{($movimento->aeronave)}}</td>
-            <td>{{($movimento->typeToStr())}}</td>
+            <td>
+            {{App\Aeronave::find($movimento->aeronave)->matricula}}/
+            {{App\Aeronave::find($movimento->aeronave)->marca}}/
+            {{App\Aeronave::find($movimento->aeronave)->modelo}}
+            </td>
             <td>{{$movimento->piloto->name}}</td>
-            <td><a class="btn btn-xs btn-primary" >Editar</a>
-            <a type="submit" class="btn btn-xs btn-danger" >Eliminar</a></td>
+            <td>{{$movimento->typeToStr()}}</td>
+            <td>
+            <a class="btn btn-xs btn-primary" href="{{route('movimentos.edit',$movimento)}}">Editar</a>
+            <form action="{{route('movimentos.destroy',$movimento)}}" method="POST" role="form" class="inline">
+                @method('delete')
+                @csrf
+                <button type="submit" class="btn btn-xs btn-danger">Eliminar</button>
+            </form>
+            </td>
         </tr> 
     @endforeach
     </table>
