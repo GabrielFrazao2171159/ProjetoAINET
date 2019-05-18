@@ -15,15 +15,15 @@
                 <em>{{ $errors->first('num_socio') }}</em>
             @endif
         </div>
-{{--        <div class="form-group">--}}
-{{--            <label for="inputNomeInformal">Nome</label>--}}
-{{--            <input--}}
-{{--                    type="text" class="form-control"--}}
-{{--                    name="nome_informal" id="inputNomeInformal" value="{{old('nome',$socio->nome)}}"/>--}}
-{{--            @if ($errors->has('nome_informal'))--}}
-{{--                <em>{{ $errors->first('nome_informal') }}</em>--}}
-{{--            @endif--}}
-{{--        </div>--}}
+        <div class="form-group">
+            <label for="inputNome">Nome</label>
+            <input
+                    type="text" class="form-control"
+                    name="name" id="inputNome" value="{{old('name',$socio->name)}}"/>
+            @if ($errors->has('name'))
+                <em>{{ $errors->first('name') }}</em>
+            @endif
+        </div>
         <div class="form-group">
             <label for="inputNomeInformal">Nome Informal</label>
             <input
@@ -34,6 +34,15 @@
             @endif 
         </div>
         <div class="form-group">
+            <label for="inputDataNascimento">Data Nascimento</label>
+            <input
+                    type="Date" class="form-control"
+                    name="data_nascimento " id="inputDataNascimento" value="{{old('data_nascimento',$socio->data_nascimento)}}"/>
+            @if ($errors->has('data_nascimento'))
+                <em>{{ $errors->first('data_nascimento') }}</em>
+            @endif
+        </div>
+        <div class="form-group">
             <label for="inputEmail">Email</label>
             <input
                 type="text" class="form-control"
@@ -41,6 +50,15 @@
             @if ($errors->has('email'))
                 <em>{{ $errors->first('email') }}</em>
             @endif 
+        </div>
+        <div class="form-group">
+            <label for="inputEndereco">Endereco</label>
+            <input
+                    type="text" class="form-control"
+                    name="endereco" id="endereco" value="{{old('endereco',$socio->endereco)}}"/>
+            @if ($errors->has('endereco'))
+                <em>{{ $errors->first('endereco') }}</em>
+            @endif
         </div>
         <div class="form-group">
             <label for="inputTipo">Tipo</label>
@@ -54,7 +72,36 @@
                     <em>{{ $errors->first('tipo_socio') }}</em>
                 @endif 
         </div>
-        {{print_r($socio)}}
+        <div class="form-group">
+            <label for="inputSexo">Sexo</label>
+            <select name="sexo" id="sexo" class="form-control">
+                <option disabled selected> -- Selecione uma opção -- </option>
+                <option {{ old('sexo',$socio->sexo) == 'M' ? 'selected' : '' }} value="M">Masculino</option>
+                <option {{ old('sexo',$socio->sexo) == 'F' ? 'selected' : '' }} value="F">Feminino</option>
+            </select>
+            @if ($errors->has('sexo'))
+                <em>{{ $errors->first('sexo') }}</em>
+            @endif
+        </div>
+{{--        {{print_r($socio)}}--}}
+        <div class="form-group">
+            <label for="inputNif">NIF</label>
+            <input
+                    type="number" class="form-control"
+                    name="nif" id="inputNif" value="{{old('nif', $socio->nif)}}"/>
+            @if ($errors->has('nif'))
+                <em>{{ $errors->first('nif') }}</em>
+            @endif
+        </div>
+        <div class="form-group">
+            <label for="inputTelefone">Telefone</label>
+            <input
+                    type="number" class="form-control"
+                    name="telefone" id="inputTelefone" value="{{old('telefone', $socio->telefone)}}"/>
+            @if ($errors->has('telefone'))
+                <em>{{ $errors->first('telefone') }}</em>
+            @endif
+        </div>
         <div>
             <div class="form-group col-md-4">
                 <label class="form-check-label" for="inputDirecao">Direção</label>
@@ -85,14 +132,5 @@
                 @endif 
             </div>
         </div>
-{{--        <div class="form-group">--}}
-{{--            <label for="inputNumeroSocio"></label>--}}
-{{--            <input--}}
-{{--                    type="number" class="form-control"--}}
-{{--                    name="num_socio" id="inputNumeroSocio" value="{{old('num_socio', $socio->num_socio)}}"/>--}}
-{{--            @if ($errors->has('num_socio'))--}}
-{{--                <em>{{ $errors->first('num_socio') }}</em>--}}
-{{--            @endif--}}
-{{--        </div>--}}
     </div>
 </div>
