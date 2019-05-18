@@ -4,6 +4,16 @@
 <div>
     <a class="btn btn-primary" href="{{route('socios.create')}}">Adicionar sócio</a>
     <a class="btn btn-primary" href="{{route('socios.edit', App\User::find(Auth::id()))}}">Meu perfil</a>
+    <a href="#" class="btn btn-primary">Reset a cotas</a>
+    <p></p>
+</div>
+<div>
+    <form action="/alunos" class="form-inline my-2 my-lg-0" method="get">
+        <input id="search" value="{{ request()->get('search') }}" name="search"
+               class="form-control mr-sm-2" type="search" placeholder="Pesquisar">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <p></p>
 </div>
 @if (count($socios))
     <table class="table table-striped">

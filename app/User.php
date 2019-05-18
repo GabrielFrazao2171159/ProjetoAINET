@@ -16,7 +16,8 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','num_socio', 'nome_informal', 'data_nascimento', 'sexo', 'tipo_socio' ,'direcao', 'quota_paga', 'ativo',
+        'name', 'email', 'password','num_socio', 'nome_informal', 'data_nascimento', 'sexo', 'tipo_socio' ,'direcao',
+        'quota_paga', 'ativo', 'telefone', 'nif', 'endereco', 'sexo',
     ];
 
     /**
@@ -40,6 +41,18 @@ class User extends Authenticatable implements MustVerifyEmail
     public function aeronaves()
     {
         return $this->belongsToMany('App\Aeronave', 'aeronaves_pilotos', 'matricula', 'piloto_id');
+    }
+
+    public function typeToSex()
+    {
+        switch ($this->sexo) {
+            case 'M':
+                return 'Masculino';
+            case 'F':
+                return 'Feminino';
+        }
+
+        return 'Desconhecido';
     }
 
     public function typeToStr()
