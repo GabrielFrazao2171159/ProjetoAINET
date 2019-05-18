@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class ValorTabela extends Model
 {
     protected $table = 'aeronaves_valores';	
+    
+    public $timestamps = false;
 
    	protected $fillable = [
         'matricula', 'unidade_conta_horas', 'minutos', 'preco'

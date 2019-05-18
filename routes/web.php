@@ -26,6 +26,7 @@ Route::get('/aeronaves/{aeronave}/pilotos', 'AeronaveController@pilotosAutorizad
 Route::delete('/aeronaves/{aeronave}/pilotos/{piloto}', 'AeronaveController@naoAutorizarPiloto')->name('aeronaves.naoAutorizarPiloto')->middleware('auth');
 Route::get('/aeronaves/{aeronave}/pilotosNaoAutorizados', 'AeronaveController@pilotosNaoAutorizados')->name('aeronaves.pilotosNaoAutorizados')->middleware('auth');
 Route::post('/aeronaves/{aeronave}/pilotos/{piloto}', 'AeronaveController@autorizarPiloto')->name('aeronaves.autorizarPiloto')->middleware('auth');
+Route::get('/aeronaves/{aeronave}/precos_tempos', 'AeronaveController@mostrarPrecos')->name('aeronaves.precos')->middleware('auth');
 
 Route::get('/socios', 'UtilizadorController@index')->name('socios.index')->middleware('auth');
 Route::get('/socios/create', 'UtilizadorController@create')->name('socios.create')->middleware('auth');

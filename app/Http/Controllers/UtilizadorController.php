@@ -26,7 +26,7 @@ class UtilizadorController extends Controller
 		return view('socios.create',compact('socio'));
 	}
 
-	public function store(StoreAddUserRequest $request){
+	public function store(StoreUserRequest $request){
 //        $image = $request->file('image');
 //        $name = time().'.'.$image->getClientOriginalExtension();
 //
@@ -45,7 +45,7 @@ class UtilizadorController extends Controller
 		return view('socios.edit',compact('socio'));
 	}
 
-	public function update(StoreUpdateUserRequest $request, User $socio){
+	public function update(UpdateUserRequest $request, User $socio){
 //    	if(! is_null($request['image'])) {
 //            $image = $request->file('image');
 //            $name = time().'.'.$image->getClientOriginalExtension();
