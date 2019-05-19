@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UpdatePasswordRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UtilizadorController extends Controller
 {
@@ -52,7 +55,7 @@ class UtilizadorController extends Controller
        //dd($socio);
         $socio->save();
 
-        return redirect()->route('socios.index')->with('sucesso', 'Sócio editado com sucesso!');;
+        return redirect()->route('socios.index')->with('sucesso', 'Sócio editado com sucesso!');
 	}
 
 	public function destroy(User $socio){
@@ -61,6 +64,20 @@ class UtilizadorController extends Controller
 	}
 
 	public function editPassword(){
-		return view('socios.reset');
+		return view('socios.editPassword');
+	}
+
+	public function updatePassword(UpdatePasswordRequest $request){
+		$socio = User::find(Auth::id());
+
+		if(!(Hash::check($request->old_password, $socio->password))){
+			return back()->withErrors(array('old_password' 
+				=> 'O campo palavra-passe antiga deve coincidir com a atual.'));
+		}
+
+		$socio->fill(['password' => password_hash($request->password, PASSWORD_DEFAULT)]);
+		$socio->save();
+
+		return redirect()->route('socios.index')->with('sucesso', 'Palavra-passe alterada com sucesso!');
 	}
 }

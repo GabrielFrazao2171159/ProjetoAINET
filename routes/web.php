@@ -48,5 +48,6 @@ Route::delete('/movimentos/{movimento}', 'MovimentoController@destroy')->name('m
 //Autenticacao
 Auth::routes(['verify' => true,'register' => false]);
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
-
+Route::get('/password', 'UtilizadorController@editPassword')->name('socios.editPassword')->middleware('auth');
+Route::patch('/password', 'UtilizadorController@updatePassword')->name('socios.updatePassword')->middleware('auth');
 
