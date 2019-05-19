@@ -11,22 +11,27 @@
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
-            <span class="navbar-brand">FlightClub</span>
+            <span class="navbar-brand">Flight Club</span>
         </div>
         <ul class="nav navbar-nav">
-            <li><a href="">Pagina Principal</a></li>
             <li><a href="{{route('socios.index')}}">Sócios</a></li>
             <li><a href="{{route('aeronaves.index')}}">Aeronaves</a></li>
             <li><a href="{{route('movimentos.index')}}">Movimentos</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">{{Auth::user()->name}}<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Alterar Palavra-Passe</a></li>
+                    <li><a href="{{route('logout')}}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                </ul>
+            </li>
         </ul>
       </div>
     </nav>
     <div class="container">
         <div class="jumbotron">
             <h1>@yield('title')</h1>
-            @if(Auth::check())
-                @include('shared.menu')
-            @endif
         </div>
         @if (session('sucesso'))
             @include('shared.sucesso')

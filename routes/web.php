@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 //Aeronaves
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/aeronaves', 'AeronaveController@index')->name('aeronaves.index')->middleware('verified');
+Route::get('/aeronaves', 'AeronaveController@index')->name('aeronaves.index')->middleware(['auth', 'verified']);
 Route::get('/aeronaves/create', 'AeronaveController@create')->name('aeronaves.create')->middleware('auth');
 Route::post('/aeronaves', 'AeronaveController@store')->name('aeronaves.store')->middleware('auth');
 Route::get('/aeronaves/{aeronave}/edit', 'AeronaveController@edit')->name('aeronaves.edit')->middleware('auth');
@@ -27,6 +27,7 @@ Route::get('/aeronaves/{aeronave}/pilotos', 'AeronaveController@pilotosAutorizad
 Route::delete('/aeronaves/{aeronave}/pilotos/{piloto}', 'AeronaveController@naoAutorizarPiloto')->name('aeronaves.naoAutorizarPiloto')->middleware('auth');
 Route::get('/aeronaves/{aeronave}/pilotosNaoAutorizados', 'AeronaveController@pilotosNaoAutorizados')->name('aeronaves.pilotosNaoAutorizados')->middleware('auth');
 Route::post('/aeronaves/{aeronave}/pilotos/{piloto}', 'AeronaveController@autorizarPiloto')->name('aeronaves.autorizarPiloto')->middleware('auth');
+Route::get('/aeronaves/{aeronave}/precos_tempos', 'AeronaveController@mostrarPrecos')->name('aeronaves.precos')->middleware('auth');
 
 //Socios
 Route::get('/socios', 'UtilizadorController@index')->name('socios.index')->middleware('auth');
@@ -39,9 +40,13 @@ Route::delete('/socios/{socio}', 'UtilizadorController@destroy')->name('socios.d
 //Movimentos
 Route::get('/movimentos', 'MovimentoController@index')->name('movimentos.index')->middleware('auth');
 Route::get('/movimentos/create', 'MovimentoController@create')->name('movimentos.create')->middleware('auth');
+Route::post('/movimentos', 'MovimentoController@store')->name('movimentos.store')->middleware('auth');
+Route::get('/movimentos/{movimento}/edit', 'MovimentoController@edit')->name('movimentos.edit')->middleware('auth');
+Route::delete('/movimentos/{movimento}', 'MovimentoController@destroy')->name('movimentos.destroy')->middleware('auth');
+
 
 //Autenticacao
 Auth::routes(['verify' => true,'register' => false]);
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
-Route::get('/password', 'UtilizadorController@editPassword')->name('socios.editPassword')->middleware('auth');
+
 

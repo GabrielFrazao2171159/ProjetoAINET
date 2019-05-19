@@ -8,8 +8,6 @@ use App\ValorTabela;
 use App\Http\Requests\StoreAeronaveRequest;
 use App\Http\Requests\UpdateAeronaveRequest;
 
-use Illuminate\Support\Facades\Auth;
-
 class AeronaveController extends Controller
 {
 	public function index(){
@@ -19,9 +17,10 @@ class AeronaveController extends Controller
 
 	public function create(){
 		$this->authorize('create', Aeronave::class);
-		
+
+		$valores = array(new ValorTabela,new ValorTabela,new ValorTabela,new ValorTabela,new ValorTabela,new ValorTabela,new ValorTabela,new ValorTabela,new ValorTabela,new ValorTabela);
 		$aeronave = new Aeronave;
-		return view('aeronaves.create',compact('aeronave'));
+		return view('aeronaves.create',compact('aeronave','valores'));
 	}
 
 	public function store(StoreAeronaveRequest $request){
@@ -55,17 +54,22 @@ class AeronaveController extends Controller
         $aeronave->fill($request->validated());
         $aeronave->save();
 
-		$valor = array();
-		for($i=0;$i<10;$i++){
-			$valor['matricula'] = $aeronave->matricula;
-			$valor['unidade_conta_horas'] = $i+1;
-			$valor['minutos'] = round((($i+1)*60/10)/5)*5;
-			$valor['preco'] = $aeronave['preco_'."$i"];
-			$valor = new ValorTabela($valor);
-			dd($valor);			
-		}
+        $valores = $aeronave->valores;
 
-        return redirect()->route('aeronaves.index')->with('sucesso', 'Aeronave editada com sucesso!');;
+        $i = 1;
+        $array = array();
+        foreach ($valores as $valor){
+            $array['matricula'] = $aeronave->matricula;
+            $array['unidade_conta_horas'] = $i;
+            $array['minutos'] = round((($i)*60/10)/5)*5;
+            $preco = "preco_".($i-1);
+            $array['preco'] = $request->$preco;
+            $valor->fill($array);
+            $valor->save();
+            $i++;
+        }
+
+        return redirect()->route('aeronaves.index')->with('sucesso', 'Aeronave editada com sucesso!');
 	}
 
 	public function destroy(Aeronave $aeronave){
@@ -113,5 +117,13 @@ class AeronaveController extends Controller
     	
         $aeronave->pilotos()->attach($piloto->id);
         return redirect()->route('aeronaves.pilotosAutorizados',$aeronave)->with('sucesso', 'Piloto adicionado à lista de autorizados!');
+    }
+
+    public function mostrarPrecos(Aeronave $aeronave){
+        //$this->authorize('pilotosAutorizados', Aeronave::class);
+
+        $valores = $aeronave->valores;
+
+        return view('aeronaves.precos',compact('valores'));
     }
 }
