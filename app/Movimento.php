@@ -9,7 +9,7 @@ class Movimento extends Model
     public $incrementing = false;
     
     protected $fillable = [
-        'id', 'aeronave', 'data_inf', 'data_sup', 'natureza', 'confirmado', 'piloto', 'instrutor', 'meus_movimentos'
+        'id', 'natureza', 'confirmado', 'piloto', 'instrutor', 'aeronave'
     ];
 
 
@@ -25,6 +25,15 @@ class Movimento extends Model
         }
 
         return 'Desconhecido';
+    }
+
+    public function hasPiloto($piloto){
+        if($piloto == NULL){
+            return 'Sem Instrutor';
+        }
+        else{
+            return (\App\User::find($piloto)->name);
+        }
     }
     
     public function aeronave()

@@ -11,8 +11,9 @@
             <th>Hora de descolagem</th>
             <th>Hora de aterragem</th>
             <th>Aeronave</th>
-            <th>Natureza</th>
             <th>Piloto</th>
+            <th>Instrutor</th>
+            <th>Natureza</th>
             <th>Ações</th>
         </tr>
     </thead>
@@ -23,11 +24,22 @@
             <td>{{($movimento->data)}}</td>
             <td>{{date("H:i", strtotime($movimento->hora_descolagem))}}</td>
             <td>{{date("H:i", strtotime($movimento->hora_aterragem))}}</td>
-            <td>{{($movimento->aeronave)}}</td>
-            <td>{{($movimento->typeToStr())}}</td>
+            <td>
+            <p>{{App\Aeronave::find($movimento->aeronave)->matricula}}</p>
+            <p>{{App\Aeronave::find($movimento->aeronave)->marca}}</p>
+            <p>{{App\Aeronave::find($movimento->aeronave)->modelo}}</p>
+            </td>
             <td>{{$movimento->piloto->name}}</td>
-            <td><a class="btn btn-xs btn-primary" >Editar</a>
-            <a type="submit" class="btn btn-xs btn-danger" >Eliminar</a></td>
+            <td>{{$movimento->hasPiloto($movimento->instrutor_id)}}</td>
+            <td>{{$movimento->typeToStr()}}</td>
+            <td>
+            <a class="btn btn-xs btn-primary" href="{{route('movimentos.edit',$movimento)}}">Editar</a>
+            <form action="{{route('movimentos.destroy',$movimento)}}" method="POST" role="form" class="inline">
+                @method('delete')
+                @csrf
+                <button type="submit" class="btn btn-xs btn-danger">Eliminar</button>
+            </form>
+            </td>
         </tr> 
     @endforeach
     </table>

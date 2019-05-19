@@ -37,6 +37,11 @@ Route::delete('/socios/{socio}', 'UtilizadorController@destroy')->name('socios.d
 
 Route::get('/movimentos', 'MovimentoController@index')->name('movimentos.index')->middleware('auth');
 Route::get('/movimentos/create', 'MovimentoController@create')->name('movimentos.create')->middleware('auth');
+Route::post('/movimentos', 'MovimentoController@store')->name('movimentos.store')->middleware('auth');
+Route::get('/movimentos/{movimento}/edit', 'MovimentoController@edit')->name('movimentos.edit')->middleware('auth');
+Route::delete('/movimentos/{movimento}', 'MovimentoController@destroy')->name('movimentos.destroy')->middleware('auth');
+
 
 Auth::routes(['verify' => true,'register' => false]);
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
+

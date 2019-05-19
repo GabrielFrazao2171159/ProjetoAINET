@@ -37,6 +37,7 @@ class UpdateUserRequest extends FormRequest
             'num_socio' => 'required|max:11',
             'nome_informal' => 'required|regex:/^[\pL\s]+$/u|max:40',
             'email' => 'email',
+            'data_nascimento' => 'required',
             'tipo_socio' => 'required',
         ];
     }

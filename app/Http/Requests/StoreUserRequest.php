@@ -26,12 +26,14 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'num_socio' => 'required|max:11',
+            'name' => 'required|regex:/^[\pL\s]+$/u|max:40',
             'nome_informal' => 'required|regex:/^[\pL\s]+$/u|max:40',
             'name' => 'required|regex:/^[\pL\s]+$/u|max:40',
-            'email' => 'email',
+            'email' => 'email|max:255|unique:users',
             'tipo_socio' => 'required',
             'sexo' => 'required',
-            'data_nascimento' => 'required'
+            'data_nascimento' => 'required',
+            'nif' => 'required|max:9',
         ]; 
     }
 
