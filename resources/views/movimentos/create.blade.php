@@ -1,7 +1,8 @@
 @extends('master')
 @section('title','Adicionar Voo')
 @section('content')
-    <form action="{{route('movimentos.store')}}" method="post" class="form-group">
+    <form action="{{route('movimentos.store',$movimento)}}" method="post" class="form-group">
+        @method('post')
         @csrf
         @include('movimentos.create-edit')
         <div class="form-group">
