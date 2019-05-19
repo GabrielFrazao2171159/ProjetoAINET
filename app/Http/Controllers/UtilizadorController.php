@@ -66,4 +66,8 @@ class UtilizadorController extends Controller
         $socio->delete();
 		return redirect()->route('socios.index')->with('sucesso', 'Sócio eliminado com sucesso!');
 	}
+
+	public function editPassword(){
+		return view('socios.reset');
+	}
 }

@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//Aeronaves
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/aeronaves', 'AeronaveController@index')->name('aeronaves.index')->middleware('verified');
 Route::get('/aeronaves/create', 'AeronaveController@create')->name('aeronaves.create')->middleware('auth');
@@ -27,6 +28,7 @@ Route::delete('/aeronaves/{aeronave}/pilotos/{piloto}', 'AeronaveController@naoA
 Route::get('/aeronaves/{aeronave}/pilotosNaoAutorizados', 'AeronaveController@pilotosNaoAutorizados')->name('aeronaves.pilotosNaoAutorizados')->middleware('auth');
 Route::post('/aeronaves/{aeronave}/pilotos/{piloto}', 'AeronaveController@autorizarPiloto')->name('aeronaves.autorizarPiloto')->middleware('auth');
 
+//Socios
 Route::get('/socios', 'UtilizadorController@index')->name('socios.index')->middleware('auth');
 Route::get('/socios/create', 'UtilizadorController@create')->name('socios.create')->middleware('auth');
 Route::post('/socios', 'UtilizadorController@store')->name('socios.store')->middleware('auth');
@@ -34,8 +36,12 @@ Route::get('/socios/{socio}/edit', 'UtilizadorController@edit')->name('socios.ed
 Route::put('/socios/{socio}', 'UtilizadorController@update')->name('socios.update')->middleware('auth');
 Route::delete('/socios/{socio}', 'UtilizadorController@destroy')->name('socios.destroy')->middleware('auth');
 
+//Movimentos
 Route::get('/movimentos', 'MovimentoController@index')->name('movimentos.index')->middleware('auth');
 Route::get('/movimentos/create', 'MovimentoController@create')->name('movimentos.create')->middleware('auth');
 
+//Autenticacao
 Auth::routes(['verify' => true,'register' => false]);
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
+Route::get('/password', 'UtilizadorController@editPassword')->name('socios.editPassword')->middleware('auth');
+
