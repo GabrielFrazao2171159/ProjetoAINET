@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/aeronaves', 'AeronaveController@index')->name('aeronaves.index')->middleware('verified');
+Route::get('/aeronaves', 'AeronaveController@index')->name('aeronaves.index')->middleware(['auth', 'verified']);
 Route::get('/aeronaves/create', 'AeronaveController@create')->name('aeronaves.create')->middleware('auth');
 Route::post('/aeronaves', 'AeronaveController@store')->name('aeronaves.store')->middleware('auth');
 Route::get('/aeronaves/{aeronave}/edit', 'AeronaveController@edit')->name('aeronaves.edit')->middleware('auth');

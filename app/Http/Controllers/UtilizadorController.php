@@ -4,15 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-use App\Http\Requests\StoreAddUserRequest;
-use App\Http\Requests\StoreUpdateUserRequest;
-
-
-//Verificação do mail
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\VerifyMail;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 
 class UtilizadorController extends Controller
 {

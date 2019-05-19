@@ -2,7 +2,6 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <!-- Latest compiled and minified CSS & JS -->
 </head>
 <body>
     @foreach($valores as $valor)
