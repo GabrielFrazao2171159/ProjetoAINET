@@ -22,7 +22,7 @@ class MovimentoController extends Controller
 		return view('movimentos.create',compact('movimento'));
 	}
 
-	public function store(StoreAddMovimentoRequest $request){
+	public function store(StoreMovimentoRequest $request){
         $movimento = $request->validated();
         $movimentoCriado = Movimento::create($movimento);
         return redirect()->route('movimentos.index')->with('sucesso', 'Voo inserido com sucesso!');
