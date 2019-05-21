@@ -21,6 +21,11 @@ class AeronavePolicy
         return false;
     }
 
+    public function precos(User $auth)
+    {
+        return false;
+    }
+
     public function create(User $auth)
     {
         return false;

@@ -75,7 +75,13 @@ class UtilizadorController extends Controller
 				=> 'O campo palavra-passe antiga deve coincidir com a atual.'));
 		}
 
-		$socio->fill(['password' => password_hash($request->password, PASSWORD_DEFAULT)]);
+		$array = array('password' => password_hash($request->password, PASSWORD_DEFAULT));
+
+		if($socio->password_inicial == 1){
+			$socio->password_inicial = 0;
+		}
+
+		$socio->fill($array);
 		$socio->save();
 
 		return redirect()->route('socios.index')->with('sucesso', 'Palavra-passe alterada com sucesso!');

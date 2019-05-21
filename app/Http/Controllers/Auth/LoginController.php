@@ -39,6 +39,14 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    protected function authenticated(Request $request, $user)
+    {
+        if($user->password_inicial == 1){
+            return redirect('/password');
+        }
+        return redirect('/home');
+    }
+
     protected function credentials(Request $request)
     {
         return array_merge($request->only($this->username(),'password'),['ativo'=>1]);
