@@ -3,8 +3,12 @@
 @section('content')
 <div>
     <a class="btn btn-primary" href="{{route('socios.create')}}">Adicionar sócio</a>
-    <a href="{{route('socios.reset_quotas')}}" class="btn btn-primary">Reset a cotas</a>
-    <p></p>
+    <br>
+    <form action="{{route('socios.reset_quotas')}}" method="POST" role="form" class="inline">
+        @method('patch')
+        @csrf
+        <button type="submit" class="btn btn btn-primary">Reset a cotas</button>
+    </form>
 </div>
 <div>
     <form action="/alunos" class="form-inline my-2 my-lg-0" method="get">
@@ -27,6 +31,7 @@
             <th>Quotas pagas</th>
             <th>Ativo</th>
             <th>Ações</th>
+            <th>Quotas</th>
         </tr>
     </thead>
     <tbody>
@@ -45,8 +50,18 @@
                 <form action="{{route('socios.destroy',$socio)}}" method="POST" role="form" class="inline">
                     @method('delete')
                     @csrf
-                    <input type="hidden" name="id" value="{{($socio->id)}}">
                     <button type="submit" class="btn btn-xs btn-danger">Eliminar</button>
+                </form>
+            </td>
+            <td>
+                <form action="{{route('socios.quotas',$socio)}}" method="post" role="form" class="inline">
+                    @method('patch')
+                    @csrf
+                    @if ($socio->quota_paga==0)
+                        <button type="submit" class="btn btn-xs btn-primary">Quota paga</button>
+                    @else
+                        <button type="submit" class="btn btn-xs btn-danger">Quota não paga</button>
+                    @endif
                 </form>
             </td>
         </tr>
