@@ -11,7 +11,7 @@
     <div class="form-group">
         <label for="inputHoraDescolagem">Hora de Descolagem</label>
         <input
-                type="time" class="form-control"
+                type="datetime-local" class="form-control"
                 name="hora_descolagem" id="inputHoraDescolagem" value="{{old('hora_descolagem',$movimento->hora_descolagem)}}"/>
         @if ($errors->has('hora_descolagem'))
             <em>{{ $errors->first('hora_descolagem') }}</em>
@@ -20,7 +20,7 @@
     <div class="form-group">
         <label for="inputHoraAterragem">Hora de Aterragem</label>
         <input
-                type="time" class="form-control"
+                type="datetime-local" class="form-control"
                 name="hora_aterragem" id="inputHoraAterragem" value="{{old('hora_aterragem',$movimento->hora_aterragem)}}"/>
         @if ($errors->has('hora_aterragem'))
             <em>{{ $errors->first('hora_aterragem') }}</em>
@@ -120,13 +120,49 @@
         @endif
     </div>
     <div class="form-group">
-        <label for="inputNumPessoas">Nº Pessoas</label>
+        <label for="inputContaHorasInicio">Conta-horas Inicial</label>
         <input
                 type="text" class="form-control"
-                name="num_pessoas" id="inputNumPessoas" value="{{old('num_pessoas',$movimento->num_pessoas)}}"/>
-        @if ($errors->has('num_pessoas'))
-            <em>{{ $errors->first('num_pessoas') }}</em>
+                name="conta_horas_inicio" id="inputNumPessoas" value="{{old('conta_horas_inicio',$movimento->conta_horas_inicio)}}"/>
+        @if ($errors->has('conta_horas_inicio'))
+            <em>{{ $errors->first('conta_horas_inicio') }}</em>
         @endif
+    </div>
+    <div class="form-group">
+        <label for="inputContaHorasFim">Conta-horas Final</label>
+        <input
+                type="text" class="form-control"
+                name="conta_horas_fim" id="inputContaHorasFim" value="{{old('conta_horas_fim',$movimento->conta_horas_fim)}}"/>
+        @if ($errors->has('conta_horas_fim'))
+            <em>{{ $errors->first('conta_horas_fim') }}</em>
+        @endif
+    </div>
+    <div class="form-group">
+        <label for="inputModoPagamento">Modo de pagamento</label>
+        <select name="modo_pagamento" id="inputModoPagamento" class="form-control">
+            <option disabled selected> -- Selecione uma opção -- </option>
+            <option {{ old('modo_pagamento',$movimento->modo_pagamento) == 'N' ? 'selected' : '' }} value="N">Numerário</option>
+            <option {{ old('modo_pagamento',$movimento->modo_pagamento) == 'M' ? 'selected' : '' }} value="M">Multibanco</option>
+            <option {{ old('modo_pagamento',$movimento->modo_pagamento) == 'T' ? 'selected' : '' }} value="T">Transferência</option>
+            <option {{ old('modo_pagamento',$movimento->modo_pagamento) == 'P' ? 'selected' : '' }} value="P">Paco de horas</option>
+        </select>
+        @if ($errors->has('modo_pagamento'))
+            <em>{{ $errors->first('modo_pagamento') }}</em>
+        @endif
+    </div>
+    <div class="form-group">
+        <label for="inputNumRecibo">Nº de recibo</label>
+        <input
+                type="text" class="form-control"
+                name="num_recibo" id="inputNumRecibo" value="{{old('num_recibo',$movimento->num_recibo)}}"/>
+        @if ($errors->has('num_recibo'))
+            <em>{{ $errors->first('num_recibo') }}</em>
+        @endif
+    </div>
+    <b>Observações</b>
+    <div>
+        <textarea name="observaoes" rows="5" cols="100">
+        </textarea>
     </div>
 
 </div>
