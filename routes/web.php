@@ -15,9 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth', 'verified'])->group(/**
- *
- */ function () {
+Route::middleware(['auth', 'verified'])->group(
+    function () {
 //Aeronaves
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/aeronaves', 'AeronaveController@index')->name('aeronaves.index');
@@ -41,6 +40,7 @@ Route::get('/socios/{socio}/edit', 'UtilizadorController@edit')->name('socios.ed
 Route::put('/socios/{socio}', 'UtilizadorController@update')->name('socios.update');
 Route::delete('/socios/{socio}', 'UtilizadorController@destroy')->name('socios.destroy');
 Route::patch ('/socios/reset_quotas', 'UtilizadorController@reset_quotas')->name('socios.reset_quotas');
+Route::patch ('/socios/{socio}/quota', 'UtilizadorController@quotas')->name('socios.quotas');
 
 
 //Movimentos

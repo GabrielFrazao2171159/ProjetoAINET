@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UpdatePasswordRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class UtilizadorController extends Controller
 {
@@ -64,6 +65,17 @@ class UtilizadorController extends Controller
             //->route('socios.edit', $socio)->with('sucesso', 'Email reenviado com sucesso!');
 	}
 
+    public function quotas(User $socio)
+    {
+        if ($socio->quota_paga == 0){
+            $socio->quota_paga = 1;
+        }else{
+            $socio->quota_paga = 0;
+        }
+        $socio->save();
+        return redirect()->route('socios.index')->with('sucesso', 'Quota alterada com sucesso!');
+    }
+
     public function reset_quotas()
     {
         DB::update("update users set quota_paga=0");
@@ -92,7 +104,13 @@ class UtilizadorController extends Controller
 	}
 
 	public function destroy(User $socio){
-        $socio->delete();
+        $movimentos = $socio->movimentos;
+
+        if(count($movimentos)==0){
+            $socio->forceDelete();
+        }else{
+            $socio->delete();
+        }
 		return redirect()->route('socios.index')->with('sucesso', 'Sócio eliminado com sucesso!');
 	}
 
