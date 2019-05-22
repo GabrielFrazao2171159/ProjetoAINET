@@ -15,40 +15,43 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::middleware(['auth', 'verified'])->group(function () { 
 //Aeronaves
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/aeronaves', 'AeronaveController@index')->name('aeronaves.index')->middleware(['auth', 'verified']);
-Route::get('/aeronaves/create', 'AeronaveController@create')->name('aeronaves.create')->middleware('auth');
-Route::post('/aeronaves', 'AeronaveController@store')->name('aeronaves.store')->middleware('auth');
-Route::get('/aeronaves/{aeronave}/edit', 'AeronaveController@edit')->name('aeronaves.edit')->middleware('auth');
-Route::put('/aeronaves/{aeronave}', 'AeronaveController@update')->name('aeronaves.update')->middleware('auth');
-Route::delete('/aeronaves/{aeronave}', 'AeronaveController@destroy')->name('aeronaves.destroy')->middleware('auth');
-Route::get('/aeronaves/{aeronave}/pilotos', 'AeronaveController@pilotosAutorizados')->name('aeronaves.pilotosAutorizados')->middleware('auth');
-Route::delete('/aeronaves/{aeronave}/pilotos/{piloto}', 'AeronaveController@naoAutorizarPiloto')->name('aeronaves.naoAutorizarPiloto')->middleware('auth');
-Route::get('/aeronaves/{aeronave}/pilotosNaoAutorizados', 'AeronaveController@pilotosNaoAutorizados')->name('aeronaves.pilotosNaoAutorizados')->middleware('auth');
-Route::post('/aeronaves/{aeronave}/pilotos/{piloto}', 'AeronaveController@autorizarPiloto')->name('aeronaves.autorizarPiloto')->middleware('auth');
-Route::get('/aeronaves/{aeronave}/precos_tempos', 'AeronaveController@mostrarPrecos')->name('aeronaves.precos')->middleware('auth');
+Route::get('/aeronaves', 'AeronaveController@index')->name('aeronaves.index');
+Route::get('/aeronaves/create', 'AeronaveController@create')->name('aeronaves.create');
+Route::post('/aeronaves', 'AeronaveController@store')->name('aeronaves.store');
+Route::get('/aeronaves/{aeronave}/edit', 'AeronaveController@edit')->name('aeronaves.edit');
+Route::put('/aeronaves/{aeronave}', 'AeronaveController@update')->name('aeronaves.update');
+Route::delete('/aeronaves/{aeronave}', 'AeronaveController@destroy')->name('aeronaves.destroy');
+Route::get('/aeronaves/{aeronave}/pilotos', 'AeronaveController@pilotosAutorizados')->name('aeronaves.pilotosAutorizados');
+Route::delete('/aeronaves/{aeronave}/pilotos/{piloto}', 'AeronaveController@naoAutorizarPiloto')->name('aeronaves.naoAutorizarPiloto');
+Route::get('/aeronaves/{aeronave}/pilotosNaoAutorizados', 'AeronaveController@pilotosNaoAutorizados')->name('aeronaves.pilotosNaoAutorizados');
+Route::post('/aeronaves/{aeronave}/pilotos/{piloto}', 'AeronaveController@autorizarPiloto')->name('aeronaves.autorizarPiloto');
+Route::get('/aeronaves/{aeronave}/precos_tempos', 'AeronaveController@mostrarPrecos')->name('aeronaves.precos');
 
 //Socios
-Route::get('/socios', 'UtilizadorController@index')->name('socios.index')->middleware('auth');
-Route::get('/socios/create', 'UtilizadorController@create')->name('socios.create')->middleware('auth');
-Route::post('/socios', 'UtilizadorController@store')->name('socios.store')->middleware('auth');
-Route::post('/socios/reenviar', 'UtilizadorController@reenviarEmail')->name('socios.reenviarEmail')->middleware('auth');
-Route::get('/socios/{socio}/edit', 'UtilizadorController@edit')->name('socios.edit')->middleware('auth');
-Route::put('/socios/{socio}', 'UtilizadorController@update')->name('socios.update')->middleware('auth');
-Route::delete('/socios/{socio}', 'UtilizadorController@destroy')->name('socios.destroy')->middleware('auth');
+Route::get('/socios', 'UtilizadorController@index')->name('socios.index');
+Route::get('/socios/create', 'UtilizadorController@create')->name('socios.create');
+Route::post('/socios', 'UtilizadorController@store')->name('socios.store');
+Route::post('/socios/reenviar', 'UtilizadorController@reenviarEmail')->name('socios.reenviarEmail');
+Route::get('/socios/{socio}/edit', 'UtilizadorController@edit')->name('socios.edit');
+Route::put('/socios/{socio}', 'UtilizadorController@update')->name('socios.update');
+Route::delete('/socios/{socio}', 'UtilizadorController@destroy')->name('socios.destroy');
 
 //Movimentos
-Route::get('/movimentos', 'MovimentoController@index')->name('movimentos.index')->middleware('auth');
-Route::get('/movimentos/create', 'MovimentoController@create')->name('movimentos.create')->middleware('auth');
-Route::post('/movimentos', 'MovimentoController@store')->name('movimentos.store')->middleware('auth');
-Route::get('/movimentos/{movimento}/edit', 'MovimentoController@edit')->name('movimentos.edit')->middleware('auth');
-Route::delete('/movimentos/{movimento}', 'MovimentoController@destroy')->name('movimentos.destroy')->middleware('auth');
-
+Route::get('/movimentos', 'MovimentoController@index')->name('movimentos.index');
+Route::get('/movimentos/create', 'MovimentoController@create')->name('movimentos.create');
+Route::post('/movimentos', 'MovimentoController@store')->name('movimentos.store');
+Route::get('/movimentos/{movimento}/edit', 'MovimentoController@edit')->name('movimentos.edit');
+Route::delete('/movimentos/{movimento}', 'MovimentoController@destroy')->name('movimentos.destroy');
 
 //Autenticacao
+Route::get('/password', 'UtilizadorController@editPassword')->name('socios.editPassword');
+Route::patch('/password', 'UtilizadorController@updatePassword')->name('socios.updatePassword');
+
+});
 Auth::routes(['verify' => true,'register' => false]);
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
-Route::get('/password', 'UtilizadorController@editPassword')->name('socios.editPassword')->middleware('auth');
-Route::patch('/password', 'UtilizadorController@updatePassword')->name('socios.updatePassword')->middleware('auth');
+
 

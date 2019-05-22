@@ -3,7 +3,6 @@
 @section('content')
 <div>
     <a class="btn btn-primary" href="{{route('socios.create')}}">Adicionar sócio</a>
-    <a class="btn btn-primary" href="{{route('socios.edit', App\User::find(Auth::id()))}}">Meu perfil</a>
     <a href="#" class="btn btn-primary">Reset a cotas</a>
     <p></p>
 </div>

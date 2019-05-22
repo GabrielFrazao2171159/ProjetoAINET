@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>@yield('title')</title>
         <!-- Latest compiled and minified CSS & JS -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">  <!-- Import a fonte awesome -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
         <link rel="stylesheet" href="css/style.css">
 </head>
@@ -22,7 +23,9 @@
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown">{{Auth::user()->name}}<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="{{route('socios.editPassword')}}">Alterar Palavra-Passe</a></li>
+                    <li><a href="{{route('socios.editPassword')}}"><i class="fas fa-key"></i>
+Alterar Palavra-Passe</a></li>
+                    <li><a href="{{route('socios.edit', App\User::find(Auth::id()))}}"><span class="glyphicon glyphicon-user"></span>Perfil</a></li>
                     <li><a href="{{route('logout')}}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                 </ul>
             </li>
