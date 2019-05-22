@@ -7,9 +7,9 @@
     <p></p>
 </div>
 <div>
-    <form action="/alunos" class="form-inline my-2 my-lg-0" method="get">
-        <input id="search" value="{{ request()->get('search') }}" name="search"
-               class="form-control mr-sm-2" type="search" placeholder="Pesquisar">
+    <form action="{{route('socios.index')}}" class="form-inline my-2 my-lg-0" method="get">
+        <input id="search" value="" name="search"
+               class="form-control mr-sm-2" type="text" placeholder="Pesquisar">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
     <p></p>
