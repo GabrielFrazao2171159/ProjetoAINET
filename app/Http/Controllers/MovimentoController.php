@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Aeronave;
-use App\Http\Requests\StoreAddMovimentoRequest;
+use App\Http\Requests\StoreMovimentoRequest;
 use App\User;
 use App\Movimento;
 use Illuminate\Support\Facades\DB;
