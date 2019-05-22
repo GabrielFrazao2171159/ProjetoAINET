@@ -1,13 +1,4 @@
 <div class="form-group">
-    <label for="inputMatricula">Matricula</label>
-    <input
-        type="text" class="form-control"
-        name="matricula" id="inputMatricula" value="{{old('matricula',$aeronave->matricula)}}"/>
-    @if ($errors->has('matricula'))
-        <em>{{ $errors->first('matricula') }}</em>
-    @endif
-</div>
-<div class="form-group">
     <label for="inputMarca">Marca</label>
     <input
         type="text" class="form-control"
@@ -63,15 +54,25 @@
         </thead>
         <tbody>
             @for ($i = 0; $i < 10; $i++)
-                <tr>
+                <tr>                
                     <th>{{$i+1}}</th>
-                    <th>{{round((($i+1)*60/10)/5)*5}}</th>
-                    <th><input type="text" name="preco_{{$i}}"
-                    value="{{old('preco_'.$i,$valores[$i]->preco)}}"/></th>
+                    <th><input type="text" name="tempos[]"
+                    value="{{old('tempos.'.$i,$valores[$i]->minutos)}}"/></th>
+                    <th><input type="text" name="precos[]"
+                    value="{{old('precos.'.$i,$valores[$i]->preco)}}"/></th>
                 </tr>
             @endfor
     </table>
-    @if ($errors->has('preco_9'))
-        <em>{{ $errors->first('preco_9') }}</em>
+    @if ($errors->has('tempos'))
+        <em>{{ $errors->first('tempos') }}</em>
+    @endif
+    @if ($errors->has('tempos.*'))
+        <em>{{ $errors->first('tempos.*') }}</em>
+    @endif  
+    @if ($errors->has('precos'))
+        <em>{{ $errors->first('precos') }}</em>
+    @endif 
+    @if ($errors->has('precos.*'))
+        <em>{{ $errors->first('precos.*') }}</em>
     @endif 
 </div>

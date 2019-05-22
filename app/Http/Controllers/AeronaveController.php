@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Aeronave;
 use App\User;
 use App\ValorTabela;
-use App\Http\Requests\StoreAeronaveRequest;
-use App\Http\Requests\UpdateAeronaveRequest;
+use App\Http\Requests\StoreUpdateAeronaveRequest;
 
 class AeronaveController extends Controller
 {
@@ -23,7 +22,7 @@ class AeronaveController extends Controller
 		return view('aeronaves.create',compact('aeronave','valores'));
 	}
 
-	public function store(StoreAeronaveRequest $request){
+	public function store(StoreUpdateAeronaveRequest $request){
 		$this->authorize('create', Aeronave::class);
 
 		$aeronave = $request->validated();
@@ -33,9 +32,9 @@ class AeronaveController extends Controller
 		for($i=0;$i<10;$i++){
 			$valor['matricula'] = $aeronaveCriada->matricula;
 			$valor['unidade_conta_horas'] = $i+1;
-			$valor['minutos'] = round((($i+1)*60/10)/5)*5;
-			$valor['preco'] = $aeronave['preco_'."$i"];
-			ValorTabela::create($valor);			
+			$valor['minutos'] = $aeronave['tempos'][$i];
+			$valor['preco'] = $aeronave['precos'][$i];
+			ValorTabela::create($valor);		
 		}
 
 		return redirect()->route('aeronaves.index')->with('sucesso', 'Aeronave inserida com sucesso!');
@@ -48,22 +47,22 @@ class AeronaveController extends Controller
 		return view('aeronaves.edit',compact('aeronave','valores'));
 	}
 
-	public function update(UpdateAeronaveRequest $request, Aeronave $aeronave){
+	public function update(StoreUpdateAeronaveRequest $request, Aeronave $aeronave){
 		$this->authorize('update', Aeronave::class);
 
-        $aeronave->fill($request->validated());
+        $aeronaveValidated = $request->validated();
+        $aeronave->fill($aeronaveValidated);
         $aeronave->save();
 
         $valores = $aeronave->valores;
-
-        $i = 1;
+        
+        $i = 0;
         $array = array();
         foreach ($valores as $valor){
             $array['matricula'] = $aeronave->matricula;
-            $array['unidade_conta_horas'] = $i;
-            $array['minutos'] = round((($i)*60/10)/5)*5;
-            $preco = "preco_".($i-1);
-            $array['preco'] = $request->$preco;
+            $array['unidade_conta_horas'] = $i+1;
+            $array['minutos'] = $aeronaveValidated['tempos'][$i];
+            $array['preco'] = $aeronaveValidated['precos'][$i];
             $valor->fill($array);
             $valor->save();
             $i++;
@@ -120,10 +119,14 @@ class AeronaveController extends Controller
     }
 
     public function mostrarPrecos(Aeronave $aeronave){
-        //$this->authorize('pilotosAutorizados', Aeronave::class);
+        $this->authorize('precos', Aeronave::class);
 
         $valores = $aeronave->valores;
+        foreach ($valores as $valor) {
+       		unset($valor->id);
+       		unset($valor->matricula);
+        }
 
-        return view('aeronaves.precos',compact('valores'));
+        return response()->json($valores);
     }
 }

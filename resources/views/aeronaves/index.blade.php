@@ -17,7 +17,9 @@
             @can('pilotosAutorizados', App\Aeronave::class)
             <th>Pilotos Autorizados</th>
             @endcan
+            @can('precos', App\Aeronave::class)
             <th>Tabela de Preços</th>
+            @endcan
             @can('update', App\Aeronave::class)
             <th>Ações</th>
             @endcan
@@ -37,7 +39,11 @@
             <td><a href="{{route('aeronaves.pilotosAutorizados',$aeronave)}}">Listagem</a></td>
             @endcan
 
-            <td><a class="btn btn-xs btn-success" href="{{route('aeronaves.precos',$aeronave)}}">Preços</a></td>
+            @can('precos', App\Aeronave::class)
+            <td>
+            <a class="btn btn-xs btn-success" href="{{route('aeronaves.precos',$aeronave)}}">Preços</a>
+            </td>
+            @endcan
 
             @can('update', App\Aeronave::class)
             <td>
