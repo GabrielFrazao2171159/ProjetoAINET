@@ -33,6 +33,7 @@ Route::get('/aeronaves/{aeronave}/precos_tempos', 'AeronaveController@mostrarPre
 Route::get('/socios', 'UtilizadorController@index')->name('socios.index')->middleware('auth');
 Route::get('/socios/create', 'UtilizadorController@create')->name('socios.create')->middleware('auth');
 Route::post('/socios', 'UtilizadorController@store')->name('socios.store')->middleware('auth');
+Route::post('/socios/reenviar', 'UtilizadorController@reenviarEmail')->name('socios.reenviarEmail')->middleware('auth');
 Route::get('/socios/{socio}/edit', 'UtilizadorController@edit')->name('socios.edit')->middleware('auth');
 Route::put('/socios/{socio}', 'UtilizadorController@update')->name('socios.update')->middleware('auth');
 Route::delete('/socios/{socio}', 'UtilizadorController@destroy')->name('socios.destroy')->middleware('auth');

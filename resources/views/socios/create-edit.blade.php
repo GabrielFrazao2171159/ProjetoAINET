@@ -37,7 +37,7 @@
             <label for="inputDataNascimento">Data Nascimento</label>
             <input
                     type="Date" class="form-control"
-                    name="data_nascimento " id="inputDataNascimento" value="{{old('data_nascimento',$socio->data_nascimento)}}"/>
+                    name="data_nascimento" id="inputDataNascimento" value="{{old('data_nascimento',$socio->data_nascimento)}}"/>
             @if ($errors->has('data_nascimento'))
                 <em>{{ $errors->first('data_nascimento') }}</em>
             @endif

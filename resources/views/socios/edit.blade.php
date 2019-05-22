@@ -8,9 +8,14 @@
     <div class="form-group">
         <button type="submit" class="btn btn-success" name="ok">Save</button>
         <a href="{{route('socios.index')}}" class="btn btn-default">Cancel</a>
-        @if ($socio->email_verified_at)=='null'
-            <a href="#" class="btn btn-default">Reenviar email</a>
-        @endif
+
     </div>
 </form>
+@if ($socio->email_verified_at == null)
+    <form action="{{route('socios.reenviarEmail')}}" method="post">
+        @csrf
+        <input type="hidden" name="reenviarID" value="{{$socio->id}}" />
+        <button type="submit" class="btn btn-default">Reenviar email</button>
+    </form>
+@endif
 @endsection

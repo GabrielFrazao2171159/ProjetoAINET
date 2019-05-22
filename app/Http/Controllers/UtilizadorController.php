@@ -23,11 +23,11 @@ class UtilizadorController extends Controller
 	}
 
 	public function store(StoreUserRequest $request){
+
 //        $image = $request->file('image');
 //        $name = time().'.'.$image->getClientOriginalExtension();
 //
 //        $path = $request->file('image')->storeAs('/fotos', $name);
-        //dd($request);
 		$socio = $request->validated();
        // $socio->image = $name;
 		$socio['password']=$socio['data_nascimento'];
@@ -35,6 +35,14 @@ class UtilizadorController extends Controller
 		$user->SendEmailVerificationNotification();
         
 		return redirect()->route('socios.index')->with('sucesso', 'Sócio inserido com sucesso!');
+	}
+
+    public function reenviarEmail()
+    {
+        $id=\request('reenviarID');
+        $user=User::find($id);
+        $user->SendEmailVerificationNotification();
+        return redirect()->route('socios.edit')->with('sucesso', 'Email reenviado com sucesso!');
 	}
 
 	public function edit(User $socio){
