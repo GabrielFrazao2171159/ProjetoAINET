@@ -107,7 +107,7 @@
                 <label class="form-check-label" for="inputDirecao">Direção</label>
                 <input 
                 type="checkbox" class="form-check-input"
-                id="inputDirecao" name="direcao" {{old('direcao',$socio->direcao) == 1 ? 'checked' : ''}}/>
+                id="inputDirecao" name="direcao" value="1" {{old('direcao',$socio->direcao) == 1 ? 'checked' : ''}}/>
                 @if ($errors->has('direcao'))
                     <em>{{ $errors->first('direcao') }}</em>
                 @endif 
@@ -116,7 +116,7 @@
                 <label class="form-check-label" for="inputQuotaPaga">Quotas pagas</label>
                 <input
                     type="checkbox" class="form-check-input"
-                    name="quota_paga" id="inputQuotaPaga" 
+                    name="quota_paga" id="inputQuotaPaga" value="1"
                     {{old('quota_paga',$socio->quota_paga) == 1 ? 'checked' : ''}}/>
                 @if ($errors->has('quota_paga'))
                     <em>{{ $errors->first('quota_paga') }}</em>
@@ -126,7 +126,7 @@
                 <label class="form-check-label" for="inputAtivo">Ativo</label>
                 <input
                     type="checkbox" class="form-check-input"
-                    name="ativo" id="inputAtivo" {{old('ativo',$socio->ativo) == 1 ? 'checked' : ''}}/>
+                    name="ativo" id="inputAtivo"  value="1" {{old('ativo',$socio->ativo) == 1 ? 'checked' : ''}}/>
                 @if ($errors->has('ativo'))
                     <em>{{ $errors->first('ativo') }}</em>
                 @endif 

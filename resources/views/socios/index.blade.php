@@ -3,7 +3,7 @@
 @section('content')
 <div>
     <a class="btn btn-primary" href="{{route('socios.create')}}">Adicionar sócio</a>
-    <a href="#" class="btn btn-primary">Reset a cotas</a>
+    <a href="{{route('socios.reset_quotas')}}" class="btn btn-primary">Reset a cotas</a>
     <p></p>
 </div>
 <div>
@@ -45,7 +45,7 @@
                 <form action="{{route('socios.destroy',$socio)}}" method="POST" role="form" class="inline">
                     @method('delete')
                     @csrf
-                    <input type="hidden" name="id" value="<?=($socio->id)?>">
+                    <input type="hidden" name="id" value="{{($socio->id)}}">
                     <button type="submit" class="btn btn-xs btn-danger">Eliminar</button>
                 </form>
             </td>

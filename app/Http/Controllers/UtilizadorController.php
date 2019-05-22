@@ -29,22 +29,47 @@ class UtilizadorController extends Controller
 //
 //        $path = $request->file('image')->storeAs('/fotos', $name);
 		$socio = $request->validated();
-       // $socio->image = $name;
-		$socio['password']=$socio['data_nascimento'];
+		if(empty($request->ativo)){
+            $socio['ativo']=0;
+        }else{
+            $socio['ativo']=1;
+        }
+
+        if(empty($request->ativo)){
+            $socio['direcao']=0;
+        }else{
+            $socio['direcao']=1;
+        }
+
+        if(empty($request->ativo)){
+            $socio['quota_paga']=0;
+        }else{
+            $socio['quota_paga']=1;
+        }
+        // $socio->image = $name;
+		$socio['password']=password_hash($socio['data_nascimento'],PASSWORD_DEFAULT);
 		$user=User::create($socio);
-		$user->SendEmailVerificationNotification();
-        
-		return redirect()->route('socios.index')->with('sucesso', 'Sócio inserido com sucesso!');
-	}
+//        dd($user);
 
-    public function reenviarEmail()
-    {
-        $id=\request('reenviarID');
-        $user=User::find($id);
         $user->SendEmailVerificationNotification();
-        return redirect()->route('socios.edit')->with('sucesso', 'Email reenviado com sucesso!');
+//        dd($user);
+
+        return redirect()->route('socios.index')->with('sucesso', 'Sócio inserido com sucesso!');
 	}
 
+    public function reenviarEmail(User $socio)
+    {
+        $socio->SendEmailVerificationNotification();
+        return redirect()->back();
+            //->route('socios.edit', $socio)->with('sucesso', 'Email reenviado com sucesso!');
+	}
+
+    public function reset_quotas()
+    {
+        DB::update("update users set quota_paga=0");
+        return redirect()->route('socios.index')->with('sucesso', 'Todas as quotas ficaram por pagar!');
+    }
+	
 	public function edit(User $socio){
 		return view('socios.edit',compact('socio'));
 	}
@@ -58,7 +83,7 @@ class UtilizadorController extends Controller
 //        }
 
         $socio->fill($request->all());
-
+        dd($request);
         //$socio->image = $name;
        //dd($socio);
         $socio->save();

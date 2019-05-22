@@ -21,18 +21,28 @@ class StoreUserRequest extends FormRequest
      *
      * @return array
      */
-    
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'ativo' => isset($this->ativo) ? 1 : 0,
+            'quota_paga' => isset($this->quota_paga) ? 1 : 0,
+            'direcao' => isset($this->direcao) ? 1 : 0,
+        ]);
+    }
+
     public function rules()
     {
         return [
-            'num_socio' => 'required|max:11',
+            'num_socio' => 'required|max:11|unique:users,num_socio',
             'name' => 'required|regex:/^[\pL\s]+$/u|max:40',
             'nome_informal' => 'required|regex:/^[\pL\s]+$/u|max:40',
-            'email' => 'email|max:255',
+            'email' => 'required|email|max:255|unique:users,email',
             'tipo_socio' => 'required',
             'sexo' => 'required',
             'data_nascimento' => 'required',
-            'nif' => 'required|max:9',
+            //'nif' => 'integer|unique:users,nif',
+            'telefone' => 'integer|unique:users,telefone',
+            'endereco' => 'string'
         ]; 
     }
 

@@ -12,7 +12,7 @@
     </div>
 </form>
 @if ($socio->email_verified_at == null)
-    <form action="{{route('socios.reenviarEmail')}}" method="post">
+    <form action="{{route('socios.reenviarEmail', $socio)}}" method="post">
         @csrf
         <input type="hidden" name="reenviarID" value="{{$socio->id}}" />
         <button type="submit" class="btn btn-default">Reenviar email</button>

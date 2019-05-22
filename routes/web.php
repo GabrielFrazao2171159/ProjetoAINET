@@ -15,7 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth', 'verified'])->group(function () { 
+Route::middleware(['auth', 'verified'])->group(/**
+ *
+ */ function () {
 //Aeronaves
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/aeronaves', 'AeronaveController@index')->name('aeronaves.index');
@@ -34,10 +36,12 @@ Route::get('/aeronaves/{aeronave}/precos_tempos', 'AeronaveController@mostrarPre
 Route::get('/socios', 'UtilizadorController@index')->name('socios.index');
 Route::get('/socios/create', 'UtilizadorController@create')->name('socios.create');
 Route::post('/socios', 'UtilizadorController@store')->name('socios.store');
-Route::post('/socios/reenviar', 'UtilizadorController@reenviarEmail')->name('socios.reenviarEmail');
+Route::post('/socios/{socio}/send_reactivate_mail', 'UtilizadorController@reenviarEmail')->name('socios.reenviarEmail');
 Route::get('/socios/{socio}/edit', 'UtilizadorController@edit')->name('socios.edit');
 Route::put('/socios/{socio}', 'UtilizadorController@update')->name('socios.update');
 Route::delete('/socios/{socio}', 'UtilizadorController@destroy')->name('socios.destroy');
+Route::patch ('/socios/reset_quotas', 'UtilizadorController@reset_quotas')->name('socios.reset_quotas');
+
 
 //Movimentos
 Route::get('/movimentos', 'MovimentoController@index')->name('movimentos.index');
