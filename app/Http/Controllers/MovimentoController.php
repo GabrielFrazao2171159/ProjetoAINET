@@ -42,6 +42,7 @@ class MovimentoController extends Controller
         if($movimento['natureza'] != "I") {
             $movimento['tipo_instrucao'] = "";
             $movimento['instrutor_id'] = "";
+
         }
         else{
             $instrutor = User::find($movimento['instrutor_id']);

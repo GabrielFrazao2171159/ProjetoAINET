@@ -160,9 +160,8 @@
         @endif
     </div>
     <div>
-        <label for="inputObservacoes">Observações</label>
-        <textarea
-                name="observacoes" rows="5" cols="100" >
+        <textarea name="observacoes" rows="5" cols="48">
+Initial text on the box
         </textarea>
         @if ($errors->has('observacoes'))
             <em>{{ $errors->first('observacoes') }}</em>
@@ -172,7 +171,7 @@
     <div class="form-group">
         <label for="inputTipoInstrucao">Tipo de Instrução</label>
         <select name="tipo_instrucao" id="inputTipoInstrucao" class="form-control">
-            <option disabled selected> -- Selecione uma opção -- </option>
+            <option disabled selected> -- Selecione uma opção  -- </option>
             <option {{ old('tipo_instrucao',$movimento->tipo_instrucao) == 'D' ? 'selected' : '' }} value="D">Duplo</option>
             <option {{ old('tipo_instrucao',$movimento->tipo_instrucao) == 'S' ? 'selected' : '' }} value="S">Solo</option>
         </select>
