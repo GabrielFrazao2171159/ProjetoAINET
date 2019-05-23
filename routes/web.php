@@ -41,6 +41,8 @@ Route::put('/socios/{socio}', 'UtilizadorController@update')->name('socios.updat
 Route::delete('/socios/{socio}', 'UtilizadorController@destroy')->name('socios.destroy');
 Route::patch ('/socios/reset_quotas', 'UtilizadorController@reset_quotas')->name('socios.reset_quotas');
 Route::patch ('/socios/{socio}/quota', 'UtilizadorController@quotas')->name('socios.quotas');
+Route::patch ('/socios/{socio}/ativo', 'UtilizadorController@ativo')->name('socios.ativo');
+Route::patch ('/socios/desativar_sem_quotas', 'UtilizadorController@desativar_sem_quotas')->name('socios.desativar_sem_quotas');
 
 
 //Movimentos

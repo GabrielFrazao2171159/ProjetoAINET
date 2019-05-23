@@ -88,6 +88,23 @@ class UtilizadorController extends Controller
         return redirect()->route('socios.index')->with('sucesso', 'Quota alterada com sucesso!');
     }
 
+    public function ativo(User $socio)
+    {
+        if ($socio->ativo == 0){
+            $socio->ativo = 1;
+        }else{
+            $socio->ativo = 0;
+        }
+        $socio->save();
+        return redirect()->route('socios.ativo')->with('sucesso', 'Estado do sócio alterado com sucesso!');
+    }
+
+    public function desativar_sem_quotas()
+    {
+        DB::update("update users set ativo=0 where quota_paga=0");
+        return redirect()->route('socios.desativar_sem_quotas')->with('sucesso', 'Todos os sócios com quotas por pagar ficaram inativos!');
+
+    }
     public function reset_quotas()
     {
         DB::update("update users set quota_paga=0");
@@ -107,7 +124,7 @@ class UtilizadorController extends Controller
 //        }
 
         $socio->fill($request->all());
-        dd($request);
+//        dd($request);
         //$socio->image = $name;
        //dd($socio);
         $socio->save();
