@@ -13,8 +13,20 @@ use Illuminate\Support\Facades\DB;
 
 class UtilizadorController extends Controller
 {
-	public function index(){
-		$socios=User::paginate(15);
+	public function index(Request $request){
+        /*
+        if(!is_null($request->num_socio)){
+            $socios=User::where('num_socio',$request->num_socio)->paginate(15);
+        }else{
+            $socios=User::paginate(15);   
+        }*/
+        $user = User::find(Auth::id());
+        if ($user->can('verAtivos', User::class)) {
+            $socios=User::paginate(15);
+        }else{
+            $socios=User::where('ativo',1)->paginate(15); 
+        }
+
 		return view('socios.index',compact('socios'));
 	}
 

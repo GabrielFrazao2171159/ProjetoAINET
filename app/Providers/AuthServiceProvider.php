@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Policies\AeronavePolicy;
+use App\Policies\UtilizadorPolicy;
 use App\Aeronave;
+use App\User;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -16,7 +18,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Aeronave::class => AeronavePolicy::class
+        Aeronave::class => AeronavePolicy::class,
+        User::class => UtilizadorPolicy::class,
     ];
 
     /**

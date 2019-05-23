@@ -3,21 +3,37 @@
 @section('content')
 <div>
     <a class="btn btn-primary" href="{{route('socios.create')}}">Adicionar sócio</a>
-    <br>
+    <br><br>
     <form action="{{route('socios.reset_quotas')}}" method="POST" role="form" class="inline">
         @method('patch')
         @csrf
         <button type="submit" class="btn btn btn-primary">Reset a cotas</button>
     </form>
 </div>
+<br>
 <div>
-    <form action="{{route('socios.index')}}" class="form-inline my-2 my-lg-0" method="get">
-        <input id="search" value="" name="search"
-               class="form-control mr-sm-2" type="text" placeholder="Pesquisar">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    <form action="{{route('socios.index')}}" method="get">
+		<fieldset>
+			<legend>Pesquisar</legend>
+			<input id="num_socio" value="" name="num_socio" type="text" 
+			placeholder="Número de sócio">
+			<input id="nome_informal" value="" name="nome_informal" type="text" 
+			placeholder="Nome informal">
+			<input id="email" value="" name="email" type="text" 
+			placeholder="Email">
+			<input id="tipo" value="" name="tipo" type="text" 
+			placeholder="Tipo">
+			<input id="direcao" value="" name="direcao" type="text" 
+			placeholder="Direção">
+			<input id="quotas_pagas" value="" name="quotas_pagas" type="text" 
+			placeholder="Quotas pagas">
+			<input id="ativo" value="" name="ativo" type="text" 
+			placeholder="Ativo">
+			<button class="btn btn-outline-success" type="submit">Pesquisar</button>
+		</fieldset>
     </form>
-    <p></p>
 </div>
+<br>
 @if (count($socios))
     <table class="table table-striped">
     <thead>
@@ -40,7 +56,7 @@
             @if (!empty($socio->foto_url))
                 <td><img src ="{{ asset('storage/fotos/' . $socio->foto_url) }}" class="rounded-circle" height=35px widht=35px></td>
             @else
-                <td><img src ="{{ asset('storage/fotos/defaultPIC.jpg   ') }}" class="rounded-circle" height=35px widht=35px></td>
+                <td><img src ="{{ asset('storage/fotos/defaultPIC.jpg') }}" class="rounded-circle" height=35px widht=35px></td>
             @endif
             <td>{{($socio->num_socio)}}</td>
             <td>{{($socio->nome_informal)}}</td>
