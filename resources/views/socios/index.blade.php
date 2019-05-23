@@ -2,13 +2,26 @@
 @section('title','Lista de Sócios')
 @section('content')
 <div>
-    <a class="btn btn-primary" href="{{route('socios.create')}}">Adicionar sócio</a>
-    <br>
-    <form action="{{route('socios.reset_quotas')}}" method="POST" role="form" class="inline">
-        @method('patch')
-        @csrf
-        <button type="submit" class="btn btn btn-primary">Reset a cotas</button>
-    </form>
+    <div>
+        <a class="btn btn-primary" href="{{route('socios.create')}}">Adicionar sócio</a>
+        <p></p>
+    </div>
+    <div>
+        <form action="{{route('socios.reset_quotas')}}" method="POST" role="form" class="inline">
+            @method('patch')
+            @csrf
+            <button type="submit" class="btn btn btn-primary">Reset a cotas</button>
+        </form>
+        <p></p>
+    </div>
+    <div>
+        <form action="{{route('socios.desativar_sem_quotas')}}" method="POST" role="form" class="inline">
+            @method('patch')
+            @csrf
+            <button type="submit" class="btn btn btn-primary">Desativar sócios com quotas em atraso</button>
+        </form>
+        <p></p>
+    </div>
 </div>
 <div>
     <form action="/alunos" class="form-inline my-2 my-lg-0" method="get">
@@ -31,7 +44,7 @@
             <th>Quotas pagas</th>
             <th>Ativo</th>
             <th>Ações</th>
-            <th>Quotas</th>
+            <th>Opções</th>
         </tr>
     </thead>
     <tbody>
@@ -65,6 +78,15 @@
                         <button type="submit" class="btn btn-xs btn-primary">Quota paga</button>
                     @else
                         <button type="submit" class="btn btn-xs btn-danger">Quota não paga</button>
+                    @endif
+                </form>
+                <form action="{{route('socios.ativo',$socio)}}" method="post" role="form" class="inline">
+                    @method('patch')
+                    @csrf
+                    @if ($socio->ativo==0)
+                        <button type="submit" class="btn btn-xs btn-primary">Ativar Sócio</button>
+                    @else
+                        <button type="submit" class="btn btn-xs btn-danger">Desativar Sócio</button>
                     @endif
                 </form>
             </td>
