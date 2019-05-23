@@ -37,7 +37,11 @@
     <tbody>
     @foreach ($socios as $socio)
         <tr>
-            <td>{{($socio->foto_url)}}</td>
+            @if (!empty($socio->foto_url))
+                <td><img src ="{{ asset('storage/fotos/' . $socio->foto_url) }}" class="rounded-circle" height=35px widht=35px></td>
+            @else
+                <td><img src ="{{ asset('storage/fotos/defaultPIC.jpg   ') }}" class="rounded-circle" height=35px widht=35px></td>
+            @endif
             <td>{{($socio->num_socio)}}</td>
             <td>{{($socio->nome_informal)}}</td>
             <td>{{($socio->email)}}</td>

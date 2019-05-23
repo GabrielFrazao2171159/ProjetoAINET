@@ -39,6 +39,9 @@ Alterar Palavra-Passe</a></li>
         @if (session('sucesso'))
             @include('shared.sucesso')
         @endif
+        @if (session('erros'))
+            @include('shared.erros')
+        @endif
         @yield('content')
     </div>
     <script src="//code.jquery.com/jquery.js"></script>

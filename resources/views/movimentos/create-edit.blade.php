@@ -54,7 +54,7 @@
         @endif
     </div>
     <div class="form-group">
-        <label for="inputPiloto">Piloto ID</label>
+        <label for="inputPiloto">ID de Piloto</label>
         <input
                 type="text" class="form-control"
                 name="piloto_id" id="inputPiloto" value="{{old('piloto_id',$movimento->piloto_id)}}"/>
@@ -159,10 +159,33 @@
             <em>{{ $errors->first('num_recibo') }}</em>
         @endif
     </div>
-    <b>Observações</b>
     <div>
-        <textarea name="observaoes" rows="5" cols="100">
+        <textarea name="observacoes" rows="5" cols="48">
+Initial text on the box
         </textarea>
+        @if ($errors->has('observacoes'))
+            <em>{{ $errors->first('observacoes') }}</em>
+        @endif
     </div>
-
+    <h3>Caso seja de Instrução:</h3>
+    <div class="form-group">
+        <label for="inputTipoInstrucao">Tipo de Instrução</label>
+        <select name="tipo_instrucao" id="inputTipoInstrucao" class="form-control">
+            <option disabled selected> -- Selecione uma opção  -- </option>
+            <option {{ old('tipo_instrucao',$movimento->tipo_instrucao) == 'D' ? 'selected' : '' }} value="D">Duplo</option>
+            <option {{ old('tipo_instrucao',$movimento->tipo_instrucao) == 'S' ? 'selected' : '' }} value="S">Solo</option>
+        </select>
+        @if ($errors->has('tipo_instrucao'))
+            <em>{{ $errors->first('tipo_instrucao') }}</em>
+        @endif
+    </div>
+    <div class="form-group">
+        <label for="inputInstrutorID">ID de Instrutor</label>
+        <input
+                type="text" class="form-control"
+                name="instrutor_id" id="inputInstrutorID" value="{{old('instrutor_id',$movimento->instrutor_id)}}"/>
+        @if ($errors->has('instrutor_id'))
+            <em>{{ $errors->first('instrutor_id') }}</em>
+        @endif
+    </div>
 </div>

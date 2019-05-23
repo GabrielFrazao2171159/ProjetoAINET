@@ -3,6 +3,8 @@
 
 namespace App\Http\Requests;
 
+use App\Aeronave;
+use App\Movimento;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreMovimentoRequest extends FormRequest
@@ -24,9 +26,8 @@ class StoreMovimentoRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'data' => 'required',
-            'hora_descolagem' => 'required',
+        $rules = ['data' => 'required|before_or_equal:today',
+            'hora_descolagem' => 'required|after_or_equal:data',
             'hora_aterragem' => 'required',
             'aeronave' => 'required|exists:aeronaves,matricula|max:8',
             'num_diario' => 'required|integer|between:1,5',
@@ -38,18 +39,25 @@ class StoreMovimentoRequest extends FormRequest
             'num_aterragens' => 'required|integer|min:1',
             'num_descolagens' => 'required|integer|min:1',
             'num_pessoas' => 'required|integer|between:1,10',
-            'conta_horas_inicio' => 'required|integer|min:0',
+            'conta_horas_inicio' => 'required|integer',
             'conta_horas_fim' => 'required|integer|gt:conta_horas_inicio',
             'modo_pagamento' => 'required',
             'num_recibo' => 'required|integer|min:0'
-        ];
+            ];
+
+        if($this->natureza == "I"){
+            $rules['tipo_instrucao'] = 'required';
+            $rules['instrutor_id'] = 'required|exists:users,id|different:piloto_id|integer|min:10000';
+        }
+
+        return $rules;
     }
 
     public function messages()
     {
         return [
-            'num_diario.between' => 'O número de lugares deve estar entre 1 e 5.',
-            'num_servico.between' => 'O número de lugares deve estar entre 1 e 999.'
+            'data.before_or_equal' => 'A data deverá ser antes do dia presente ou no próprio dia',
+            'conta_horas_fim.gt' => 'O conta-horas final deverá ser superior a'
         ];
     }
 
