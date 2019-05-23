@@ -73,8 +73,7 @@ class UtilizadorController extends Controller
     public function reenviarEmail(User $socio)
     {
         $socio->SendEmailVerificationNotification();
-        return redirect()->back();
-            //->route('socios.edit', $socio)->with('sucesso', 'Email reenviado com sucesso!');
+        return redirect()->route('socios.edit', $socio)->with('sucesso', 'Email reenviado com sucesso!');
 	}
 
     public function quotas(User $socio)
@@ -96,13 +95,13 @@ class UtilizadorController extends Controller
             $socio->ativo = 0;
         }
         $socio->save();
-        return redirect()->route('socios.ativo')->with('sucesso', 'Estado do sócio alterado com sucesso!');
+        return redirect()->route('socios.index')->with('sucesso', 'Estado do sócio alterado com sucesso!');
     }
 
     public function desativar_sem_quotas()
     {
         DB::update("update users set ativo=0 where quota_paga=0");
-        return redirect()->route('socios.desativar_sem_quotas')->with('sucesso', 'Todos os sócios com quotas por pagar ficaram inativos!');
+        return redirect()->route('socios.index')->with('sucesso', 'Todos os sócios com quotas por pagar ficaram inativos!');
 
     }
     public function reset_quotas()

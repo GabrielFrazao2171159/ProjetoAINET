@@ -15,7 +15,7 @@
     <form action="{{route('socios.reenviarEmail', $socio)}}" method="post">
         @csrf
         <input type="hidden" name="reenviarID" value="{{$socio->id}}" />
-        <button type="submit" class="btn btn-default">Reenviar email</button>
+        <button type="submit" class="btn btn-primary">Reenviar email</button>
     </form>
 @endif
 @endsection

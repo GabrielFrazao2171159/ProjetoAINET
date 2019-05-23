@@ -9,13 +9,13 @@
         @csrf
         <button type="submit" class="btn btn btn-primary">Reset a cotas</button>
     </form>
+    <br>
     <div>
         <form action="{{route('socios.desativar_sem_quotas')}}" method="POST" role="form" class="inline">
             @method('patch')
             @csrf
             <button type="submit" class="btn btn btn-primary">Desativar sócios com quotas em atraso</button>
         </form>
-        <p></p>
     </div>
 </div>
 <br>
