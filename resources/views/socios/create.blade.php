@@ -1,7 +1,7 @@
 @extends('master')
 @section('title','Criar Sócio')
 @section('content')
-    <form action="{{route('socios.store',$socio)}}" method="post" class="form-group">
+    <form action="{{route('socios.store',$socio)}}" method="post" class="form-group" enctype="multipart/form-data">
         @method('post')
         @csrf
         @include('socios.create-edit')
