@@ -42,7 +42,8 @@ class StoreMovimentoRequest extends FormRequest
             'conta_horas_inicio' => 'required|integer',
             'conta_horas_fim' => 'required|integer|gt:conta_horas_inicio',
             'modo_pagamento' => 'required',
-            'num_recibo' => 'required|integer|min:0'
+            'num_recibo' => 'required|integer|min:0',
+            'observacoes' => 'string'
             ];
 
         if($this->natureza == "I"){
