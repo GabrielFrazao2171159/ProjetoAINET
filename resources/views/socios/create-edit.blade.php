@@ -1,7 +1,10 @@
 <div>
     <div class="col-md-4 text-center">
-        <img src="{{ $socio->foto_url == null ? asset('storage/img/noimage.jpg') : asset('storage/img/' . $socio->foto_url)}}" class="img-thumbnail"/>
-
+        @if (!empty($socio->foto_url))
+            <td><img src ="{{ asset('storage/fotos/' . $socio->foto_url) }}" class="rounded-circle" height=350px widht=350px></td>
+        @else
+            <td><img src ="{{ asset('storage/fotos/defaultPIC.jpg   ') }}" class="rounded-circle" height=35px widht=35px></td>
+        @endif
         <br/><br/>
         <input type="file" name="image" class="form-control">
     </div>

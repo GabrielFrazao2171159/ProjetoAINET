@@ -28,8 +28,8 @@ class MovimentoController extends Controller
         $aeronave = Aeronave::find($movimento['aeronave']);
 
         $movimento['confirmado'] = "0";
-        $movimento['tempo_voo'] = $movimento['conta_horas_fim']-$movimento['conta_horas_inicio'];
-        $tempovooHoras = $movimento['tempo_voo']/60;
+        $movimento['tempo_voo'] = ($movimento['conta_horas_fim']-$movimento['conta_horas_inicio'])*0.1;
+        $tempovooHoras = $movimento['tempo_voo'];
         $movimento['preco_voo'] = $tempovooHoras*$aeronave->preco_hora;
 
         $movimento['num_licenca_piloto'] = $piloto->num_licenca;
@@ -53,6 +53,8 @@ class MovimentoController extends Controller
             $movimento['validade_certificado_instrutor'] = $instrutor->validade_certificado;
             $movimento['classe_certificado_instrutor'] = $instrutor->classe_certificado;
         }
+
+        dd($movimento);
 
         $movimentoCriado = Movimento::create($movimento);
         return redirect()->route('movimentos.index')->with('sucesso', 'Voo inserido com sucesso!');
