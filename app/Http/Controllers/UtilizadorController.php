@@ -78,6 +78,8 @@ class UtilizadorController extends Controller
 
     public function quotas(User $socio)
     {
+        $this->authorize('gerirCotasAtivos', User::class);
+
         if ($socio->quota_paga == 0){
             $socio->quota_paga = 1;
         }else{
@@ -89,6 +91,8 @@ class UtilizadorController extends Controller
 
     public function ativo(User $socio)
     {
+        $this->authorize('gerirCotasAtivos', User::class);
+
         if ($socio->ativo == 0){
             $socio->ativo = 1;
         }else{
@@ -100,12 +104,16 @@ class UtilizadorController extends Controller
 
     public function desativar_sem_quotas()
     {
+        $this->authorize('gerirCotasAtivos', User::class);
+        
         DB::update("update users set ativo=0 where quota_paga=0");
         return redirect()->route('socios.index')->with('sucesso', 'Todos os sócios com quotas por pagar ficaram inativos!');
 
     }
     public function reset_quotas()
     {
+        $this->authorize('gerirCotasAtivos', User::class);
+
         DB::update("update users set quota_paga=0");
         return redirect()->route('socios.index')->with('sucesso', 'Todas as quotas ficaram por pagar!');
     }
