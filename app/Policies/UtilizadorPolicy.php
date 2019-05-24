@@ -30,5 +30,22 @@ class UtilizadorPolicy
     {
         return false;
     }
+
+    public function edit(User $auth, User $user)
+    {
+        if($auth->id==$user->id){
+            return true;
+        }
+
+        return false;
+    }
+
+    public function editInfo(User $auth){
+        return false;
+    }
+
+    public function enviarMail(User $auth){
+        return false;
+    }
 }
 

@@ -6,15 +6,71 @@
         <input type="file" name="image" class="form-control">
     </div>
     <div class="col-md-8 text-center">
-        <div class="form-group">
-            <label for="inputNumeroSocio">Número de sócio</label>
-            <input
-                type="number" class="form-control"
-                name="num_socio" id="inputNumeroSocio" value="{{old('num_socio', $socio->num_socio)}}"/>
-            @if ($errors->has('num_socio'))
-                <em>{{ $errors->first('num_socio') }}</em>
-            @endif
-        </div>
+    @can('editInfo', App\User::class) 
+            <div class="form-group">
+                <label for="inputNumeroSocio">Número de sócio</label>
+                <input
+                    type="number" class="form-control"
+                    name="num_socio" id="inputNumeroSocio" value="{{old('num_socio', $socio->num_socio)}}"/>
+                @if ($errors->has('num_socio'))
+                    <em>{{ $errors->first('num_socio') }}</em>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="inputTipo">Tipo</label>
+                    <select name="tipo_socio" id="tipo_socio" class="form-control">
+                        <option disabled selected> -- Selecione uma opção -- </option>
+                        <option {{ old('tipo_socio',$socio->tipo_socio) == 'P' ? 'selected' : '' }} value="P">Piloto</option>
+                        <option {{ old('tipo_socio',$socio->tipo_socio) == 'NP' ? 'selected' : '' }} value="NP">Não piloto</option>
+                        <option {{ old('tipo_socio',$socio->tipo_socio) == 'A' ? 'selected' : '' }} value="A">Aeromodelista</option>
+                    </select>
+                    @if ($errors->has('tipo_socio'))
+                        <em>{{ $errors->first('tipo_socio') }}</em>
+                    @endif 
+            </div>
+            <div class="form-group">
+                <label for="inputSexo">Sexo</label>
+                <select name="sexo" id="sexo" class="form-control">
+                    <option disabled selected> -- Selecione uma opção -- </option>
+                    <option {{ old('sexo',$socio->sexo) == 'M' ? 'selected' : '' }} value="M">Masculino</option>
+                    <option {{ old('sexo',$socio->sexo) == 'F' ? 'selected' : '' }} value="F">Feminino</option>
+                </select>
+                @if ($errors->has('sexo'))
+                    <em>{{ $errors->first('sexo') }}</em>
+                @endif
+            </div>
+        @else
+            <div class="form-group">
+                <label for="inputNumeroSocio">Número de sócio</label>
+                <input
+                    type="number" class="form-control"
+                    name="num_socio" id="inputNumeroSocio" value="{{old('num_socio', $socio->num_socio)}}" readonly="readonly"/>
+                @if ($errors->has('num_socio'))
+                    <em>{{ $errors->first('num_socio') }}</em>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="inputTipo">Tipo</label>
+                    <select name="tipo_socio" id="tipo_socio" class="form-control" disabled>
+                        <option {{ old('tipo_socio',$socio->tipo_socio) == 'P' ? 'selected' : '' }} value="P">Piloto</option>
+                        <option {{ old('tipo_socio',$socio->tipo_socio) == 'NP' ? 'selected' : '' }} value="NP">Não piloto</option>
+                        <option {{ old('tipo_socio',$socio->tipo_socio) == 'A' ? 'selected' : '' }} value="A">Aeromodelista</option>
+                    </select>
+                    @if ($errors->has('tipo_socio'))
+                        <em>{{ $errors->first('tipo_socio') }}</em>
+                    @endif 
+            </div>
+            <div class="form-group">
+                <label for="inputSexo">Sexo</label>
+                <select name="sexo" id="sexo" class="form-control" disabled>
+                    <option {{ old('sexo',$socio->sexo) == 'M' ? 'selected' : '' }} value="M">Masculino</option>
+                    <option {{ old('sexo',$socio->sexo) == 'F' ? 'selected' : '' }} value="F">Feminino</option>
+                </select>
+                @if ($errors->has('sexo'))
+                    <em>{{ $errors->first('sexo') }}</em>
+                @endif
+            </div>
+        @endcan
         <div class="form-group">
             <label for="inputNome">Nome</label>
             <input
@@ -61,30 +117,6 @@
             @endif
         </div>
         <div class="form-group">
-            <label for="inputTipo">Tipo</label>
-                <select name="tipo_socio" id="tipo_socio" class="form-control">
-                    <option disabled selected> -- Selecione uma opção -- </option>
-                    <option {{ old('tipo_socio',$socio->tipo_socio) == 'P' ? 'selected' : '' }} value="P">Piloto</option>
-                    <option {{ old('tipo_socio',$socio->tipo_socio) == 'NP' ? 'selected' : '' }} value="NP">Não piloto</option>
-                    <option {{ old('tipo_socio',$socio->tipo_socio) == 'A' ? 'selected' : '' }} value="A">Aeromodelista</option>
-                </select>
-                @if ($errors->has('tipo_socio'))
-                    <em>{{ $errors->first('tipo_socio') }}</em>
-                @endif 
-        </div>
-        <div class="form-group">
-            <label for="inputSexo">Sexo</label>
-            <select name="sexo" id="sexo" class="form-control">
-                <option disabled selected> -- Selecione uma opção -- </option>
-                <option {{ old('sexo',$socio->sexo) == 'M' ? 'selected' : '' }} value="M">Masculino</option>
-                <option {{ old('sexo',$socio->sexo) == 'F' ? 'selected' : '' }} value="F">Feminino</option>
-            </select>
-            @if ($errors->has('sexo'))
-                <em>{{ $errors->first('sexo') }}</em>
-            @endif
-        </div>
-{{--        {{print_r($socio)}}--}}
-        <div class="form-group">
             <label for="inputNif">NIF</label>
             <input
                     type="number" class="form-control"
@@ -96,41 +128,74 @@
         <div class="form-group">
             <label for="inputTelefone">Telefone</label>
             <input
-                    type="number" class="form-control"
+                    type="text" class="form-control"
                     name="telefone" id="inputTelefone" value="{{old('telefone', $socio->telefone)}}"/>
             @if ($errors->has('telefone'))
                 <em>{{ $errors->first('telefone') }}</em>
             @endif
         </div>
-        <div>
-            <div class="form-group col-md-4">
-                <label class="form-check-label" for="inputDirecao">Direção</label>
-                <input 
-                type="checkbox" class="form-check-input"
-                id="inputDirecao" name="direcao" value="1" {{old('direcao',$socio->direcao) == 1 ? 'checked' : ''}}/>
-                @if ($errors->has('direcao'))
-                    <em>{{ $errors->first('direcao') }}</em>
-                @endif 
-            </div>
-            <div class="form-group col-md-4">
-                <label class="form-check-label" for="inputQuotaPaga">Quotas pagas</label>
-                <input
+        @can('editInfo', App\User::class) 
+            <div>
+                <div class="form-group col-md-4">
+                    <label class="form-check-label" for="inputDirecao">Direção</label>
+                    <input 
                     type="checkbox" class="form-check-input"
-                    name="quota_paga" id="inputQuotaPaga" value="1"
-                    {{old('quota_paga',$socio->quota_paga) == 1 ? 'checked' : ''}}/>
-                @if ($errors->has('quota_paga'))
-                    <em>{{ $errors->first('quota_paga') }}</em>
-                @endif 
+                    id="inputDirecao" name="direcao" value="1" {{old('direcao',$socio->direcao) == 1 ? 'checked' : ''}}/>
+                    @if ($errors->has('direcao'))
+                        <em>{{ $errors->first('direcao') }}</em>
+                    @endif 
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="form-check-label" for="inputQuotaPaga">Quotas pagas</label>
+                    <input
+                        type="checkbox" class="form-check-input"
+                        name="quota_paga" id="inputQuotaPaga" value="1"
+                        {{old('quota_paga',$socio->quota_paga) == 1 ? 'checked' : ''}}/>
+                    @if ($errors->has('quota_paga'))
+                        <em>{{ $errors->first('quota_paga') }}</em>
+                    @endif 
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="form-check-label" for="inputAtivo">Ativo</label>
+                    <input
+                        type="checkbox" class="form-check-input"
+                        name="ativo" id="inputAtivo"  value="1" {{old('ativo',$socio->ativo) == 1 ? 'checked' : ''}}/>
+                    @if ($errors->has('ativo'))
+                        <em>{{ $errors->first('ativo') }}</em>
+                    @endif 
+                </div>
             </div>
-            <div class="form-group col-md-4">
-                <label class="form-check-label" for="inputAtivo">Ativo</label>
-                <input
+        @else
+            <div>
+                <div class="form-group col-md-4">
+                    <label class="form-check-label" for="inputDirecao">Direção</label>
+                    <input 
                     type="checkbox" class="form-check-input"
-                    name="ativo" id="inputAtivo"  value="1" {{old('ativo',$socio->ativo) == 1 ? 'checked' : ''}}/>
-                @if ($errors->has('ativo'))
-                    <em>{{ $errors->first('ativo') }}</em>
-                @endif 
+                    id="inputDirecao" name="direcao" disabled value="1" {{old('direcao',$socio->direcao) == 1 ? 'checked' : ''}}/>
+                    @if ($errors->has('direcao'))
+                        <em>{{ $errors->first('direcao') }}</em>
+                    @endif 
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="form-check-label" for="inputQuotaPaga">Quotas pagas</label>
+                    <input
+                        type="checkbox" class="form-check-input"
+                        name="quota_paga" id="inputQuotaPaga" disabled value="1"
+                        {{old('quota_paga',$socio->quota_paga) == 1 ? 'checked' : ''}}/>
+                    @if ($errors->has('quota_paga'))
+                        <em>{{ $errors->first('quota_paga') }}</em>
+                    @endif 
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="form-check-label" for="inputAtivo">Ativo</label>
+                    <input
+                        type="checkbox" class="form-check-input"
+                        name="ativo" id="inputAtivo" value="1" disabled {{old('ativo',$socio->ativo) == 1 ? 'checked' : ''}}/>
+                    @if ($errors->has('ativo'))
+                        <em>{{ $errors->first('ativo') }}</em>
+                    @endif 
+                </div>
             </div>
-        </div>
+        @endcan
     </div>
 </div>

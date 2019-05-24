@@ -4,6 +4,7 @@
 <form action="{{route('socios.update',$socio)}}" method="post" class="form-group">
 	@method('put')
     @csrf
+    <input type="hidden" name="id" value="{{intval($socio->id)}}">
     @include('socios.create-edit')  
     <div class="form-group">
         <button type="submit" class="btn btn-success" name="ok">Save</button>
@@ -11,11 +12,13 @@
 
     </div>
 </form>
-@if ($socio->email_verified_at == null)
-    <form action="{{route('socios.reenviarEmail', $socio)}}" method="post">
-        @csrf
-        <input type="hidden" name="reenviarID" value="{{$socio->id}}" />
-        <button type="submit" class="btn btn-primary">Reenviar email</button>
-    </form>
-@endif
+@can('enviarMail', App\User::class) 
+    @if ($socio->email_verified_at == null)
+        <form action="{{route('socios.reenviarEmail', $socio)}}" method="post">
+            @csrf
+            <input type="hidden" name="reenviarID" value="{{$socio->id}}" />
+            <button type="submit" class="btn btn-primary">Reenviar email</button>
+        </form>
+    @endif
+@endcan
 @endsection

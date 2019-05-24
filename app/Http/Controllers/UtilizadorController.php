@@ -119,10 +119,14 @@ class UtilizadorController extends Controller
     }
 	
 	public function edit(User $socio){
+        $this->authorize('edit', $socio);
+
 		return view('socios.edit',compact('socio'));
 	}
 
 	public function update(UpdateUserRequest $request, User $socio){
+        $this->authorize('edit', $socio);
+
 //    	if(! is_null($request['image'])) {
 //            $image = $request->file('image');
 //            $name = time().'.'.$image->getClientOriginalExtension();
@@ -130,8 +134,7 @@ class UtilizadorController extends Controller
 //            $path = $request->file('image')->storeAs('/fotos', $name);
 //        }
 
-        $socio->fill($request->all());
-//        dd($request);
+        $socio->fill($request->validated());
         //$socio->image = $name;
        //dd($socio);
         $socio->save();

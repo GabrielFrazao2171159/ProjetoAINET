@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use App\User;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -33,13 +35,26 @@ class UpdateUserRequest extends FormRequest
 
     public function rules()
     {
-        return [
-            'num_socio' => 'required|max:11',
+        $rules_base = [
             'nome_informal' => 'required|regex:/^[\pL\s]+$/u|max:40',
-            'email' => 'email',
+            'name' => 'required|regex:/^[\pL\s]+$/u|max:255',
+            'email' => 'required|email|unique:users,email,'.$this->id . ',id',
             'data_nascimento' => 'required',
-            'tipo_socio' => 'required',
+            'nif' => 'required|integer',
+            'telefone' => 'string|unique:users,telefone,'.$this->id . ',id|min:9|max:14',
+            'nif' => 'required|integer|unique:users,nif,'.$this->id . ',id',
+            'endereco' => 'string',      
         ];
+
+        //dd(User::find(Auth::id()));
+        if(true){
+
+        }
+
+        //'tipo_socio' => 'required',
+        //'num_socio' => 'required|max:11',
+
+        return $rules_base;
     }
 
     public function messages()

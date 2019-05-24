@@ -86,13 +86,15 @@
                 @if($socio->num_licenca!=null)
                     <td>{{$socio->num_licenca}}</td>
                 @else
-                    <td>Não tem</td>
+                    <td>-----</td>
                 @endif
             @else
-                <td>Não tem(vazio??)</td>
+                <td>-----</td>
             @endif
             <td>
-                <a class="btn btn-xs btn-primary" href="{{route('socios.edit',$socio)}}">Editar</a>
+                @can('edit', $socio) 
+                    <a class="btn btn-xs btn-primary" href="{{route('socios.edit',$socio)}}">Editar</a>
+                @endcan
                 <form action="{{route('socios.destroy',$socio)}}" method="POST" role="form" class="inline">
                     @method('delete')
                     @csrf
