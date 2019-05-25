@@ -4,7 +4,7 @@
     <form action="{{route('socios.store',$socio)}}" method="post" class="form-group" enctype="multipart/form-data">
         @method('post')
         @csrf
-        @include('socios.create-edit')
+        @include('socios.create-form')
         <div class="form-group">
             <button type="submit" class="btn btn-success" name="ok">Save</button>
             <a href="{{route('socios.index')}}" class="btn btn-default">Cancel</a>

@@ -34,10 +34,10 @@ class UtilizadorController extends Controller
 	public function store(StoreUserRequest $request){
         $this->authorize('create', User::class);
 
-//        $image = $request->file('image');
+//        $image = $request->file('file_foto');
 //        $name = time().'.'.$image->getClientOriginalExtension();
 //
-//        $path = $request->file('image')->storeAs('/fotos', $name);
+//        $path = $request->file('file_foto')->storeAs('/fotos', $name);
 		$socio = $request->validated();
 		if(empty($request->ativo)){
             $socio['ativo']=0;
@@ -123,17 +123,17 @@ class UtilizadorController extends Controller
 
 	public function update(UpdateUserRequest $request, User $socio){
         $this->authorize('update', $socio);
-
-//    	if(! is_null($request['image'])) {
-//            $image = $request->file('image');
+        dd($request->validated());
+//    	if(! is_null($request['file_foto'])) {
+//            $image = $request->file('file_foto');
 //            $name = time().'.'.$image->getClientOriginalExtension();
 //
-//            $path = $request->file('image')->storeAs('/fotos', $name);
+//            $path = $request->file('file_foto')->storeAs('/fotos', $name);
 //        }
-    	if(! is_null($request['image'])) {
-            $image = $request->file('image');
+    	if(! is_null($request['file_foto'])) {
+            $image = $request->file('file_foto');
             $name = $socio->id . '_' . time().'.'.$image->getClientOriginalExtension();
-            $path = $request->file('image')->storeAs('/public/fotos', $name);
+            $path = $request->file('file_foto')->storeAs('/public/fotos', $name);
             $socio->foto_url = $name;
         }
         $socio->fill($request->validated());

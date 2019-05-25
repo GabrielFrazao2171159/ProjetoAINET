@@ -2,10 +2,10 @@
 @section('title','Editar Sócio')
 @section('content')
 <form method="POST" action="{{route('socios.update',$socio)}}" enctype="multipart/form-data">
-	@method('put')
-    @csrf
+	<input type="hidden" name="_method" value="PUT">
+    <input type="hidden" name="_token" value="{{csrf_token()}}">
     <input type="hidden" name="id" value="{{intval($socio->id)}}">
-    @include('socios.create-edit')  
+    @include('socios.edit-form')  
     <div class="form-group">
         <button type="submit" class="btn btn-success" name="ok">Save</button>
         <a href="{{route('socios.index')}}" class="btn btn-default">Cancel</a>

@@ -6,7 +6,7 @@
             <td><img src ="{{ asset('storage/fotos/defaultPIC.jpg   ') }}" class="rounded-circle" height=35px widht=35px></td>
         @endif
         <br/><br/>
-        <input type="file" name="image" class="form-control">
+        <input type="file" name="file_foto" class="form-control">
     </div>
     <div class="col-md-8 text-center">
     @can('editInfo', App\User::class) 
@@ -56,7 +56,7 @@
                 <label for="inputTipo">Tipo</label>
                     <select name="tipo_socio" id="tipo_socio" class="form-control" disabled>
                         <option {{ old('tipo_socio',$socio->tipo_socio) == 'P' ? 'selected' : '' }} value="P">Piloto</option>
-                        <option {{ old('tipo_socio',$socio->tipo_socio) == 'NP' ? 'selected' : '' }} value="NP">Não piloto</option>
+                        <option {{ old('tipo_socio',$socio->tipo_socio) == 'NP' ? 'selected' : '' }} value="NP">Não Piloto</option>
                         <option {{ old('tipo_socio',$socio->tipo_socio) == 'A' ? 'selected' : '' }} value="A">Aeromodelista</option>
                     </select>
                     @if ($errors->has('tipo_socio'))
@@ -95,7 +95,7 @@
         <div class="form-group">
             <label for="inputDataNascimento">Data Nascimento</label>
             <input
-                    type="Date" class="form-control"
+                    type="date" class="form-control"
                     name="data_nascimento" id="inputDataNascimento" value="{{old('data_nascimento',$socio->data_nascimento)}}"/>
             @if ($errors->has('data_nascimento'))
                 <em>{{ $errors->first('data_nascimento') }}</em>
@@ -113,9 +113,7 @@
         @can('editEndereco', $socio)
             <div class="form-group">
                 <label for="inputEndereco">Endereco</label>
-                <input
-                        type="text" class="form-control"
-                        name="endereco" id="endereco" value="{{old('endereco',$socio->endereco)}}"/>
+                <textarea name="endereco"  id="endereco" class="form-control">{{old('endereco',$socio->endereco)}}</textarea>
                 @if ($errors->has('endereco'))
                     <em>{{ $errors->first('endereco') }}</em>
                 @endif
