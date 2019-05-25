@@ -116,6 +116,7 @@ class UtilizadorController extends Controller
     }
 	
 	public function edit(User $socio){
+        $socio->data_nascimento = date('d/m/Y',strtotime($socio->data_nascimento));
         $this->authorize('update', $socio);
 
 		return view('socios.edit',compact('socio'));
@@ -123,7 +124,6 @@ class UtilizadorController extends Controller
 
 	public function update(UpdateUserRequest $request, User $socio){
         $this->authorize('update', $socio);
-        dd($request->validated());
 //    	if(! is_null($request['file_foto'])) {
 //            $image = $request->file('file_foto');
 //            $name = time().'.'.$image->getClientOriginalExtension();
@@ -137,6 +137,11 @@ class UtilizadorController extends Controller
             $socio->foto_url = $name;
         }
         $socio->fill($request->validated());
+
+        //Mudar data para formato da BD (ela vem noutro formato para passar nos testes)
+        $date = str_replace('/', '-', $socio->data_nascimento);
+        $socio->data_nascimento = date("Y-m-d", strtotime($date));
+
         $socio->save();
 
         return redirect()->route('socios.index')->with('sucesso', 'Sócio editado com sucesso!');

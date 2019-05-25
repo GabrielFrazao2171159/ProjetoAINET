@@ -39,7 +39,7 @@ class UpdateUserRequest extends FormRequest
             'nome_informal' => 'required|regex:/^[\pL\s]+$/u|max:40',
             'name' => 'required|regex:/^[\pL\s]+$/u|max:255',
             'email' => 'required|email|unique:users,email,'.$this->id . ',id',
-            'data_nascimento' => 'required',
+            'data_nascimento' => 'required|date_format:"d/m/Y"',
             'telefone' => 'required|string|unique:users,telefone,'.$this->id . ',id|min:9|max:14',
             'nif' => 'required|integer|unique:users,nif,'.$this->id . ',id',      
         ];
@@ -64,6 +64,7 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'nome_informal.regex' => 'O campo marca apenas deve conter letras e espaços.',
+            'data_nascimento.date_format' => 'A data indicada para o campo data nascimento não respeita o formato dd/mm/yyyy.',
         ];
     }
 }
