@@ -3,7 +3,7 @@
         @if (!empty($socio->foto_url))
             <td><img src ="{{ asset('storage/fotos/' . $socio->foto_url) }}" class="rounded-circle" height=350px widht=350px></td>
         @else
-            <td><img src ="{{ asset('storage/fotos/defaultPIC.jpg   ') }}" class="rounded-circle" height=35px widht=35px></td>
+            <td><img src ="{{ asset('storage/fotos/defaultPIC.jpg   ') }}" class="rounded-circle" height=350px widht=350px></td>
         @endif
         <br/><br/>
         <input type="file" name="file_foto" class="form-control">

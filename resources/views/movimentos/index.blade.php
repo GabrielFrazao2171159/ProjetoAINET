@@ -3,17 +3,29 @@
 @section('content')
 <div><a class="btn btn-primary" href="{{route('movimentos.create')}}">Adicionar voo</a></div>
 @if (count($movimentos))
-    <table class="table table-striped">
-    <thead>
+    <table class="table table-striped " style= "margin-left:-20%";>
+        <thead>
         <tr>
             <th>ID</th> 
-            <th>Data</th>
-            <th>Hora de descolagem</th>
-            <th>Hora de aterragem</th>
             <th>Aeronave</th>
-            <th>Piloto</th>
-            <th>Instrutor</th>
+            <th>Data</th>
+            <th>Hora descolagem</th>
+            <th>Hora aterragem</th>
+            <th>Tempo voo</th>
             <th>Natureza</th>
+            <th>Piloto</th>
+            <th>Aeródromo partida</th>
+            <th>Aeródromo chegada</th>
+            <th>Nº aterragens</th>
+            <th>Nº descolagens</th>
+            <th>Nº diário</th>
+            <th>Nº serviço</th>
+            <th>Conta horas inicial</th>
+            <th>Conta horas final</th>
+            <th>Nº pessoas</th>
+            <th>Tipo instrução</th>
+            <th>Instrutor</th>
+            <th>Confirmado</th>
             <th>Ações</th>
         </tr>
     </thead>
@@ -21,17 +33,29 @@
     @foreach ($movimentos as $movimento)
         <tr>
             <td>{{($movimento->id)}}</td>
+            <td>{{App\Aeronave::find($movimento->aeronave)->matricula}}</td>
             <td>{{($movimento->data)}}</td>
             <td>{{date("H:i", strtotime($movimento->hora_descolagem))}}</td>
             <td>{{date("H:i", strtotime($movimento->hora_aterragem))}}</td>
-            <td>
-            <p>{{App\Aeronave::find($movimento->aeronave)->matricula}}</p>
-            <p>{{App\Aeronave::find($movimento->aeronave)->marca}}</p>
-            <p>{{App\Aeronave::find($movimento->aeronave)->modelo}}</p>
-            </td>
-            <td>{{$movimento->piloto->name}}</td>
-            <td>{{$movimento->hasPiloto($movimento->instrutor_id)}}</td>
+            <td>{{$movimento->tempo_voo}}</td>
             <td>{{$movimento->typeToStr()}}</td>
+            <td>{{$movimento->piloto->nome_informal}}</td>
+            <td>{{$movimento->aerodromo_partida}}</td>
+            <td>{{$movimento->aerodromo_chegada}}</td>
+            <td>{{$movimento->num_aterragens}}</td>
+            <td>{{$movimento->num_descolagens}}</td>
+            <td>{{$movimento->num_diario}}</td>
+            <td>{{$movimento->num_servico}}</td>
+            <td>{{$movimento->conta_horas_inicio}}</td>
+            <td>{{$movimento->conta_horas_fim}}</td>
+            <td>{{$movimento->num_pessoas}}</td>
+            <td>{{$movimento->hasInstrucao($movimento->tipo_instrucao)}}</td>
+            <td>{{$movimento->hasPiloto($movimento->instrutor_id)}}</td>
+            <td>@if ($movimento->confirmado == 1)
+                <img src ="{{ asset('storage/fotos/confirmado1.png') }}" class="rounded-circle" height=42px widht=42px>
+                @else
+                <img src ="{{ asset('storage/fotos/confirmado2.png') }}" class="rounded-circle" height=35px widht=35px>
+                @endif
             <td>
             <a class="btn btn-xs btn-primary" href="{{route('movimentos.edit',$movimento)}}">Editar</a>
             <form action="{{route('movimentos.destroy',$movimento)}}" method="POST" role="form" class="inline">

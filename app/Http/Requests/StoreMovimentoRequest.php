@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 
 use App\Aeronave;
 use App\Movimento;
+use App\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreMovimentoRequest extends FormRequest
@@ -32,7 +33,7 @@ class StoreMovimentoRequest extends FormRequest
             'aeronave' => 'required|exists:aeronaves,matricula|max:8',
             'num_diario' => 'required|integer|between:1,5',
             'num_servico' => 'required|integer|between:1,999',
-            'piloto_id' => 'required|exists:users,id|integer|min:10000',
+            'piloto_id' => 'required|exists:users,id|integer',
             'natureza' => 'required',
             'aerodromo_partida' => 'required|exists:aerodromos,code',
             'aerodromo_chegada' => 'required|exists:aerodromos,code',
@@ -43,7 +44,7 @@ class StoreMovimentoRequest extends FormRequest
             'conta_horas_fim' => 'required|integer|gt:conta_horas_inicio',
             'modo_pagamento' => 'required',
             'num_recibo' => 'required|integer|min:0',
-            'observacoes' => 'string'
+            'observacoes' => ''
             ];
 
         if($this->natureza == "I"){
@@ -58,8 +59,8 @@ class StoreMovimentoRequest extends FormRequest
     {
         return [
             'data.before_or_equal' => 'A data deverá ser antes do dia presente ou no próprio dia',
-            'conta_horas_fim.gt' => 'O conta-horas final deverá ser superior a'
-        ];
+            'conta_horas_fim.gt' => 'O conta-horas final deverá ser superior a'];
+
     }
 
 }

@@ -33,13 +33,28 @@ class Movimento extends Model
 
     public function hasPiloto($piloto){
         if($piloto == NULL){
-            return 'Sem Instrutor';
+            return '--------';
         }
         else{
-            return (\App\User::find($piloto)->name);
+            return (\App\User::find($piloto)->nome_informal);
         }
     }
-    
+
+    public function hasInstrucao($tipoInstrucao){
+        if($tipoInstrucao == NULL){
+            return '--------';
+        }
+        else{
+            if($tipoInstrucao == "S"){
+                return "Solo";
+            }
+            else{
+                return "Duplo Comando";
+            }
+        }
+    }
+
+
     public function aeronave()
     {
         return $this->belongsTo('App\Aeronave');

@@ -84,7 +84,7 @@
         @endif
     </div>
     <div class="form-group">
-        <label for="inputAerodromoChegada">Aeródromo de Partida</label>
+        <label for="inputAerodromoChegada">Aeródromo de Chegada</label>
         <input
                 type="text" class="form-control"
                 name="aerodromo_chegada" id="inputAerodromoChegada" value="{{old('aerodromo_chegada',$movimento->aerodromo_chegada)}}"/>
@@ -144,7 +144,7 @@
             <option {{ old('modo_pagamento',$movimento->modo_pagamento) == 'N' ? 'selected' : '' }} value="N">Numerário</option>
             <option {{ old('modo_pagamento',$movimento->modo_pagamento) == 'M' ? 'selected' : '' }} value="M">Multibanco</option>
             <option {{ old('modo_pagamento',$movimento->modo_pagamento) == 'T' ? 'selected' : '' }} value="T">Transferência</option>
-            <option {{ old('modo_pagamento',$movimento->modo_pagamento) == 'P' ? 'selected' : '' }} value="P">Paco de horas</option>
+            <option {{ old('modo_pagamento',$movimento->modo_pagamento) == 'P' ? 'selected' : '' }} value="P">Pacote de horas</option>
         </select>
         @if ($errors->has('modo_pagamento'))
             <em>{{ $errors->first('modo_pagamento') }}</em>
@@ -161,7 +161,7 @@
     </div>
     <div>
         <textarea name="observacoes" rows="5" cols="48">
-Initial text on the box
+
         </textarea>
         @if ($errors->has('observacoes'))
             <em>{{ $errors->first('observacoes') }}</em>

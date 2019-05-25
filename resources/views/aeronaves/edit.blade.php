@@ -11,7 +11,7 @@
     </div>
     @include('aeronaves.create-edit')  
     <div class="form-group">
-        <button type="submit" class="btn btn-success" name="ok">Editar</button>
+        <button type="submit" class="btn btn-success" name="ok">Save</button>
         <a href="{{route('aeronaves.index')}}" class="btn btn-default">Cancel</a>
     </div>
 </form>
