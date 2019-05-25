@@ -2,8 +2,10 @@
 @section('title','Lista de Sócios')
 @section('content')
 <div>
-    <a class="btn btn-primary" href="{{route('socios.create')}}">Adicionar sócio</a>
-    <br><br>
+    @can('create', App\User::class) 
+        <a class="btn btn-primary" href="{{route('socios.create')}}">Adicionar sócio</a>
+        <br><br>
+    @endcan
     @can('gerirCotasAtivos', App\User::class) 
         <form action="{{route('socios.reset_quotas')}}" method="POST" role="form" class="inline">
             @method('patch')
@@ -23,21 +25,44 @@
     <form action="{{route('socios.index')}}" method="get">
 		<fieldset>
 			<legend>Pesquisar</legend>
-			<input id="num_socio" value="" name="num_socio" type="text" 
-			placeholder="Número de sócio">
-			<input id="nome_informal" value="" name="nome_informal" type="text" 
-			placeholder="Nome informal">
-			<input id="email" value="" name="email" type="text" 
-			placeholder="Email">
-			<input id="tipo" value="" name="tipo" type="text" 
-			placeholder="Tipo">
-			<input id="direcao" value="" name="direcao" type="text" 
-			placeholder="Direção">
-			<input id="quotas_pagas" value="" name="quotas_pagas" type="text" 
-			placeholder="Quotas pagas">
-			<input id="ativo" value="" name="ativo" type="text" 
-			placeholder="Ativo">
-			<button class="btn btn-outline-success" type="submit">Pesquisar</button>
+            <div class="form-group col-md-12">
+                <div class="form-group col-md-12">
+        			<input id="num_socio" value="" name="num_socio" type="text" 
+        			placeholder="Número de sócio">
+        			<input id="nome_informal" value="" name="nome_informal" type="text" 
+        			placeholder="Nome informal">
+        			<input id="email" value="" name="email" type="text" 
+        			placeholder="Email">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="tipo_socio">Tipo</label>
+                    <select name="tipo_socio" id="tipo_socio" class="form-control">
+                        <option disabled selected></option>
+                        <option value="P">Piloto</option>
+                        <option value="NP">Não piloto</option>
+                        <option value="A">Aeromodelista</option>
+                    </select>
+                    <label for="direcao">Direção</label>
+                    <select name="direcao" id="direcao" class="form-control">
+                        <option disabled selected></option>
+                        <option value="1">Sim</option>
+                        <option value="0">Não</option>
+                    </select>
+                    <label for="quota_paga">Quotas pagas</label>
+                    <select name="quota_paga" id="quota_paga" class="form-control">
+                        <option disabled selected></option>
+                        <option value="1">Sim</option>
+                        <option value="0">Não</option>
+                    </select>
+                    <label for="ativo">Ativo</label>
+                    <select name="ativo" id="ativo" class="form-control">
+                        <option disabled selected></option>
+                        <option value="1">Sim</option>
+                        <option value="0">Não</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn btn-outline-success" type="submit">Pesquisar</button>
 		</fieldset>
     </form>
 </div>
@@ -92,14 +117,16 @@
                 <td>-----</td>
             @endif
             <td>
-                @can('edit', $socio) 
+                @can('update', $socio) 
                     <a class="btn btn-xs btn-primary" href="{{route('socios.edit',$socio)}}">Editar</a>
                 @endcan
-                <form action="{{route('socios.destroy',$socio)}}" method="POST" role="form" class="inline">
-                    @method('delete')
-                    @csrf
-                    <button type="submit" class="btn btn-xs btn-danger">Eliminar</button>
-                </form>
+                @can('delete', App\User::class) 
+                    <form action="{{route('socios.destroy',$socio)}}" method="POST" role="form" class="inline">
+                        @method('delete')
+                        @csrf
+                        <button type="submit" class="btn btn-xs btn-danger">Eliminar</button>
+                    </form>
+                @endcan
             </td>
             @can('gerirCotasAtivos', App\User::class)
                 <td>

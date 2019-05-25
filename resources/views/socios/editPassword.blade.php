@@ -1,7 +1,7 @@
 @extends('master')
 @section('title','Mudar Palavra-Passe')
 @section('content')
-    <form action="{{route('socios.updatePassword')}}" method="post" class="form-group">
+    <form method="POST" action="{{route('socios.updatePassword')}}" class="form-group">
         @method('patch')
         @csrf
         <div class="form-group">

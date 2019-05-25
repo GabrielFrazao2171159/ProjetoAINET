@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth', 'verified'])->group(
+Route::middleware(['auth', 'verified','ativo'])->group(
     function () {
 //Aeronaves
 Route::get('/home', 'HomeController@index')->name('home');

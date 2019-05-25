@@ -16,7 +16,7 @@ class UtilizadorPolicy
         }
     }
 
-    public function verAtivos(User $auth)
+    public function verInativos(User $auth)
     {
         return false;
     }
@@ -31,7 +31,7 @@ class UtilizadorPolicy
         return false;
     }
 
-    public function edit(User $auth, User $user)
+    public function update(User $auth, User $user)
     {
         if($auth->id==$user->id){
             return true;
@@ -45,6 +45,16 @@ class UtilizadorPolicy
     }
 
     public function enviarMail(User $auth){
+        return false;
+    }
+
+    public function create(User $auth)
+    {
+        return false;
+    }
+
+    public function delete(User $auth)
+    {
         return false;
     }
 }

@@ -17,7 +17,7 @@ class AeronaveController extends Controller
 	public function create(){
 		$this->authorize('create', Aeronave::class);
 
-		$valores = array(new ValorTabela,new ValorTabela,new ValorTabela,new ValorTabela,new ValorTabela,new ValorTabela,new ValorTabela,new ValorTabela,new ValorTabela,new ValorTabela);
+		$valores = array_fill(0,10,new ValorTabela);
 		$aeronave = new Aeronave;
 		return view('aeronaves.create',compact('aeronave','valores'));
 	}

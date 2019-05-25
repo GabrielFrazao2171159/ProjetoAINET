@@ -40,19 +40,20 @@ class UpdateUserRequest extends FormRequest
             'name' => 'required|regex:/^[\pL\s]+$/u|max:255',
             'email' => 'required|email|unique:users,email,'.$this->id . ',id',
             'data_nascimento' => 'required',
-            'nif' => 'required|integer',
             'telefone' => 'string|unique:users,telefone,'.$this->id . ',id|min:9|max:14',
             'nif' => 'required|integer|unique:users,nif,'.$this->id . ',id',
             'endereco' => 'string',      
         ];
 
-        //dd(User::find(Auth::id()));
-        if(true){
-
+        if(User::find(Auth::id())->direcao == 1){   
+        //Caso seja da direção também tem de validar estes campos
+            $rules_base['num_socio'] = 'required|max:11';
+            $rules_base['tipo_socio'] = 'required';
+            $rules_base['sexo'] = 'required';
+            $rules_base['direcao'] = 'required';
+            $rules_base['quota_paga'] = 'required';
+            $rules_base['ativo'] = 'required';
         }
-
-        //'tipo_socio' => 'required',
-        //'num_socio' => 'required|max:11',
 
         return $rules_base;
     }

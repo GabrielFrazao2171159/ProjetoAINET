@@ -14,14 +14,8 @@ use Illuminate\Support\Facades\DB;
 class UtilizadorController extends Controller
 {
 	public function index(Request $request){
-        /*
-        if(!is_null($request->num_socio)){
-            $socios=User::where('num_socio',$request->num_socio)->paginate(15);
-        }else{
-            $socios=User::paginate(15);   
-        }*/
         $user = User::find(Auth::id());
-        if ($user->can('verAtivos', User::class)) {
+        if ($user->can('verInativos', User::class)) {
             $socios=User::paginate(15);
         }else{
             $socios=User::where('ativo',1)->paginate(15); 
@@ -31,11 +25,14 @@ class UtilizadorController extends Controller
 	}
 
 	public function create(){
+        $this->authorize('create', User::class);
+
 		$socio = new User();
 		return view('socios.create',compact('socio'));
 	}
 
 	public function store(StoreUserRequest $request){
+        $this->authorize('create', User::class);
 
 //        $image = $request->file('image');
 //        $name = time().'.'.$image->getClientOriginalExtension();
@@ -119,13 +116,13 @@ class UtilizadorController extends Controller
     }
 	
 	public function edit(User $socio){
-        $this->authorize('edit', $socio);
+        $this->authorize('update', $socio);
 
 		return view('socios.edit',compact('socio'));
 	}
 
 	public function update(UpdateUserRequest $request, User $socio){
-        $this->authorize('edit', $socio);
+        $this->authorize('update', $socio);
 
 //    	if(! is_null($request['image'])) {
 //            $image = $request->file('image');
@@ -133,7 +130,7 @@ class UtilizadorController extends Controller
 //
 //            $path = $request->file('image')->storeAs('/fotos', $name);
 //        }
-
+        dd($request->validated());
         $socio->fill($request->validated());
         //$socio->image = $name;
        //dd($socio);
@@ -143,6 +140,8 @@ class UtilizadorController extends Controller
 	}
 
 	public function destroy(User $socio){
+        $this->authorize('delete', User::class);
+
         $movimentos = $socio->movimentos;
 
         if(count($movimentos)==0){
