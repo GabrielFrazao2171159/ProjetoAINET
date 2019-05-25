@@ -40,9 +40,8 @@ class UpdateUserRequest extends FormRequest
             'name' => 'required|regex:/^[\pL\s]+$/u|max:255',
             'email' => 'required|email|unique:users,email,'.$this->id . ',id',
             'data_nascimento' => 'required',
-            'telefone' => 'string|unique:users,telefone,'.$this->id . ',id|min:9|max:14',
-            'nif' => 'required|integer|unique:users,nif,'.$this->id . ',id',
-            'endereco' => 'string',      
+            'telefone' => 'required|string|unique:users,telefone,'.$this->id . ',id|min:9|max:14',
+            'nif' => 'required|integer|unique:users,nif,'.$this->id . ',id',      
         ];
 
         if(User::find(Auth::id())->direcao == 1){   
@@ -53,6 +52,9 @@ class UpdateUserRequest extends FormRequest
             $rules_base['direcao'] = 'required';
             $rules_base['quota_paga'] = 'required';
             $rules_base['ativo'] = 'required';
+        }
+        if(User::find(Auth::id())->id == $this->id){
+            $rules_base['endereco'] = 'required|string';
         }
 
         return $rules_base;

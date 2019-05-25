@@ -130,7 +130,6 @@ class UtilizadorController extends Controller
 //
 //            $path = $request->file('image')->storeAs('/fotos', $name);
 //        }
-        dd($request->validated());
 
     	if(! is_null($request['image'])) {
             $image = $request->file('image');
@@ -138,7 +137,6 @@ class UtilizadorController extends Controller
 
             $path = $request->file('image')->storeAs('/public/fotos', $name);
         }
-
         $socio->fill($request->validated());
         $socio->foto_url = $name;
         $socio->save();

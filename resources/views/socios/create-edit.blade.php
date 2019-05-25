@@ -110,15 +110,28 @@
                 <em>{{ $errors->first('email') }}</em>
             @endif 
         </div>
-        <div class="form-group">
-            <label for="inputEndereco">Endereco</label>
-            <input
-                    type="text" class="form-control"
-                    name="endereco" id="endereco" value="{{old('endereco',$socio->endereco)}}"/>
-            @if ($errors->has('endereco'))
-                <em>{{ $errors->first('endereco') }}</em>
-            @endif
-        </div>
+        @can('editEndereco', $socio)
+            <div class="form-group">
+                <label for="inputEndereco">Endereco</label>
+                <input
+                        type="text" class="form-control"
+                        name="endereco" id="endereco" value="{{old('endereco',$socio->endereco)}}"/>
+                @if ($errors->has('endereco'))
+                    <em>{{ $errors->first('endereco') }}</em>
+                @endif
+            </div>
+        @else
+            <div class="form-group">
+                <label for="inputEndereco">Endereco</label>
+                <input
+                        type="text" class="form-control"
+                        name="endereco" id="endereco" readonly="readonly"
+                        value="{{old('endereco',$socio->endereco)}}"/>
+                @if ($errors->has('endereco'))
+                    <em>{{ $errors->first('endereco') }}</em>
+                @endif
+            </div>
+        @endcan
         <div class="form-group">
             <label for="inputNif">NIF</label>
             <input
