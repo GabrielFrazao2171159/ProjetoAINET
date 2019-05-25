@@ -1,7 +1,7 @@
 @extends('master')
 @section('title','Editar Sócio')
 @section('content')
-<form action="{{route('socios.update',$socio)}}" method="post" class="form-group" enctype="multipart/form-data">
+<form method="POST" action="{{route('socios.update',$socio)}}" enctype="multipart/form-data">
 	@method('put')
     @csrf
     <input type="hidden" name="id" value="{{intval($socio->id)}}">
