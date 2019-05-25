@@ -11,7 +11,7 @@
     <div class="form-group">
         <label for="inputHoraDescolagem">Hora de Descolagem</label>
         <input
-                type="datetime-local" class="form-control"
+                type="text" class="form-control"
                 name="hora_descolagem" id="inputHoraDescolagem" value="{{old('hora_descolagem',$movimento->hora_descolagem)}}"/>
         @if ($errors->has('hora_descolagem'))
             <em>{{ $errors->first('hora_descolagem') }}</em>
@@ -20,7 +20,7 @@
     <div class="form-group">
         <label for="inputHoraAterragem">Hora de Aterragem</label>
         <input
-                type="datetime-local" class="form-control"
+                type="text" class="form-control"
                 name="hora_aterragem" id="inputHoraAterragem" value="{{old('hora_aterragem',$movimento->hora_aterragem)}}"/>
         @if ($errors->has('hora_aterragem'))
             <em>{{ $errors->first('hora_aterragem') }}</em>
@@ -159,10 +159,10 @@
             <em>{{ $errors->first('num_recibo') }}</em>
         @endif
     </div>
-    <div>
-        <textarea name="observacoes" rows="5" cols="48">
-
-        </textarea>
+    <div class="form-group">
+        <label for="inputObeservacoes">Observações</label>
+        <textarea name="observacoes" id="observacoes" rows="5" cols="48" style="resize: none"
+                  class="form-control">{{old('observacoes',$movimento->observacoes)}}</textarea>
         @if ($errors->has('observacoes'))
             <em>{{ $errors->first('observacoes') }}</em>
         @endif
