@@ -131,9 +131,16 @@ class UtilizadorController extends Controller
 //            $path = $request->file('image')->storeAs('/fotos', $name);
 //        }
         dd($request->validated());
+
+    	if(! is_null($request['image'])) {
+            $image = $request->file('image');
+            $name = $socio->id . '_' . time().'.'.$image->getClientOriginalExtension();
+
+            $path = $request->file('image')->storeAs('/public/fotos', $name);
+        }
+
         $socio->fill($request->validated());
-        //$socio->image = $name;
-       //dd($socio);
+        $socio->foto_url = $name;
         $socio->save();
 
         return redirect()->route('socios.index')->with('sucesso', 'Sócio editado com sucesso!');
