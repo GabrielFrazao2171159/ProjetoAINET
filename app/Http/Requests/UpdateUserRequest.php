@@ -36,12 +36,10 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         $rules_base = [
-            'nome_informal' => 'required|regex:/^[\pL\s]+$/u|max:40',
+            'nome_informal' => 'required|string|max:40',
             'name' => 'required|regex:/^[\pL\s]+$/u|max:255',
             'email' => 'required|email|unique:users,email,'.$this->id . ',id',
-            'data_nascimento' => 'required|date_format:"d/m/Y"',
-            'telefone' => 'required|string|unique:users,telefone,'.$this->id . ',id|min:9|max:14',
-            'nif' => 'required|integer|unique:users,nif,'.$this->id . ',id',      
+            'data_nascimento' => 'required|date_format:"d/m/Y"',    
         ];
 
         if(User::find(Auth::id())->direcao == 1){   
@@ -53,8 +51,21 @@ class UpdateUserRequest extends FormRequest
             $rules_base['quota_paga'] = 'required';
             $rules_base['ativo'] = 'required';
         }
-        if(User::find(Auth::id())->id == $this->id){
+
+        if((User::find(Auth::id())->id == $this->id) && !empty($this->endereco)){
             $rules_base['endereco'] = 'required|string';
+        }
+
+        if(!empty($this->nif)){
+            $rules_base['nif'] = 'required|integer|unique:users,nif,'.$this->id . ',id|digits:9'; 
+        }
+
+        if(!empty($this->telefone)){
+            $rules_base['telefone'] = 'required|string|unique:users,telefone,'.$this->id . ',id|min:9|max:20';
+        }
+
+        if(!empty($this->file_foto)){
+            $rules_base['file_foto'] = 'required|mimetypes:image/jpeg,image/png,image/jpg';
         }
 
         return $rules_base;

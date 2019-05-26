@@ -1,6 +1,6 @@
 <div>
     <div class="col-md-4 text-center">
-        <td><img src ="{{ asset('storage/fotos/defaultPIC.jpg   ') }}" class="rounded-circle" height=35px widht=35px></td>
+        <td><img src ="{{ asset('storage/fotos/defaultPIC.jpg') }}" class="rounded-circle" height=35px widht=35px></td>
         <br/><br/>
         <input type="file" name="file_foto" class="form-control">
     </div>

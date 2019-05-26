@@ -124,18 +124,20 @@ class UtilizadorController extends Controller
 
 	public function update(UpdateUserRequest $request, User $socio){
         $this->authorize('update', $socio);
+
 //    	if(! is_null($request['file_foto'])) {
 //            $image = $request->file('file_foto');
 //            $name = time().'.'.$image->getClientOriginalExtension();
 //
 //            $path = $request->file('file_foto')->storeAs('/fotos', $name);
 //        }
-    	if(! is_null($request['file_foto'])) {
+    	if($request->hasFile('file_foto')) {
             $image = $request->file('file_foto');
             $name = $socio->id . '_' . time().'.'.$image->getClientOriginalExtension();
             $path = $request->file('file_foto')->storeAs('/public/fotos', $name);
             $socio->foto_url = $name;
         }
+
         $socio->fill($request->validated());
 
         //Mudar data para formato da BD (ela vem noutro formato para passar nos testes)
