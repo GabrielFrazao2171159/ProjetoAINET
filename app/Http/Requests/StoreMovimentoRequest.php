@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 
 use App\Aeronave;
 use App\Movimento;
+use App\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreMovimentoRequest extends FormRequest
@@ -27,12 +28,12 @@ class StoreMovimentoRequest extends FormRequest
     public function rules()
     {
         $rules = ['data' => 'required|before_or_equal:today',
-            'hora_descolagem' => 'required|after_or_equal:data',
-            'hora_aterragem' => 'required',
+            'hora_descolagem' => 'required|date_format:"Y-m-d H:i:s|after_or_equal:data',
+            'hora_aterragem' => 'required|date_format:"Y-m-d H:i:s',
             'aeronave' => 'required|exists:aeronaves,matricula|max:8',
             'num_diario' => 'required|integer|between:1,5',
             'num_servico' => 'required|integer|between:1,999',
-            'piloto_id' => 'required|exists:users,id|integer|min:10000',
+            'piloto_id' => 'required|exists:users,id|integer',
             'natureza' => 'required',
             'aerodromo_partida' => 'required|exists:aerodromos,code',
             'aerodromo_chegada' => 'required|exists:aerodromos,code',
@@ -43,7 +44,7 @@ class StoreMovimentoRequest extends FormRequest
             'conta_horas_fim' => 'required|integer|gt:conta_horas_inicio',
             'modo_pagamento' => 'required',
             'num_recibo' => 'required|integer|min:0',
-            'observacoes' => 'string'
+            'observacoes' => ''
             ];
 
         if($this->natureza == "I"){
@@ -57,9 +58,11 @@ class StoreMovimentoRequest extends FormRequest
     public function messages()
     {
         return [
-            'data.before_or_equal' => 'A data deverá ser antes do dia presente ou no próprio dia',
-            'conta_horas_fim.gt' => 'O conta-horas final deverá ser superior a'
+            'data.before_or_equal' => 'A data deverá ser antes do dia presente ou no próprio dia.',
+            'hora_descolagem.date_format' => 'A data indicada para o campo hora descolagem não respeita o formato Ano-Mês-Dia Hora:Minutos:Segundos.',
+            'hora_aterragem.date_format' => 'A data indicada para o campo hora descolagem não respeita o formato Ano-Mês-Dia Hora:Minutos:Segundos.'
         ];
+
     }
 
 }

@@ -39,13 +39,16 @@ class MovimentoController extends Controller
         $movimento['validade_certificado_piloto'] = $piloto->validade_certificado;
         $movimento['classe_certificado_piloto'] = $piloto->classe_certificado;
 
-        if($movimento['natureza'] != "I") {
-            $movimento['tipo_instrucao'] = "";
-            $movimento['instrutor_id'] = "";
-
+        if($piloto->tipo_socio != "P"){
+            return back()->withErrors(array('piloto_id' => 'O utilizador inserido tem de ser do tipo piloto.'));
         }
-        else{
+
+
+        if($movimento['natureza'] == "I") {
             $instrutor = User::find($movimento['instrutor_id']);
+            if($instrutor->instrutor != "1"){
+                return back()->withErrors(array('instrutor_id' => 'O utilizador inserido tem de ser instrutor.'));
+            }
             $movimento['num_licenca_instrutor'] = $instrutor->num_licenca;
             $movimento['tipo_licenca_instrutor'] = $instrutor->tipo_licenca;
             $movimento['validade_licenca_instrutor'] = $instrutor->validade_licenca;
@@ -53,8 +56,6 @@ class MovimentoController extends Controller
             $movimento['validade_certificado_instrutor'] = $instrutor->validade_certificado;
             $movimento['classe_certificado_instrutor'] = $instrutor->classe_certificado;
         }
-
-        dd($movimento);
 
         $movimentoCriado = Movimento::create($movimento);
         return redirect()->route('movimentos.index')->with('sucesso', 'Voo inserido com sucesso!');
@@ -70,5 +71,51 @@ class MovimentoController extends Controller
 
         return redirect()->route('movimentos.index')->with('sucesso', 'Movimento eliminado com sucesso!');
     }
+
+    public function edit(Movimento $movimento){
+        return view('movimentos.edit',compact('movimento'));
+    }
+
+    public function update(StoreMovimentoRequest $request, Movimento $movimento){
+//
+        $movimento->fill($request->all());
+
+        $piloto = User::find($movimento['piloto_id']);
+        $aeronave = Aeronave::find($movimento['aeronave']);
+
+        $movimento['tempo_voo'] = ($movimento['conta_horas_fim']-$movimento['conta_horas_inicio'])*0.1;
+        $tempovooHoras = $movimento['tempo_voo'];
+        $movimento['preco_voo'] = $tempovooHoras*$aeronave->preco_hora;
+
+        $movimento['num_licenca_piloto'] = $piloto->num_licenca;
+        $movimento['tipo_licenca_piloto'] = $piloto->tipo_licenca;
+        $movimento['validade_licenca_piloto'] = $piloto->validade_licenca;
+        $movimento['num_certificado_piloto'] = $piloto->num_certificado;
+        $movimento['validade_certificado_piloto'] = $piloto->validade_certificado;
+        $movimento['classe_certificado_piloto'] = $piloto->classe_certificado;
+
+        if($piloto->tipo_socio != "P"){
+            return back()->withErrors(array('piloto_id' => 'O utilizador inserido tem de ser do tipo piloto.'));
+        }
+
+        if($movimento['natureza'] == "I") {
+            $instrutor = User::find($movimento['instrutor_id']);
+            if($instrutor->instrutor != "1"){
+                return back()->withErrors(array('instrutor_id' => 'O utilizador inserido tem de ser instrutor.'));
+            }
+            $movimento['num_licenca_instrutor'] = $instrutor->num_licenca;
+            $movimento['tipo_licenca_instrutor'] = $instrutor->tipo_licenca;
+            $movimento['validade_licenca_instrutor'] = $instrutor->validade_licenca;
+            $movimento['num_certificado_instrutor'] = $instrutor->num_certificado;
+            $movimento['validade_certificado_instrutor'] = $instrutor->validade_certificado;
+            $movimento['classe_certificado_instrutor'] = $instrutor->classe_certificado;
+        }
+        $movimento->save();
+
+        return redirect()->route('movimentos.index')->with('sucesso', 'Voo editado com sucesso!');
+    }
+
+
+
 
 }

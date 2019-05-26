@@ -44,13 +44,13 @@ Route::patch ('/socios/{socio}/quota', 'UtilizadorController@quotas')->name('soc
 Route::patch ('/socios/{socio}/ativo', 'UtilizadorController@ativo')->name('socios.ativo');
 Route::patch ('/socios/desativar_sem_quotas', 'UtilizadorController@desativar_sem_quotas')->name('socios.desativar_sem_quotas');
 
-
 //Movimentos
 Route::get('/movimentos', 'MovimentoController@index')->name('movimentos.index');
 Route::get('/movimentos/create', 'MovimentoController@create')->name('movimentos.create');
 Route::post('/movimentos', 'MovimentoController@store')->name('movimentos.store');
-Route::get('/movimentos/{movimento}/edit', 'MovimentoController@edit')->name('movimentos.edit');
 Route::delete('/movimentos/{movimento}', 'MovimentoController@destroy')->name('movimentos.destroy');
+Route::get('/movimentos/{movimento}/edit', 'MovimentoController@edit')->name('movimentos.edit');
+Route::put('/movimentos/{movimento}', 'MovimentoController@update')->name('movimentos.update');
 
 //Autenticacao
 Route::get('/password', 'UtilizadorController@editPassword')->name('socios.editPassword');

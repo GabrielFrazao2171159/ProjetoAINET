@@ -11,7 +11,7 @@
     <div class="form-group">
         <label for="inputHoraDescolagem">Hora de Descolagem</label>
         <input
-                type="datetime-local" class="form-control"
+                type="text" class="form-control"
                 name="hora_descolagem" id="inputHoraDescolagem" value="{{old('hora_descolagem',$movimento->hora_descolagem)}}"/>
         @if ($errors->has('hora_descolagem'))
             <em>{{ $errors->first('hora_descolagem') }}</em>
@@ -20,7 +20,7 @@
     <div class="form-group">
         <label for="inputHoraAterragem">Hora de Aterragem</label>
         <input
-                type="datetime-local" class="form-control"
+                type="text" class="form-control"
                 name="hora_aterragem" id="inputHoraAterragem" value="{{old('hora_aterragem',$movimento->hora_aterragem)}}"/>
         @if ($errors->has('hora_aterragem'))
             <em>{{ $errors->first('hora_aterragem') }}</em>
@@ -84,7 +84,7 @@
         @endif
     </div>
     <div class="form-group">
-        <label for="inputAerodromoChegada">Aeródromo de Partida</label>
+        <label for="inputAerodromoChegada">Aeródromo de Chegada</label>
         <input
                 type="text" class="form-control"
                 name="aerodromo_chegada" id="inputAerodromoChegada" value="{{old('aerodromo_chegada',$movimento->aerodromo_chegada)}}"/>
@@ -144,7 +144,7 @@
             <option {{ old('modo_pagamento',$movimento->modo_pagamento) == 'N' ? 'selected' : '' }} value="N">Numerário</option>
             <option {{ old('modo_pagamento',$movimento->modo_pagamento) == 'M' ? 'selected' : '' }} value="M">Multibanco</option>
             <option {{ old('modo_pagamento',$movimento->modo_pagamento) == 'T' ? 'selected' : '' }} value="T">Transferência</option>
-            <option {{ old('modo_pagamento',$movimento->modo_pagamento) == 'P' ? 'selected' : '' }} value="P">Paco de horas</option>
+            <option {{ old('modo_pagamento',$movimento->modo_pagamento) == 'P' ? 'selected' : '' }} value="P">Pacote de horas</option>
         </select>
         @if ($errors->has('modo_pagamento'))
             <em>{{ $errors->first('modo_pagamento') }}</em>
@@ -159,10 +159,10 @@
             <em>{{ $errors->first('num_recibo') }}</em>
         @endif
     </div>
-    <div>
-        <textarea name="observacoes" rows="5" cols="48">
-Initial text on the box
-        </textarea>
+    <div class="form-group">
+        <label for="inputObeservacoes">Observações</label>
+        <textarea name="observacoes" id="observacoes" rows="5" cols="48" style="resize: none"
+                  class="form-control">{{old('observacoes',$movimento->observacoes)}}</textarea>
         @if ($errors->has('observacoes'))
             <em>{{ $errors->first('observacoes') }}</em>
         @endif

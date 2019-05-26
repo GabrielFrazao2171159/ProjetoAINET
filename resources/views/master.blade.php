@@ -7,6 +7,11 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">  <!-- Import a fonte awesome -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
         <link rel="stylesheet" href="css/style.css">
+    <style>
+        table{
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-default">
@@ -33,8 +38,8 @@ Alterar Palavra-Passe</a></li>
       </div>
     </nav>
     <div class="container">
-        <div class="jumbotron">
-            <h1>@yield('title')</h1>
+        <div class="jumbotron" style="background-color: rgb(48,117,173);">
+            <h1><span style="color: white; ">@yield('title')</span></h1>
         </div>
         @if (session('sucesso'))
             @include('shared.sucesso')
