@@ -10,16 +10,45 @@ use App\Http\Requests\UpdatePasswordRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use App\Filtros\QueryBuilder;
 
 class UtilizadorController extends Controller
 {
 	public function index(Request $request){
         $user = User::find(Auth::id());
-        if ($user->can('verInativos', User::class)) {
-            $socios=User::paginate(15);
-        }else{
-            $socios=User::where('ativo',1)->paginate(15); 
+
+        $attr = array();
+        if (!($user->can('verInativos', User::class))) {
+            $attr['ativo'] = 1;
         }
+
+        //Filtro => Valor
+        if(!is_null($request->num_socio)){
+            $attr['num_socio'] = (int)$request->num_socio;
+        }
+        if(!is_null($request->nome_informal)){
+            $attr['nome_informal'] = $request->nome_informal;
+        }
+        if(!is_null($request->email)){
+            $attr['email'] = $request->email;
+        }
+        if(!is_null($request->tipo_socio)){
+            $attr['tipo_socio'] = (string)$request->tipo_socio;
+        }
+        if(!is_null($request->direcao)){
+            $attr['direcao'] = (int)$request->direcao;
+        }
+
+        if($user->can('filtrarTodosDados', User::class)){
+            if(!is_null($request->quota_paga)){
+                $attr['quota_paga'] = (int)$request->quota_paga;
+            }
+            if(!is_null($request->ativo)){
+                $attr['ativo'] = (int)$request->ativo;
+            }
+        }
+
+        $socios = QueryBuilder::socios($attr);
 
 		return view('socios.index',compact('socios'));
 	}
@@ -141,7 +170,7 @@ class UtilizadorController extends Controller
         }
 
         $socio->fill($request->validated());
-        dd($socio);
+        
         //Mudar data para formato da BD (ela vem noutro formato para passar nos testes)
         $date = str_replace('/', '-', $socio->data_nascimento);
         $socio->data_nascimento = date("Y-m-d", strtotime($date));

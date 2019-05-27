@@ -21,11 +21,6 @@ class UtilizadorPolicy
         return false;
     }
 
-    public function verInfoDirecao(User $auth)
-    {
-        return false;
-    }
-
     public function gerirCotasAtivos(User $auth)
     {
         return false;
@@ -54,6 +49,16 @@ class UtilizadorPolicy
     }
 
     public function delete(User $auth)
+    {
+        return false;
+    }
+
+    public function filtrarTodosDados(User $auth)
+    {
+        return false;
+    }
+
+    public function verInfoDirecao(User $auth)
     {
         return false;
     }

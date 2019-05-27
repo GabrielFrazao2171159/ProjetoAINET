@@ -48,18 +48,20 @@
                         <option value="1">Sim</option>
                         <option value="0">Não</option>
                     </select>
-                    <label for="quota_paga">Quotas pagas</label>
-                    <select name="quota_paga" id="quota_paga" class="form-control">
-                        <option disabled selected></option>
-                        <option value="1">Sim</option>
-                        <option value="0">Não</option>
-                    </select>
-                    <label for="ativo">Ativo</label>
-                    <select name="ativo" id="ativo" class="form-control">
-                        <option disabled selected></option>
-                        <option value="1">Sim</option>
-                        <option value="0">Não</option>
-                    </select>
+                    @can('filtrarTodosDados', App\User::class)
+                        <label for="quota_paga">Quotas pagas</label>
+                        <select name="quota_paga" id="quota_paga" class="form-control">
+                            <option disabled selected></option>
+                            <option value="1">Sim</option>
+                            <option value="0">Não</option>
+                        </select>
+                        <label for="ativo">Ativo</label>
+                        <select name="ativo" id="ativo" class="form-control">
+                            <option disabled selected></option>
+                            <option value="1">Sim</option>
+                            <option value="0">Não</option>
+                        </select>
+                    @endcan
                 </div>
             </div>
             <button class="btn btn-outline-success" type="submit">Pesquisar</button>
