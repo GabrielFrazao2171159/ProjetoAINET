@@ -125,12 +125,14 @@ class UtilizadorController extends Controller
 	public function update(UpdateUserRequest $request, User $socio){
         $this->authorize('update', $socio);
 
-//    	if(! is_null($request['file_foto'])) {
-//            $image = $request->file('file_foto');
-//            $name = time().'.'.$image->getClientOriginalExtension();
-//
-//            $path = $request->file('file_foto')->storeAs('/fotos', $name);
-//        }
+        //Regras de unicidade
+        $regrasUni = $request->validate([
+            'email' => 'unique:users,email,'.$socio->id . ',id',
+            'nif' => 'unique:users,nif,'.$socio->id . ',id',
+            'telefone' => 'unique:users,telefone,'.$socio->id . ',id',
+        ]);
+        //Fim_Regras Unicidade (Faço aqui para ter acesso ao socio)
+
     	if($request->hasFile('file_foto')) {
             $image = $request->file('file_foto');
             $name = $socio->id . '_' . time().'.'.$image->getClientOriginalExtension();
@@ -139,7 +141,7 @@ class UtilizadorController extends Controller
         }
 
         $socio->fill($request->validated());
-
+        dd($socio);
         //Mudar data para formato da BD (ela vem noutro formato para passar nos testes)
         $date = str_replace('/', '-', $socio->data_nascimento);
         $socio->data_nascimento = date("Y-m-d", strtotime($date));
