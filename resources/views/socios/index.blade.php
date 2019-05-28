@@ -158,5 +158,5 @@
 @else
     <h2>Não foram encontrados utilizadores</h2>
 @endif
-<div style="text-align: center;">{{ $socios->links() }}</div>
+<div style="text-align: center;">{{$socios->appends(request()->except('page'))->links()}}</div>
 @endsection

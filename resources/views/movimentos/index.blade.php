@@ -111,5 +111,5 @@
 @else 
     <h2>Não foram encontradas voos</h2>
 @endif
-<div style="text-align: center;">{{ $movimentos->links() }}</div>
+<div style="text-align: center;">{{$movimentos->appends(request()->except('page'))->links()}}</div>
 @endsection
