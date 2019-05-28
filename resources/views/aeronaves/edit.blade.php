@@ -1,9 +1,9 @@
 @extends('master')
 @section('title','Editar Aeronave')
 @section('content')
-<form action="{{route('aeronaves.update',$aeronave)}}" method="post" class="form-group">
-	@method('put')
-    @csrf
+<form method="POST" action="{{route('aeronaves.update',$aeronave)}}" class="form-group">
+	<input type="hidden" name="_method" value="PUT">
+    <input type="hidden" name="_token" value="{{csrf_token()}}">
     <div class="form-group">
     	<label for="inputMatricula">Matricula</label>
         <input type="text" class="form-control" name="matricula" id="inputMatricula" 

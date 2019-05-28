@@ -51,6 +51,7 @@ class AeronaveController extends Controller
 		$this->authorize('update', Aeronave::class);
 
         $aeronaveValidated = $request->validated();
+        unset($aeronaveValidated['matricula']);
         $aeronave->fill($aeronaveValidated);
         $aeronave->save();
 

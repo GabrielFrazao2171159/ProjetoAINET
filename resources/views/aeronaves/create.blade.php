@@ -1,8 +1,8 @@
 @extends('master')
 @section('title','Adicionar Aeronave')
 @section('content')
-<form action="{{route('aeronaves.store')}}" method="post" class="form-group">
-    @csrf
+<form method="POST" action="{{route('aeronaves.store')}}" class="form-group">
+    <input type="hidden" name="_token" value="{{csrf_token()}}">
     <div class="form-group">
 	    <label for="inputMatricula">Matricula</label>
 	    <input
