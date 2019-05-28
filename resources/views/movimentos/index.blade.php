@@ -3,7 +3,7 @@
 @section('content')
 <div><a class="btn btn-primary" href="{{route('movimentos.create')}}">Adicionar voo</a></div>
 @if (count($movimentos))
-    <table class="table table-striped " style= "margin-left:-20%";>
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>ID</th> 
@@ -26,6 +26,7 @@
             <th>Tipo instrução</th>
             <th>Instrutor</th>
             <th>Confirmado</th>
+            <th>Observações</th>
             <th>Ações</th>
         </tr>
     </thead>
@@ -34,7 +35,7 @@
         <tr>
             <td>{{($movimento->id)}}</td>
             <td>{{App\Aeronave::find($movimento->aeronave)->matricula}}</td>
-            <td>{{($movimento->data)}}</td>
+            <td>{{date("d/m/Y", strtotime($movimento->data))}}</td>
             <td>{{date("H:i", strtotime($movimento->hora_descolagem))}}</td>
             <td>{{date("H:i", strtotime($movimento->hora_aterragem))}}</td>
             <td>{{$movimento->tempo_voo}}</td>

@@ -18,7 +18,6 @@
                 font-weight: 200;
                 height: 100vh;
                 margin: 0;
-                background-image: url('/public/icon.jpg');
             }
 
             .full-height {

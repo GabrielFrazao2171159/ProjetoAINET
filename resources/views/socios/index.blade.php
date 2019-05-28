@@ -22,7 +22,7 @@
 </div>
 <br>
 <div>
-    <form action="{{route('socios.index')}}" method="get">
+    <form method="GET" action="{{route('socios.index')}}">
 		<fieldset>
 			<legend>Pesquisar</legend>
             <div class="form-group col-md-12">
@@ -36,11 +36,11 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="tipo_socio">Tipo</label>
-                    <select name="tipo_socio" id="tipo_socio" class="form-control">
+                    <select name="tipo" id="tipo" class="form-control">
                         <option disabled selected></option>
-                        <option value="P">Piloto</option>
-                        <option value="NP">Não piloto</option>
                         <option value="A">Aeromodelista</option>
+                        <option value="P">Piloto</option>
+                        <option value="NP">Não Piloto</option>    
                     </select>
                     <label for="direcao">Direção</label>
                     <select name="direcao" id="direcao" class="form-control">
@@ -95,9 +95,9 @@
     @foreach ($socios as $socio)
         <tr>
             @if (!empty($socio->foto_url))
-                <td><img src ="{{ asset('storage/fotos/' . $socio->foto_url) }}" class="rounded-circle" height=35px widht=35px></td>
+                <td><img src="{{ asset('storage/fotos/' . $socio->foto_url) }}" class="rounded-circle" height=35px widht=35px></td>
             @else
-                <td><img src ="{{ asset('storage/fotos/defaultPIC.jpg') }}" class="rounded-circle" height=35px widht=35px></td>
+                <td><img src="{{ asset('storage/fotos/defaultPIC.jpg') }}" class="rounded-circle" height=35px widht=35px></td>
             @endif
             <td>{{($socio->num_socio)}}</td>
             <td>{{($socio->nome_informal)}}</td>

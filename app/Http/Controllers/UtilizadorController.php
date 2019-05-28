@@ -10,6 +10,7 @@ use App\Http\Requests\UpdatePasswordRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use App\Filtros\QueryBuilder;
 
 class UtilizadorController extends Controller
@@ -32,8 +33,8 @@ class UtilizadorController extends Controller
         if(!is_null($request->email)){
             $attr['email'] = $request->email;
         }
-        if(!is_null($request->tipo_socio)){
-            $attr['tipo_socio'] = (string)$request->tipo_socio;
+        if(!is_null($request->tipo)){
+            $attr['tipo_socio'] = (string)$request->tipo;
         }
         if(!is_null($request->direcao)){
             $attr['direcao'] = (int)$request->direcao;
@@ -154,18 +155,19 @@ class UtilizadorController extends Controller
 	public function update(UpdateUserRequest $request, User $socio){
         $this->authorize('update', $socio);
 
-        //Regras de unicidade
-        $regrasUni = $request->validate([
-            'email' => 'unique:users,email,'.$socio->id . ',id',
-            'nif' => 'unique:users,nif,'.$socio->id . ',id',
-            'telefone' => 'unique:users,telefone,'.$socio->id . ',id',
-        ]);
-        //Fim_Regras Unicidade (Faço aqui para ter acesso ao socio)
+        //Regra de unicidade
+        if(!empty($request->email)){
+            $request->validate(['email' => 'unique:users,email,'.$socio->id . ',id']);
+        }
+        //Fim_Regra Unicidade (Faço aqui para ter acesso à variável socio)
 
     	if($request->hasFile('file_foto')) {
             $image = $request->file('file_foto');
             $name = $socio->id . '_' . time().'.'.$image->getClientOriginalExtension();
             $path = $request->file('file_foto')->storeAs('/public/fotos', $name);
+            if(!is_null($socio->foto_url)){
+                Storage::delete('/public/fotos/'.$socio->foto_url); //Apagar antiga
+            }
             $socio->foto_url = $name;
         }
 
