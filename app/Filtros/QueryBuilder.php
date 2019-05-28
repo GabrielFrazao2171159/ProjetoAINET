@@ -2,6 +2,7 @@
 namespace App\Filtros;
 
 use App\User;
+use App\Movimento;
 
 class QueryBuilder 
 {
@@ -26,5 +27,27 @@ class QueryBuilder
     	$users = User::where($arrayWhere)->paginate(15);
     	
     	return $users;
+    }
+
+    public static function movimentos($attr)
+    {
+        $arrayWhere = array();
+
+        if(isset($attr['data_inf'])){
+            $arrayWhere[] = ['data', '>=', $attr['data_inf']];
+            unset($attr['data_inf']);
+        }
+        if(isset($attr['data_sup'])){
+            $arrayWhere[] = ['data', '<=', $attr['data_sup']];
+            unset($attr['data_sup']);
+        }
+
+        foreach ($attr as $campo => $valor) {
+            $arrayWhere[] = [(string)$campo, '=', $valor];
+        }
+      
+        $movimentos = Movimento::where($arrayWhere)->paginate(15);
+        
+        return $movimentos;
     }
 }

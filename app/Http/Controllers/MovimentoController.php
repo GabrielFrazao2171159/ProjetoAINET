@@ -8,12 +8,42 @@ use App\Http\Requests\StoreMovimentoRequest;
 use App\User;
 use App\Movimento;
 use Illuminate\Support\Facades\DB;
+use App\Filtros\QueryBuilder;
 
 class MovimentoController extends Controller
 {
+    public function index(Request $request){
+        $attr = array();
 
-    public function index(){
-		$movimentos = Movimento::paginate(15);
+        if(!is_null($request->id)){
+            $attr['id'] = (int)$request->id;
+        }
+        if(!is_null($request->aeronave)){
+            $attr['aeronave'] = (string)$request->aeronave;
+        }
+        if(!is_null($request->piloto)){
+            $attr['piloto_id'] = (int)$request->piloto;
+        }
+        if(!is_null($request->instrutor)){
+            $attr['instrutor_id'] = (int)$request->instrutor;
+        }
+        if(!is_null($request->natureza)){
+            $attr['natureza'] = (string)$request->natureza;
+        }
+        if(!is_null($request->confirmado)){
+            $attr['confirmado'] = (int)$request->confirmado;
+        }
+        if(!is_null($request->data_inf)){
+            $date = str_replace('/', '-', $request->data_inf);
+            $attr['data_inf'] = (string)date("Y-m-d", strtotime($date));
+        }
+        if(!is_null($request->data_sup)){
+            $date = str_replace('/', '-', $request->data_sup);
+            $attr['data_sup'] = (string)date("Y-m-d", strtotime($date));
+        }
+
+		$movimentos = QueryBuilder::movimentos($attr);
+
 		return view('movimentos.index',compact('movimentos'));
 	}
 

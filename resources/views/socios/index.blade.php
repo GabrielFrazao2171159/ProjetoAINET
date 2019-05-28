@@ -27,11 +27,11 @@
 			<legend>Pesquisar</legend>
             <div class="form-group col-md-12">
                 <div class="form-group col-md-12">
-        			<input id="num_socio" value="" name="num_socio" type="text" 
+        			<input id="num_socio" name="num_socio" type="text" 
         			placeholder="Número de sócio">
-        			<input id="nome_informal" value="" name="nome_informal" type="text" 
+        			<input id="nome_informal" name="nome_informal" type="text" 
         			placeholder="Nome informal">
-        			<input id="email" value="" name="email" type="text" 
+        			<input id="email" name="email" type="text" 
         			placeholder="Email">
                 </div>
                 <div class="form-group col-md-4">
