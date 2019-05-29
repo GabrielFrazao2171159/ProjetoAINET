@@ -41,7 +41,7 @@ class UtilizadorController extends Controller
         }
 
         if($user->can('filtrarTodosDados', User::class)){
-            if(!is_null($request->quota_paga)){
+            if(!is_null($request->quotas_pagas)){
                 $attr['quota_paga'] = (int)$request->quota_paga;
             }
             if(!is_null($request->ativo)){

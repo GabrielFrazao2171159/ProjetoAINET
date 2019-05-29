@@ -36,6 +36,11 @@
                         <option value="1">Sim</option>
                         <option value="0">Não</option>
                     </select>
+                    @can('filtrarMeusMovimentos', App\Movimento::class)
+                    <br>
+                    <label for="meus_movimentos">Meus Movimentos</label>
+                    <input type="checkbox" id="meus_movimentos" name="meus_movimentos" value="1">
+                    @endcan
                 </div>
             </div>
             <button class="btn btn-outline-success" type="submit">Pesquisar</button>

@@ -8,6 +8,7 @@ use App\Http\Requests\StoreMovimentoRequest;
 use App\User;
 use App\Movimento;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Filtros\QueryBuilder;
 
 class MovimentoController extends Controller
@@ -40,6 +41,13 @@ class MovimentoController extends Controller
         if(!is_null($request->data_sup)){
             $date = str_replace('/', '-', $request->data_sup);
             $attr['data_sup'] = (string)date("Y-m-d", strtotime($date));
+        }
+
+        $user = User::find(Auth::id());
+        if($user->can('filtrarMeusMovimentos', Movimento::class)){
+            if(!is_null($request->meus_movimentos)){
+                $attr['meus_movimentos'] = (int)$user->id;
+            }
         }
 
 		$movimentos = QueryBuilder::movimentos($attr);
