@@ -202,5 +202,33 @@
                 </div>
             </div>
         @endcan
+{{--        Informacao do socio piloto, ainda sem polices --}}
+        <div class="form-group">
+            <label for="inputNumLicenca">Número Licença</label>
+            <input
+                    type="number" class="form-control"
+                    name="num_licenca" id="inputNumLicenca" value="{{old('num_licenca', $socio->num_licenca)}}"/>
+            @if ($errors->has('num_licenca'))
+                <em>{{ $errors->first('num_licenca') }}</em>
+            @endif
+        </div>
+        <div class="form-group">
+            <label for="inputTipoLicenca">Tipo Licença</label>
+            <input
+                    type="text" class="form-control"
+                    name="tipo_licenca" id="inputTipoLicenca" value="{{old('tipo_licenca', $socio->tipo_licenca)}}"/>
+            @if ($errors->has('tipo_licenca'))
+                <em>{{ $errors->first('tipo_licenca') }}</em>
+            @endif
+        </div>
+        <div class="form-group col-md-4">
+            <label class="form-check-label" for="inputInstrutor">Instrutor</label>
+            <input
+                    type="checkbox" class="form-check-input"
+                    name="instrutor" id="inputInstrutor" value="1" disabled {{old('instrutor',$socio->instrutor) == 1 ? 'checked' : ''}}/>
+            @if ($errors->has('instrutor'))
+                <em>{{ $errors->first('instrutor') }}</em>
+            @endif
+        </div>
     </div>
 </div>

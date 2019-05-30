@@ -30,6 +30,7 @@ class UpdateUserRequest extends FormRequest
             'ativo' => isset($this->ativo) ? 1 : 0,
             'quota_paga' => isset($this->quota_paga) ? 1 : 0,
             'direcao' => isset($this->direcao) ? 1 : 0,
+            'instrutor' => isset($this->instrutor) ? 1 : 0,
         ]);
     }
 

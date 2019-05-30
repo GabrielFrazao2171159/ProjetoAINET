@@ -40,7 +40,7 @@ class StoreUserRequest extends FormRequest
             'tipo_socio' => 'required',
             'sexo' => 'required',
             'data_nascimento' => 'required',
-            //'nif' => 'integer|unique:users,nif',
+            //  'nif' => 'integer|unique:users,nif',
             'telefone' => 'integer|unique:users,telefone',
             'endereco' => 'string'
         ]; 
