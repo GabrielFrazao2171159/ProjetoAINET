@@ -53,13 +53,13 @@
             </tr>
         </thead>
         <tbody>
-            @for ($i = 0; $i < 10; $i++)
-                <tr>                
-                    <th>{{$i+1}}</th>
-                    <th><input type="text" name="tempos[]"
-                    value="{{old('tempos.'.$i,$valores[$i]->minutos)}}"/></th>
-                    <th><input type="text" name="precos[]"
-                    value="{{old('precos.'.$i,$valores[$i]->preco)}}"/></th>
+            @for ($i = 1; $i < 11; $i++)
+                <tr>               
+                    <th>{{$i}}</th>
+                    <th><input type="text" name="tempos[{{$i}}]"
+                    value="{{old('tempos.'.$i,$valores[$i-1]->minutos)}}"/></th>
+                    <th><input type="text" name="precos[{{$i}}]"
+                    value="{{old('precos.'.$i,$valores[$i-1]->preco)}}"/></th>
                 </tr>
             @endfor
     </table>

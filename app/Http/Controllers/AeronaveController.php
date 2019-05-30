@@ -29,9 +29,9 @@ class AeronaveController extends Controller
 		$aeronaveCriada = Aeronave::create($aeronave);
 		
 		$valor = array();
-		for($i=0;$i<10;$i++){
+		for($i=1;$i<11;$i++){
 			$valor['matricula'] = $aeronaveCriada->matricula;
-			$valor['unidade_conta_horas'] = $i+1;
+			$valor['unidade_conta_horas'] = $i;
 			$valor['minutos'] = $aeronave['tempos'][$i];
 			$valor['preco'] = $aeronave['precos'][$i];
 			ValorTabela::create($valor);		
@@ -57,11 +57,11 @@ class AeronaveController extends Controller
 
         $valores = $aeronave->valores;
         
-        $i = 0;
+        $i = 1;
         $array = array();
         foreach ($valores as $valor){
             $array['matricula'] = $aeronave->matricula;
-            $array['unidade_conta_horas'] = $i+1;
+            $array['unidade_conta_horas'] = $i;
             $array['minutos'] = $aeronaveValidated['tempos'][$i];
             $array['preco'] = $aeronaveValidated['precos'][$i];
             $valor->fill($array);
