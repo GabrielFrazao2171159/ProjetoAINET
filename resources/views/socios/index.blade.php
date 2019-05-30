@@ -50,7 +50,7 @@
                     </select>
                     @can('filtrarTodosDados', App\User::class)
                         <label for="quota_paga">Quotas pagas</label>
-                        <select name="quota_paga" id="quota_paga" class="form-control">
+                        <select name="quotas_pagas" id="quotas_pagas" class="form-control">
                             <option disabled selected></option>
                             <option value="1">Sim</option>
                             <option value="0">Não</option>
