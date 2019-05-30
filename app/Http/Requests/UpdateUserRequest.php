@@ -45,7 +45,13 @@ class UpdateUserRequest extends FormRequest
             'data_nascimento' => 'required|date_format:"d/m/Y"|before:'.date("d/m/Y", time()),  
             'endereco' => '',
             'nif' => '',
-            'telefone' => '', 
+            'telefone' => '',
+            'num_licenca' => '',
+            'tipo_licenca' => '',
+            'validade_licenca' => '',
+            'num_certificado' => '',
+            'validade_certificado' => '',
+            'classe_certificado' => '',
         ];
 
         if(User::find(Auth::id())->direcao == 1){  
@@ -61,6 +67,29 @@ class UpdateUserRequest extends FormRequest
             $rules_base['certificado_confirmado'] = 'required|in:1,0';
         }
 
+        if(!empty($this->num_licenca)){
+            $rules_base['num_licenca'] = 'integer';
+        }
+
+        if(!empty($this->tipo_licenca)){
+            $rules_base['tipo_licenca'] = 'string';
+        }
+
+        if(!empty($this->validade_licenca)){
+            $rules_base['validade_licenca'] = 'date';
+        }
+
+        if(!empty($this->num_certificado)){
+            $rules_base['num_certificado'] = 'string';
+        }
+
+        if(!empty($this->validade_certificado)){
+            $rules_base['validade_certificado'] = 'date';
+        }
+
+        if(!empty($this->classe_certificado)){
+            $rules_base['classe_certificado'] = 'string';
+        }
         if(!empty($this->endereco)){
             $rules_base['endereco'] = 'string';
         }

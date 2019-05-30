@@ -313,5 +313,35 @@
                 @endif
             </div>
         @endif
+        <div>
+            {{--            @if (!empty($socio->foto_url))--}}
+            {{--                <td><img src="{{ asset('storage/fotos/' . $socio->foto_url) }}" class="rounded-circle" height=350px--}}
+            {{--                         widht=350px style="border-radius: 15px"></td>--}}
+            {{--            @else--}}
+            {{--                <td><img src="{{ asset('storage/fotos/defaultPIC.jpg   ') }}" class="rounded-circle" height=350px--}}
+            {{--                         widht=350px style="border-radius: 15px"></td>--}}
+            {{--            @endif--}}
+            {{--            <br/><br/>--}}
+            <label>Cópia digital da licença</label>
+            <input type="file" name="file_foto" class="form-control">{{--cópia digital da licença--}}
+            {{--            @if ($errors->has('file_foto'))--}}
+            {{--                <em>{{ $errors->first('file_foto') }}</em>--}}
+            {{--            @endif--}}
+        </div>
+        <div>
+            {{--            @if (!empty($socio->foto_url))--}}
+            {{--                <td><img src="{{ asset('storage/fotos/' . $socio->foto_url) }}" class="rounded-circle" height=350px--}}
+            {{--                         widht=350px style="border-radius: 15px"></td>--}}
+            {{--            @else--}}
+            {{--                <td><img src="{{ asset('storage/fotos/defaultPIC.jpg   ') }}" class="rounded-circle" height=350px--}}
+            {{--                         widht=350px style="border-radius: 15px"></td>--}}
+            {{--            @endif--}}
+            {{--            <br/><br/>--}}
+            <label>Cópia digital do certificado</label>
+            <input type="file" name="file_foto" class="form-control">{{--cópia digital do certificado--}}
+            {{--            @if ($errors->has('file_foto'))--}}
+            {{--                <em>{{ $errors->first('file_foto') }}</em>--}}
+            {{--            @endif--}}
+        </div>
     </div>
 </div>
