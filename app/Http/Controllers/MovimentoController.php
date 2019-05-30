@@ -132,7 +132,7 @@ class MovimentoController extends Controller
     }
 
     public function update(StoreMovimentoRequest $request, Movimento $movimento){
-dd($request);
+
         if(isset($request->confirmar)){
             $this->authorize('confimarVoo', Movimento::class);
             $movimento->confirmado = 1;
