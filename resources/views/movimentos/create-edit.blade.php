@@ -188,4 +188,14 @@
             <em>{{ $errors->first('instrutor_id') }}</em>
         @endif
     </div>
+    @can('before', App\Movimento::class)
+    <div class="form-group">
+        <label for="inputConfirmado">Confirmado</label>
+        <input type="checkbox" id="inputConfirmado" name="confirmado" value="1">
+        @if ($errors->has('confirmado'))
+            <em>{{ $errors->first('confirmado') }}</em>
+        @endif
+    </div>
+    @endcan
+
 </div>

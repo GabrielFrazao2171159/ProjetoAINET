@@ -119,7 +119,7 @@
                 <td>-----</td>
             @endif
             <td>
-                @can('update', $socio) 
+                @can('update', $socio)
                     <a class="btn btn-xs btn-primary" href="{{route('socios.edit',$socio)}}">Editar</a>
                 @endcan
                 @can('delete', App\User::class) 

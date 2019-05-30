@@ -56,11 +56,13 @@ class MovimentoController extends Controller
 	}
 
 	public function create(){
+        $this->authorize('create', Movimento::class);
         $movimento = new Movimento();
 		return view('movimentos.create',compact('movimento'));
 	}
 
 	public function store(StoreMovimentoRequest $request){
+        $this->authorize('create', Movimento::class);
         $movimento = $request->validated();
         $piloto = User::find($movimento['piloto_id']);
         $aeronave = Aeronave::find($movimento['aeronave']);
@@ -99,7 +101,6 @@ class MovimentoController extends Controller
             $movimento['num_certificado_piloto'] = Auth::user()->num_certificado;
             $movimento['validade_certificado_piloto'] = Auth::user()->validade_certificado;
             $movimento['classe_certificado_piloto'] = Auth::user()->classe_certificado;
-
         }
 
         $movimentoCriado = Movimento::create($movimento);
@@ -107,6 +108,12 @@ class MovimentoController extends Controller
     }
 
     public function destroy(Movimento $movimento){
+
+        if($movimento->confirmado == "1"){
+            return back()->withErrors(array('Não pode eliminar movimento confirmado'));
+        }
+
+        $this->authorize('delete', Movimento::class);
 
         if($movimento->confirmado == 0){
             $movimento->forceDelete();
@@ -118,11 +125,16 @@ class MovimentoController extends Controller
     }
 
     public function edit(Movimento $movimento){
+
+        $this->authorize('update', Movimento::class);
+
         return view('movimentos.edit',compact('movimento'));
     }
 
     public function update(StoreMovimentoRequest $request, Movimento $movimento){
-//
+
+        $this->authorize('update', Movimento::class);
+
         $movimento->fill($request->all());
 
         $piloto = User::find($movimento['piloto_id']);
@@ -155,6 +167,18 @@ class MovimentoController extends Controller
             $movimento['validade_certificado_instrutor'] = $instrutor->validade_certificado;
             $movimento['classe_certificado_instrutor'] = $instrutor->classe_certificado;
         }
+        else{
+            if($movimento['piloto_id'] != Auth::user()->id){
+                return back()->withErrors(array('piloto_id' => 'O ID do piloto terá de ser o mesmo do utilizador com login iniciado.'));
+            }
+            $movimento['num_licenca_piloto'] = Auth::user()->num_licenca;
+            $movimento['tipo_licenca_piloto'] = Auth::user()->tipo_licenca;
+            $movimento['validade_licenca_piloto'] = Auth::user()->validade_licenca;
+            $movimento['num_certificado_piloto'] = Auth::user()->num_certificado;
+            $movimento['validade_certificado_piloto'] = Auth::user()->validade_certificado;
+            $movimento['classe_certificado_piloto'] = Auth::user()->classe_certificado;
+        }
+
         $movimento->save();
 
         return redirect()->route('movimentos.index')->with('sucesso', 'Voo editado com sucesso!');
