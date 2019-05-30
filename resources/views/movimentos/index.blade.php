@@ -1,7 +1,9 @@
 @extends('master')
 @section('title', 'Lista de Voos')
 @section('content')
-<div><a class="btn btn-primary" href="{{route('movimentos.create')}}">Adicionar voo</a></div>
+@can('create', App\Movimento::class)
+    <div><a class="btn btn-primary" href="{{route('movimentos.create')}}">Adicionar voo</a></div>
+@endcan
 <br>
 <div>
     <form method="GET" action="{{route('movimentos.index')}}">
@@ -103,12 +105,14 @@
                 @endif
             </td>
             <td>
+            @can('update', $movimento) <!--A regra para edit é igual ao eliminar por isso basta verificar um deles--> 
                 <a class="btn btn-xs btn-primary" href="{{route('movimentos.edit',$movimento)}}">Editar</a>
                 <form action="{{route('movimentos.destroy',$movimento)}}" method="POST" role="form" class="inline">
                 @method('delete')
                 @csrf
                 <button type="submit" class="btn btn-xs btn-danger">Eliminar</button>
                 </form>
+            @endcan
             </td>
         </tr> 
     @endforeach
