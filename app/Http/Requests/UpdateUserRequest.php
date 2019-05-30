@@ -30,6 +30,9 @@ class UpdateUserRequest extends FormRequest
             'ativo' => isset($this->ativo) ? 1 : 0,
             'quota_paga' => isset($this->quota_paga) ? 1 : 0,
             'direcao' => isset($this->direcao) ? 1 : 0,
+            'instrutor' => isset($this->instrutor) ? 1 : 0,
+            'licenca_confirmada' => isset($this->licenca_confirmada) ? 1 : 0,
+            'certificado_confirmado' => isset($this->certificado_confirmado) ? 1 : 0,
         ]);
     }
 
@@ -53,6 +56,9 @@ class UpdateUserRequest extends FormRequest
             $rules_base['direcao'] = 'required|in:1,0';
             $rules_base['quota_paga'] = 'required|in:1,0';
             $rules_base['ativo'] = 'required|in:1,0';
+            $rules_base['instrutor'] = 'required|in:1,0';
+            $rules_base['licenca_confirmada'] = 'required|in:1,0';
+            $rules_base['certificado_confirmado'] = 'required|in:1,0';
         }
 
         if(!empty($this->endereco)){
