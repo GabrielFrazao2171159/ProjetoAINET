@@ -24,8 +24,9 @@ class StoreUpdateAeronaveRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'marca' => 'required|regex:/^[\pL\s]+$/u|max:40',
-            'modelo' => 'required|max:40',
+            'matricula' => 'required|max:8',
+            'marca' => 'required|string|max:40',
+            'modelo' => 'required|string|max:40',
             'num_lugares' => 'required|integer|between:1,10',
             'conta_horas' => 'required|integer|min:0',
             'preco_hora' => 'required|numeric|min:0.00',
@@ -33,10 +34,10 @@ class StoreUpdateAeronaveRequest extends FormRequest
             'tempos.*' => 'required|integer|min:0',
             'precos' => 'required|array|min:10|max:10',
             'precos.*' => 'required|numeric|min:0.00'
-            ];
+        ];
 
-        if($this->method()=="POST"){
-            $rules['matricula'] = 'required|unique:aeronaves|max:8';
+        if($this->method() == "POST"){
+            $rules['matricula'] = 'required|max:8|unique:aeronaves';
         }
 
         return $rules;

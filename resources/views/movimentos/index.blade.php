@@ -2,8 +2,53 @@
 @section('title', 'Lista de Voos')
 @section('content')
 <div><a class="btn btn-primary" href="{{route('movimentos.create')}}">Adicionar voo</a></div>
+<br>
+<div>
+    <form method="GET" action="{{route('movimentos.index')}}">
+        <fieldset>
+            <legend>Pesquisar</legend>
+            <div class="form-group col-md-12">
+                <div class="form-group col-md-12">
+                    <input id="id" name="id" type="text" 
+                    placeholder="ID do Movimento">
+                    <input id="aeronave" name="aeronave" type="text" 
+                    placeholder="Matrícula da aeronave">
+                    <input id="piloto" name="piloto" type="text" 
+                    placeholder="ID do Piloto">
+                    <input id="instrutor" name="instrutor" type="text" 
+                    placeholder="ID do Instrutor">
+                    <input id="data_inf" name="data_inf" type="text" 
+                    placeholder="Data Inferior">
+                    <input id="data_sup" name="data_sup" type="text" 
+                    placeholder="Data Superior">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="natureza">Natureza</label>
+                    <select name="natureza" id="natureza" class="form-control">
+                        <option disabled selected></option>
+                        <option value="T">Treino</option>
+                        <option value="I">Instrução</option>
+                        <option value="E">Especial</option>    
+                    </select>
+                    <label for="direcao">Confirmado</label>
+                    <select name="confirmado" id="confirmado" class="form-control">
+                        <option disabled selected></option>
+                        <option value="1">Sim</option>
+                        <option value="0">Não</option>
+                    </select>
+                    @can('filtrarMeusMovimentos', App\Movimento::class)
+                    <br>
+                    <label for="meus_movimentos">Meus Movimentos</label>
+                    <input type="checkbox" id="meus_movimentos" name="meus_movimentos" value="1">
+                    @endcan
+                </div>
+            </div>
+            <button class="btn btn-outline-success" type="submit">Pesquisar</button>
+        </fieldset>
+    </form>
+</div>
 @if (count($movimentos))
-    <table class="table table-striped " style= "margin-left:-20%";>
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>ID</th> 
@@ -34,7 +79,7 @@
         <tr>
             <td>{{($movimento->id)}}</td>
             <td>{{App\Aeronave::find($movimento->aeronave)->matricula}}</td>
-            <td>{{($movimento->data)}}</td>
+            <td>{{date("d/m/Y", strtotime($movimento->data))}}</td>
             <td>{{date("H:i", strtotime($movimento->hora_descolagem))}}</td>
             <td>{{date("H:i", strtotime($movimento->hora_aterragem))}}</td>
             <td>{{$movimento->tempo_voo}}</td>
@@ -56,6 +101,7 @@
                 @else
                 <img src ="{{ asset('storage/fotos/confirmado2.png') }}" class="rounded-circle" height=35px widht=35px>
                 @endif
+            </td>
             <td>
             <a class="btn btn-xs btn-primary" href="{{route('movimentos.edit',$movimento)}}">Editar</a>
             <form action="{{route('movimentos.destroy',$movimento)}}" method="POST" role="form" class="inline">
@@ -70,5 +116,5 @@
 @else 
     <h2>Não foram encontradas voos</h2>
 @endif
-<div style="text-align: center;">{{ $movimentos->links() }}</div>
+<div style="text-align: center;">{{$movimentos->appends(request()->except('page'))->links()}}</div>
 @endsection

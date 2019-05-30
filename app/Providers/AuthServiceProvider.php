@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Policies\AeronavePolicy;
 use App\Policies\UtilizadorPolicy;
+use App\Policies\MovimentoPolicy;
+use App\Movimento;
 use App\Aeronave;
 use App\User;
 
@@ -20,6 +22,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         Aeronave::class => AeronavePolicy::class,
         User::class => UtilizadorPolicy::class,
+        Movimento::class => MovimentoPolicy::class,
     ];
 
     /**

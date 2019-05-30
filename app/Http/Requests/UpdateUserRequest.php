@@ -31,6 +31,8 @@ class UpdateUserRequest extends FormRequest
             'quota_paga' => isset($this->quota_paga) ? 1 : 0,
             'direcao' => isset($this->direcao) ? 1 : 0,
             'instrutor' => isset($this->instrutor) ? 1 : 0,
+            'licenca_confirmada' => isset($this->licenca_confirmada) ? 1 : 0,
+            'certificado_confirmado' => isset($this->certificado_confirmado) ? 1 : 0,
         ]);
     }
 
@@ -39,21 +41,24 @@ class UpdateUserRequest extends FormRequest
         $rules_base = [
             'nome_informal' => 'required|string|max:40',
             'name' => 'required|regex:/^[\pL\s]+$/u|max:255',
-            'email' => 'required|email',
-            'data_nascimento' => 'required|date_format:"d/m/Y"',  
+            'email' => 'required|email|max:255',
+            'data_nascimento' => 'required|date_format:"d/m/Y"|before:'.date("d/m/Y", time()),  
             'endereco' => '',
             'nif' => '',
             'telefone' => '', 
         ];
 
-        if(User::find(Auth::id())->direcao == 1){   
+        if(User::find(Auth::id())->direcao == 1){  
         //Caso seja da direção também tem de validar estes campos
-            $rules_base['num_socio'] = 'required|max:11';
-            $rules_base['tipo_socio'] = 'required';
-            $rules_base['sexo'] = 'required';
-            $rules_base['direcao'] = 'required';
-            $rules_base['quota_paga'] = 'required';
-            $rules_base['ativo'] = 'required';
+            $rules_base['num_socio'] = 'required|integer|min:1';
+            $rules_base['tipo_socio'] = 'required|in:"P","NP","A"';
+            $rules_base['sexo'] = 'required|in:"M","F"';
+            $rules_base['direcao'] = 'required|in:1,0';
+            $rules_base['quota_paga'] = 'required|in:1,0';
+            $rules_base['ativo'] = 'required|in:1,0';
+            $rules_base['instrutor'] = 'required|in:1,0';
+            $rules_base['licenca_confirmada'] = 'required|in:1,0';
+            $rules_base['certificado_confirmado'] = 'required|in:1,0';
         }
 
         if(!empty($this->endereco)){

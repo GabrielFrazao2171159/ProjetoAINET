@@ -36,6 +36,7 @@ class US22_BTest extends USTestBase
         $request["tempos"][8] = 52;
         $request["precos"][8] = 72;
         $requestData = array_merge($request, $newdata);
+        
         $this->actingAs($this->userToSimulate)->put($this->urlPut, $requestData);
         $this->assertDatabaseHas('aeronaves', $newdata);
         $this->assertDatabaseHas('aeronaves_valores', [
