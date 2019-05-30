@@ -126,14 +126,21 @@ class MovimentoController extends Controller
 
     public function edit(Movimento $movimento){
 
-        $this->authorize('update', Movimento::class);
+        $this->authorize('update', $movimento);
 
         return view('movimentos.edit',compact('movimento'));
     }
 
     public function update(StoreMovimentoRequest $request, Movimento $movimento){
+dd($request);
+        if(isset($request->confirmar)){
+            $this->authorize('confimarVoo', Movimento::class);
+            $movimento->confirmado = 1;
+            $movimento->save();
+            return redirect()->route('movimentos.index')->with('sucesso', 'Voo confirmado com sucesso!');
+        }
 
-        $this->authorize('update', Movimento::class);
+        $this->authorize('update', $movimento);
 
         $movimento->fill($request->all());
 
