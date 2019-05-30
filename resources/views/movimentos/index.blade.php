@@ -103,12 +103,12 @@
                 @endif
             </td>
             <td>
-            <a class="btn btn-xs btn-primary" href="{{route('movimentos.edit',$movimento)}}">Editar</a>
-            <form action="{{route('movimentos.destroy',$movimento)}}" method="POST" role="form" class="inline">
+                <a class="btn btn-xs btn-primary" href="{{route('movimentos.edit',$movimento)}}">Editar</a>
+                <form action="{{route('movimentos.destroy',$movimento)}}" method="POST" role="form" class="inline">
                 @method('delete')
                 @csrf
                 <button type="submit" class="btn btn-xs btn-danger">Eliminar</button>
-            </form>
+                </form>
             </td>
         </tr> 
     @endforeach
