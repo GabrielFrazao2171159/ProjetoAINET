@@ -56,16 +56,15 @@ class MovimentoController extends Controller
 	}
 
 	public function create(){
-        $this->authorize('create', Movimento::class);
         $movimento = new Movimento();
 		return view('movimentos.create',compact('movimento'));
 	}
 
 	public function store(StoreMovimentoRequest $request){
-        $this->authorize('create', Movimento::class);
         $movimento = $request->validated();
         $piloto = User::find($movimento['piloto_id']);
         $aeronave = Aeronave::find($movimento['aeronave']);
+        $instrutor = User::find($movimento['instrutor_id']);
 
         $movimento['confirmado'] = "0";
         $movimento['tempo_voo'] = ($movimento['conta_horas_fim']-$movimento['conta_horas_inicio'])*0.1;
@@ -76,44 +75,68 @@ class MovimentoController extends Controller
             return back()->withErrors(array('piloto_id' => 'O utilizador inserido tem de ser do tipo piloto.'));
         }
 
-        if($movimento['natureza'] == "I") {
-            $instrutor = User::find($movimento['instrutor_id']);
-            if (($movimento['piloto_id'] != Auth::user()->id && $movimento['instrutor_id'] != Auth::user()->id)){
-                return back()->withErrors(array('instrutor_id' => 'O piloto ID ou o instrutor ID terão de pertencer ao ID do utilizador com login iniciado.'));
-            }
-            if($instrutor->instrutor != "1"){
-                return back()->withErrors(array('instrutor_id' => 'O utilizador inserido tem de ser instrutor.'));
-            }
-            $movimento['num_licenca_instrutor'] = $instrutor->num_licenca;
-            $movimento['tipo_licenca_instrutor'] = $instrutor->tipo_licenca;
-            $movimento['validade_licenca_instrutor'] = $instrutor->validade_licenca;
-            $movimento['num_certificado_instrutor'] = $instrutor->num_certificado;
-            $movimento['validade_certificado_instrutor'] = $instrutor->validade_certificado;
-            $movimento['classe_certificado_instrutor'] = $instrutor->classe_certificado;
-        }
-        else{
-            if($movimento['piloto_id'] != Auth::user()->id){
-                return back()->withErrors(array('piloto_id' => 'O ID do piloto terá de ser o mesmo do utilizador com login iniciado.'));
-            }
+        if(Auth::user()->direcao == 1){
             $movimento['num_licenca_piloto'] = Auth::user()->num_licenca;
             $movimento['tipo_licenca_piloto'] = Auth::user()->tipo_licenca;
             $movimento['validade_licenca_piloto'] = Auth::user()->validade_licenca;
             $movimento['num_certificado_piloto'] = Auth::user()->num_certificado;
             $movimento['validade_certificado_piloto'] = Auth::user()->validade_certificado;
             $movimento['classe_certificado_piloto'] = Auth::user()->classe_certificado;
+            if($movimento['natureza'] == "I") {
+                if ($instrutor->instrutor != "1") {
+                    return back()->withErrors(array('instrutor_id' => 'O utilizador inserido tem de ser instrutor.'));
+                }
+                $movimento['num_licenca_instrutor'] = $instrutor->num_licenca;
+                $movimento['tipo_licenca_instrutor'] = $instrutor->tipo_licenca;
+                $movimento['validade_licenca_instrutor'] = $instrutor->validade_licenca;
+                $movimento['num_certificado_instrutor'] = $instrutor->num_certificado;
+                $movimento['validade_certificado_instrutor'] = $instrutor->validade_certificado;
+                $movimento['classe_certificado_instrutor'] = $instrutor->classe_certificado;
+            }
         }
+        else{
+            if($movimento['natureza'] == "I") {
+
+                $movimento['num_licenca_piloto'] = Auth::user()->num_licenca;
+                $movimento['tipo_licenca_piloto'] = Auth::user()->tipo_licenca;
+                $movimento['validade_licenca_piloto'] = Auth::user()->validade_licenca;
+                $movimento['num_certificado_piloto'] = Auth::user()->num_certificado;
+                $movimento['validade_certificado_piloto'] = Auth::user()->validade_certificado;
+                $movimento['classe_certificado_piloto'] = Auth::user()->classe_certificado;
+
+                if (($movimento['piloto_id'] != Auth::user()->id && $movimento['instrutor_id'] != Auth::user()->id)){
+                    return back()->withErrors(array('instrutor_id' => 'O piloto ID ou o instrutor ID terão de pertencer ao ID do utilizador com login iniciado.'));
+                }
+                if($instrutor->instrutor != "1"){
+                    return back()->withErrors(array('instrutor_id' => 'O utilizador inserido tem de ser instrutor.'));
+                }
+                $movimento['num_licenca_instrutor'] = $instrutor->num_licenca;
+                $movimento['tipo_licenca_instrutor'] = $instrutor->tipo_licenca;
+                $movimento['validade_licenca_instrutor'] = $instrutor->validade_licenca;
+                $movimento['num_certificado_instrutor'] = $instrutor->num_certificado;
+                $movimento['validade_certificado_instrutor'] = $instrutor->validade_certificado;
+                $movimento['classe_certificado_instrutor'] = $instrutor->classe_certificado;
+            }
+            else{
+                if($movimento['piloto_id'] != Auth::user()->id){
+                    return back()->withErrors(array('piloto_id' => 'O ID do piloto terá de ser o mesmo do utilizador com login iniciado.'));
+                }
+                $movimento['num_licenca_piloto'] = Auth::user()->num_licenca;
+                $movimento['tipo_licenca_piloto'] = Auth::user()->tipo_licenca;
+                $movimento['validade_licenca_piloto'] = Auth::user()->validade_licenca;
+                $movimento['num_certificado_piloto'] = Auth::user()->num_certificado;
+                $movimento['validade_certificado_piloto'] = Auth::user()->validade_certificado;
+                $movimento['classe_certificado_piloto'] = Auth::user()->classe_certificado;
+            }
+        }
+
+
 
         $movimentoCriado = Movimento::create($movimento);
         return redirect()->route('movimentos.index')->with('sucesso', 'Voo inserido com sucesso!');
     }
 
     public function destroy(Movimento $movimento){
-
-        if($movimento->confirmado == "1"){
-            return back()->withErrors(array('Não pode eliminar movimento confirmado'));
-        }
-
-        $this->authorize('delete', Movimento::class);
 
         if($movimento->confirmado == 0){
             $movimento->forceDelete();
@@ -126,14 +149,15 @@ class MovimentoController extends Controller
 
     public function edit(Movimento $movimento){
 
-        $this->authorize('update', Movimento::class);
+        if($movimento->confirmado == 0){
+            return view('movimentos.edit',compact('movimento'));
+        }else{
+            return redirect()->route('movimentos.index')->with('erros', 'Movimento encontra-se confirmado, não pode ser eliminado!');
+        }
 
-        return view('movimentos.edit',compact('movimento'));
     }
 
     public function update(StoreMovimentoRequest $request, Movimento $movimento){
-
-        $this->authorize('update', Movimento::class);
 
         $movimento->fill($request->all());
 
@@ -144,41 +168,60 @@ class MovimentoController extends Controller
         $tempovooHoras = $movimento['tempo_voo'];
         $movimento['preco_voo'] = $tempovooHoras*$aeronave->preco_hora;
 
-        $movimento['num_licenca_piloto'] = $piloto->num_licenca;
-        $movimento['tipo_licenca_piloto'] = $piloto->tipo_licenca;
-        $movimento['validade_licenca_piloto'] = $piloto->validade_licenca;
-        $movimento['num_certificado_piloto'] = $piloto->num_certificado;
-        $movimento['validade_certificado_piloto'] = $piloto->validade_certificado;
-        $movimento['classe_certificado_piloto'] = $piloto->classe_certificado;
-
-        if($piloto->tipo_socio != "P"){
-            return back()->withErrors(array('piloto_id' => 'O utilizador inserido tem de ser do tipo piloto.'));
-        }
-
-        if($movimento['natureza'] == "I") {
-            $instrutor = User::find($movimento['instrutor_id']);
-            if($instrutor->instrutor != "1"){
-                return back()->withErrors(array('instrutor_id' => 'O utilizador inserido tem de ser instrutor.'));
-            }
-            $movimento['num_licenca_instrutor'] = $instrutor->num_licenca;
-            $movimento['tipo_licenca_instrutor'] = $instrutor->tipo_licenca;
-            $movimento['validade_licenca_instrutor'] = $instrutor->validade_licenca;
-            $movimento['num_certificado_instrutor'] = $instrutor->num_certificado;
-            $movimento['validade_certificado_instrutor'] = $instrutor->validade_certificado;
-            $movimento['classe_certificado_instrutor'] = $instrutor->classe_certificado;
-        }
-        else{
-            if($movimento['piloto_id'] != Auth::user()->id){
-                return back()->withErrors(array('piloto_id' => 'O ID do piloto terá de ser o mesmo do utilizador com login iniciado.'));
-            }
+        if(Auth::user()->direcao == 1){
             $movimento['num_licenca_piloto'] = Auth::user()->num_licenca;
             $movimento['tipo_licenca_piloto'] = Auth::user()->tipo_licenca;
             $movimento['validade_licenca_piloto'] = Auth::user()->validade_licenca;
             $movimento['num_certificado_piloto'] = Auth::user()->num_certificado;
             $movimento['validade_certificado_piloto'] = Auth::user()->validade_certificado;
             $movimento['classe_certificado_piloto'] = Auth::user()->classe_certificado;
+            if($movimento['natureza'] == "I") {
+                if ($instrutor->instrutor != "1") {
+                    return back()->withErrors(array('instrutor_id' => 'O utilizador inserido tem de ser instrutor.'));
+                }
+                $movimento['num_licenca_instrutor'] = $instrutor->num_licenca;
+                $movimento['tipo_licenca_instrutor'] = $instrutor->tipo_licenca;
+                $movimento['validade_licenca_instrutor'] = $instrutor->validade_licenca;
+                $movimento['num_certificado_instrutor'] = $instrutor->num_certificado;
+                $movimento['validade_certificado_instrutor'] = $instrutor->validade_certificado;
+                $movimento['classe_certificado_instrutor'] = $instrutor->classe_certificado;
+            }
         }
+        else{
+            if($movimento['natureza'] == "I") {
 
+                $movimento['num_licenca_piloto'] = Auth::user()->num_licenca;
+                $movimento['tipo_licenca_piloto'] = Auth::user()->tipo_licenca;
+                $movimento['validade_licenca_piloto'] = Auth::user()->validade_licenca;
+                $movimento['num_certificado_piloto'] = Auth::user()->num_certificado;
+                $movimento['validade_certificado_piloto'] = Auth::user()->validade_certificado;
+                $movimento['classe_certificado_piloto'] = Auth::user()->classe_certificado;
+
+                if (($movimento['piloto_id'] != Auth::user()->id && $movimento['instrutor_id'] != Auth::user()->id)){
+                    return back()->withErrors(array('instrutor_id' => 'O piloto ID ou o instrutor ID terão de pertencer ao ID do utilizador com login iniciado.'));
+                }
+                if($instrutor->instrutor != "1"){
+                    return back()->withErrors(array('instrutor_id' => 'O utilizador inserido tem de ser instrutor.'));
+                }
+                $movimento['num_licenca_instrutor'] = $instrutor->num_licenca;
+                $movimento['tipo_licenca_instrutor'] = $instrutor->tipo_licenca;
+                $movimento['validade_licenca_instrutor'] = $instrutor->validade_licenca;
+                $movimento['num_certificado_instrutor'] = $instrutor->num_certificado;
+                $movimento['validade_certificado_instrutor'] = $instrutor->validade_certificado;
+                $movimento['classe_certificado_instrutor'] = $instrutor->classe_certificado;
+            }
+            else{
+                if($movimento['piloto_id'] != Auth::user()->id){
+                    return back()->withErrors(array('piloto_id' => 'O ID do piloto terá de ser o mesmo do utilizador com login iniciado.'));
+                }
+                $movimento['num_licenca_piloto'] = Auth::user()->num_licenca;
+                $movimento['tipo_licenca_piloto'] = Auth::user()->tipo_licenca;
+                $movimento['validade_licenca_piloto'] = Auth::user()->validade_licenca;
+                $movimento['num_certificado_piloto'] = Auth::user()->num_certificado;
+                $movimento['validade_certificado_piloto'] = Auth::user()->validade_certificado;
+                $movimento['classe_certificado_piloto'] = Auth::user()->classe_certificado;
+            }
+        }
         $movimento->save();
 
         return redirect()->route('movimentos.index')->with('sucesso', 'Voo editado com sucesso!');
