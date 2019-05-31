@@ -1,5 +1,5 @@
 @extends('master')
-@section('title','Adicionar Voo')
+@section('title','Adicionar Movimento')
 @section('content')
     <form action="{{route('movimentos.store',$movimento)}}" method="post" class="form-group">
         @method('post')
