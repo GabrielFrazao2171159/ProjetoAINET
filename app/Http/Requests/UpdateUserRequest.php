@@ -72,7 +72,7 @@ class UpdateUserRequest extends FormRequest
         }
 
         if(!empty($this->tipo_licenca)){
-            $rules_base['tipo_licenca'] = 'string';
+            $rules_base['tipo_licenca'] = 'string|exists:tipos_licencas,code';
         }
 
         if(!empty($this->validade_licenca)){
@@ -88,7 +88,7 @@ class UpdateUserRequest extends FormRequest
         }
 
         if(!empty($this->classe_certificado)){
-            $rules_base['classe_certificado'] = 'string';
+            $rules_base['classe_certificado'] = 'string|exists:classes_certificados,code';
         }
         if(!empty($this->endereco)){
             $rules_base['endereco'] = 'string';
@@ -104,6 +104,14 @@ class UpdateUserRequest extends FormRequest
 
         if(!empty($this->file_foto)){
             $rules_base['file_foto'] = 'mimetypes:image/jpeg,image/png,image/jpg';
+        }
+
+        if(!empty($this->file_licenca)){
+            $rules_base['file_foto'] = 'mimetypes:application/pdf';
+        }
+
+        if(!empty($this->file_certificado)){
+            $rules_base['file_foto'] = 'mimetypes:application/pdf';
         }
 
         return $rules_base;

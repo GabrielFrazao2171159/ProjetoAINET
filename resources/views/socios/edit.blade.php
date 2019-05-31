@@ -8,7 +8,6 @@
     <div class="form-group">
         <button type="submit" class="btn btn-success" name="ok">Save</button>
         <a href="{{route('socios.index')}}" class="btn btn-default">Cancel</a>
-
     </div>
 </form>
 @can('enviarMail', App\User::class) 

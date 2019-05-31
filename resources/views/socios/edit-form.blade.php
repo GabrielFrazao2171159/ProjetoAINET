@@ -227,60 +227,56 @@
                 <em>{{ $errors->first('num_licenca') }}</em>
             @endif
         </div>
-        @if ($socio->num_licenca != null)
-            <div class="form-group">
-                <label for="inputTipoLicenca">Tipo Licença</label>
-                <input
-                        type="text" class="form-control"
-                        name="tipo_licenca" id="inputTipoLicenca"
-                        value="{{old('tipo_licenca', $socio->tipo_licenca)}}"/>
-                @if ($errors->has('tipo_licenca'))
-                    <em>{{ $errors->first('tipo_licenca') }}</em>
-                @endif
-            </div>
-            <div class="form-group">
-                <label class="form-check-label" for="inputInstrutor">Instrutor</label>
-                <input
-                        type="checkbox" class="form-check-input"
-                        name="instrutor" id="inputInstrutor" value="1"
-                        {{old('instrutor',$socio->instrutor) == 1 ? 'checked' : ''}}/>
-                @if ($errors->has('instrutor'))
-                    <em>{{ $errors->first('instrutor') }}</em>
-                @endif
-            </div>
-            <div class="form-group">
-                <label class="form-check-label" for="inputLicencaConfirmada">Licença confirmada</label>
-                <input
-                        type="checkbox" class="form-check-input"
-                        name="licenca_confirmada" id="inputLicencaConfirmada" value="1"
-                        {{old('licenca_confirmada',$socio->licenca_confirmada) == 1 ? 'checked' : ''}}/>
-                @if ($errors->has('licenca_confirmada'))
-                    <em>{{ $errors->first('licenca_confirmada') }}</em>
-                @endif
-            </div>
-            <div class="form-group">
-                <label class="form-check-label" for="inputCertificadoConfirmado">Certeficado médico confirmado</label>
-                <input
-                        type="checkbox" class="form-check-input"
-                        name="certificado_confirmado" id="inputCertificadoConfirmado" value="1"
-                        {{old('certificado_confirmado',$socio->certificado_confirmado) == 1 ? 'checked' : ''}}/>
-                @if ($errors->has('certificado_confirmado'))
-                    <em>{{ $errors->first('certificado_confirmado') }}</em>
-                @endif
-            </div>
-        @endif
-        @if ($socio->validade_licenca!=null)
-            <div class="form-group">
-                <label for="inputValidadeLicenca">Validade Licença</label>
-                <input
-                        type="date" class="form-control"
-                        name="validade_licenca" id="inputValidadeLicenca"
-                        value="{{old('validade_licenca',$socio->validade_licenca)}}"/>
-                @if ($errors->has('validade_licenca'))
-                    <em>{{ $errors->first('validade_licenca') }}</em>
-                @endif
-            </div>
-        @endif
+        <div class="form-group">
+            <label for="inputTipoLicenca">Tipo Licença</label>
+            <input
+                    type="text" class="form-control"
+                    name="tipo_licenca" id="inputTipoLicenca"
+                    value="{{old('tipo_licenca', $socio->tipo_licenca)}}"/>
+            @if ($errors->has('tipo_licenca'))
+                <em>{{ $errors->first('tipo_licenca') }}</em>
+            @endif
+        </div>
+        <div class="form-group">
+            <label class="form-check-label" for="inputInstrutor">Instrutor</label>
+            <input
+                    type="checkbox" class="form-check-input"
+                    name="instrutor" id="inputInstrutor" value="1"
+                    {{old('instrutor',$socio->instrutor) == 1 ? 'checked' : ''}}/>
+            @if ($errors->has('instrutor'))
+                <em>{{ $errors->first('instrutor') }}</em>
+            @endif
+        </div>
+        <div class="form-group">
+            <label class="form-check-label" for="inputLicencaConfirmada">Licença confirmada</label>
+            <input
+                    type="checkbox" class="form-check-input"
+                    name="licenca_confirmada" id="inputLicencaConfirmada" value="1"
+                    {{old('licenca_confirmada',$socio->licenca_confirmada) == 1 ? 'checked' : ''}}/>
+            @if ($errors->has('licenca_confirmada'))
+                <em>{{ $errors->first('licenca_confirmada') }}</em>
+            @endif
+        </div>
+        <div class="form-group">
+            <label class="form-check-label" for="inputCertificadoConfirmado">certificado médico confirmado</label>
+            <input
+                    type="checkbox" class="form-check-input"
+                    name="certificado_confirmado" id="inputCertificadoConfirmado" value="1"
+                    {{old('certificado_confirmado',$socio->certificado_confirmado) == 1 ? 'checked' : ''}}/>
+            @if ($errors->has('certificado_confirmado'))
+                <em>{{ $errors->first('certificado_confirmado') }}</em>
+            @endif
+        </div>
+        <div class="form-group">
+            <label for="inputValidadeLicenca">Validade Licença</label>
+            <input
+                    type="date" class="form-control"
+                    name="validade_licenca" id="inputValidadeLicenca"
+                    value="{{old('validade_licenca',$socio->validade_licenca)}}"/>
+            @if ($errors->has('validade_licenca'))
+                <em>{{ $errors->first('validade_licenca') }}</em>
+            @endif
+        </div>
         <div class="form-group">
             <label for="inputNumCertificado">Número Certificado</label>
             <input
@@ -291,57 +287,41 @@
                 <em>{{ $errors->first('num_certificado') }}</em>
             @endif
         </div>
-        @if ($socio->num_certificado!=null)
-            <div class="form-group">
-                <label for="inputCertificadoConfirmado">Validade certificado médico</label>
-                <input
-                        type="date" class="form-control"
-                        name="validade_certificado" id="inputCertificadoConfirmado"
-                        value="{{old('validade_certificado',$socio->validade_certificado)}}"/>
-                @if ($errors->has('validade_certificado'))
-                    <em>{{ $errors->first('validade_certificado') }}</em>
-                @endif
-            </div>
-            <div class="form-group">
-                <label for="inputClasseCertificado">Classe Certificado</label>
-                <input
-                        type="text" class="form-control"
-                        name="classe_certificado" id="inputClasseCertificado"
-                        value="{{old('classe_certificado', $socio->classe_certificado)}}"/>
-                @if ($errors->has('classe_certificado'))
-                    <em>{{ $errors->first('classe_certificado') }}</em>
-                @endif
-            </div>
-        @endif
+        <div class="form-group">
+            <label for="inputCertificadoConfirmado">Validade certificado médico</label>
+            <input
+                    type="date" class="form-control"
+                    name="validade_certificado" id="inputCertificadoConfirmado"
+                    value="{{old('validade_certificado',$socio->validade_certificado)}}"/>
+            @if ($errors->has('validade_certificado'))
+                <em>{{ $errors->first('validade_certificado') }}</em>
+            @endif
+        </div>
+        <div class="form-group">
+            <label for="inputClasseCertificado">Classe Certificado</label>
+            <input
+                    type="text" class="form-control"
+                    name="classe_certificado" id="inputClasseCertificado"
+                    value="{{old('classe_certificado', $socio->classe_certificado)}}"/>
+            @if ($errors->has('classe_certificado'))
+                <em>{{ $errors->first('classe_certificado') }}</em>
+            @endif
+        </div>
         <div>
-            {{--            @if (!empty($socio->foto_url))--}}
-            {{--                <td><img src="{{ asset('storage/fotos/' . $socio->foto_url) }}" class="rounded-circle" height=350px--}}
-            {{--                         widht=350px style="border-radius: 15px"></td>--}}
-            {{--            @else--}}
-            {{--                <td><img src="{{ asset('storage/fotos/defaultPIC.jpg   ') }}" class="rounded-circle" height=350px--}}
-            {{--                         widht=350px style="border-radius: 15px"></td>--}}
-            {{--            @endif--}}
-            {{--            <br/><br/>--}}
             <label>Cópia digital da licença</label>
-            <input type="file" name="file_foto" class="form-control">{{--cópia digital da licença--}}
-            {{--            @if ($errors->has('file_foto'))--}}
-            {{--                <em>{{ $errors->first('file_foto') }}</em>--}}
-            {{--            @endif--}}
+            <div>
+                @if($socio->licenca_confirmada==1)
+                    <a href="{{  route('socios.licenca', $socio) }}">Ver licença</a>
+                @endif
+            </div>
+            <input type="file" name="file_licenca" class="form-control">{{--cópia digital da licença--}}
         </div>
+        <label>Cópia digital do certificado</label>
         <div>
-            {{--            @if (!empty($socio->foto_url))--}}
-            {{--                <td><img src="{{ asset('storage/fotos/' . $socio->foto_url) }}" class="rounded-circle" height=350px--}}
-            {{--                         widht=350px style="border-radius: 15px"></td>--}}
-            {{--            @else--}}
-            {{--                <td><img src="{{ asset('storage/fotos/defaultPIC.jpg   ') }}" class="rounded-circle" height=350px--}}
-            {{--                         widht=350px style="border-radius: 15px"></td>--}}
-            {{--            @endif--}}
-            {{--            <br/><br/>--}}
-            <label>Cópia digital do certificado</label>
-            <input type="file" name="file_foto" class="form-control">{{--cópia digital do certificado--}}
-            {{--            @if ($errors->has('file_foto'))--}}
-            {{--                <em>{{ $errors->first('file_foto') }}</em>--}}
-            {{--            @endif--}}
+            @if($socio->certificado_confirmado==1)
+                <a href="{{  route('socios.certificado', $socio) }}">Ver certificado</a>
+            @endif
         </div>
+        <input type="file" name="file_certificado" class="form-control">{{--cópia digital do certificado--}}
     </div>
 </div>
