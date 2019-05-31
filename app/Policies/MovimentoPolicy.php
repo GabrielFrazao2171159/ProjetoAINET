@@ -28,34 +28,25 @@ class MovimentoPolicy
 
     public function update(User $auth, Movimento $movimento)
     {
-        if($auth->tipo_socio == "P" && $auth->id == $movimento->piloto_id || $auth->id == $movimento->instrutor_id || $auth->isDirecao()){
+        if((($auth->tipo_socio == "P" && ($auth->id == $movimento->piloto_id || $auth->id == $movimento->instrutor_id)) || $auth->isDirecao()) && $movimento->confirmado==0){
             return true;
         }
         return false;
     }
 
-    /*public function create(User $auth)
+    public function create(User $auth)
     {
-        if($auth->tipo_socio == "P" || $auth->isDirecao()){
+        if($auth->tipo_socio == "P"){
             return true;
         }
         return false;
     }
 
-    public function delete(User $auth, Movimento $user)
+    public function delete(User $auth, Movimento $movimento)
     {
-        if($auth->tipo_socio == "P" && $auth->id == $user->piloto_id || $auth->id == $user->instrutor_id || $auth->isDirecao()){
+        if((($auth->tipo_socio == "P" && ($auth->id == $movimento->piloto_id || $auth->id == $movimento->instrutor_id)) || $auth->isDirecao()) && $movimento->confirmado==0){
             return true;
         }
         return false;
     }
-
-    public function update(User $auth, Movimento $user)
-    {
-        if($auth->tipo_socio == "P" && $auth->id == $user->piloto_id || $auth->id == $user->instrutor_id || $auth->isDirecao()){
-            return true;
-        }
-        return false;
-    }*/
-
 }

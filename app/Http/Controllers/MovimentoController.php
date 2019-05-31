@@ -56,11 +56,17 @@ class MovimentoController extends Controller
 	}
 
 	public function create(){
+
+        $this->authorize('create', Movimento::class);
+
         $movimento = new Movimento();
 		return view('movimentos.create',compact('movimento'));
 	}
 
 	public function store(StoreMovimentoRequest $request){
+
+        $this->authorize('create', Movimento::class);
+
         $movimento = $request->validated();
         $piloto = User::find($movimento['piloto_id']);
         $aeronave = Aeronave::find($movimento['aeronave']);
@@ -138,11 +144,9 @@ class MovimentoController extends Controller
 
     public function destroy(Movimento $movimento){
 
-        if($movimento->confirmado == 0){
-            $movimento->forceDelete();
-        }else{
-            return redirect()->route('movimentos.index')->with('erros', 'Movimento encontra-se confirmado, não pode ser eliminado!');
-        }
+        $this->authorize('delete', $movimento);
+
+        $movimento->forceDelete();
 
         return redirect()->route('movimentos.index')->with('sucesso', 'Movimento eliminado com sucesso!');
     }
@@ -160,7 +164,7 @@ class MovimentoController extends Controller
             $this->authorize('confimarVoo', Movimento::class);
             $movimento->confirmado = 1;
             $movimento->save();
-            return redirect()->route('movimentos.index')->with('sucesso', 'Voo confirmado com sucesso!');
+            return redirect()->route('movimentos.index')->with('sucesso', 'Movimento confirmado com sucesso!');
         }
 
         $this->authorize('update', $movimento);
@@ -232,8 +236,4 @@ class MovimentoController extends Controller
 
         return redirect()->route('movimentos.index')->with('sucesso', 'Voo editado com sucesso!');
     }
-
-
-
-
 }
