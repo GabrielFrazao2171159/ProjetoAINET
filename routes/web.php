@@ -44,7 +44,7 @@ Route::patch ('/socios/{socio}/quota', 'UtilizadorController@quotas')->name('soc
 Route::patch ('/socios/{socio}/ativo', 'UtilizadorController@ativo')->name('socios.ativo');
 Route::patch ('/socios/desativar_sem_quotas', 'UtilizadorController@desativar_sem_quotas')->name('socios.desativar_sem_quotas');
 Route::get('/pilotos/{piloto}/certificado', 'UtilizadorController@certificado')->name('socios.certificado');
-Route::get('//pilotos/{piloto}/licenca', 'UtilizadorController@licenca')->name('socios.licenca');
+Route::get('/pilotos/{piloto}/licenca', 'UtilizadorController@licenca')->name('socios.licenca');
 
 //Movimentos
 Route::get('/movimentos', 'MovimentoController@index')->name('movimentos.index');
