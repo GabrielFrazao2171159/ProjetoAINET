@@ -51,6 +51,7 @@ Route::post('/movimentos', 'MovimentoController@store')->name('movimentos.store'
 Route::delete('/movimentos/{movimento}', 'MovimentoController@destroy')->name('movimentos.destroy');
 Route::get('/movimentos/{movimento}/edit', 'MovimentoController@edit')->name('movimentos.edit');
 Route::put('/movimentos/{movimento}', 'MovimentoController@update')->name('movimentos.update');
+Route::get('/movimentos/estatisticas', 'MovimentoController@estatisticas')->name('movimentos.estatisticas');
 
 //Autenticacao
 Route::get('/password', 'UtilizadorController@editPassword')->name('socios.editPassword');

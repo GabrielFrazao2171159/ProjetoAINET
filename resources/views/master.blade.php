@@ -34,7 +34,7 @@ Alterar Palavra-Passe</a></li>
     </nav>
     <div class="container">
         <div class="jumbotron" style="background-color: rgb(48,117,173);">
-            <h1><span style="color: white; ">@yield('title')</span></h1>
+            <h1 style="text-align: center"><span style="color: white; ">@yield('title')</span></h1>
         </div>
         @if (session('sucesso'))
             @include('shared.sucesso')
