@@ -1,9 +1,9 @@
 @extends('master')
 @section('title','Editar Movimento')
 @section('content')
-    <form action="{{route('movimentos.update',$movimento)}}" method="post" class="form-group">
-        @method('put')
-        @csrf
+    <form method="POST" action="{{route('movimentos.update',$movimento)}}" class="form-group">
+        <input type="hidden" name="_method" value="PUT">
+        <input type="hidden" name="_token" value="{{csrf_token()}}">
         @include('movimentos.create-edit')
         <div class="form-group">
             <button type="submit" class="btn btn-success" name="ok">Save</button>

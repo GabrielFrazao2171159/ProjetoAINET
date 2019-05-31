@@ -5,8 +5,6 @@
         <div><a class="btn btn-primary" href="{{route('movimentos.create')}}">Adicionar movimento</a></div>
     @endcan
     <br>
-    <div><a class="btn btn-primary" href="{{route('movimentos.estatisticas')}}">Estatisticas</a></div>
-    <br>
     <div>
         <form method="GET" action="{{route('movimentos.index')}}">
             <fieldset>
@@ -48,7 +46,6 @@
                     </div>
                 </div>
                 <button class="btn btn-outline-success" type="submit">Pesquisar</button>
-                <button class="btn btn-primary" type="submit">Confirmar</button>
             </fieldset>
         </form>
     </div>
@@ -56,7 +53,6 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th></th>
                 <th>ID</th>
                 <th>Aeronave</th>
                 <th>Data</th>
@@ -85,7 +81,6 @@
             <tbody>
             @foreach ($movimentos as $movimento)
                 <tr>
-                    <td><input type="checkbox" id="confirmacoes" name="confirmado" value="1"></td>
                     <td>{{($movimento->id)}}</td>
                     <td>{{App\Aeronave::find($movimento->aeronave)->matricula}}</td>
                     <td>{{date("d/m/Y", strtotime($movimento->data))}}</td>
@@ -130,5 +125,5 @@
     @else
         <h2>Não foram encontradas voos</h2>
     @endif
-    <div style="text-align: center;"><button class="btn btn-outline-success" type="submit">Pesquisar</button> {{$movimentos->appends(request()->except('page'))->links()}}</div>
+    <div style="text-align: center;">{{$movimentos->appends(request()->except('page'))->links()}}</div>
 @endsection

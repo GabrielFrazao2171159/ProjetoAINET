@@ -2,7 +2,7 @@
     <div class="form-group">
         <label for="inputData">Data</label>
         <input
-                type="date" class="form-control"
+                type="text" class="form-control"
                 name="data" id="inputData" value="{{old('data',$movimento->data)}}"/>
         @if ($errors->has('data'))
             <em>{{ $errors->first('data') }}</em>
@@ -28,9 +28,12 @@
     </div>
     <div class="form-group">
         <label for="inputAeronave">Aeronave</label>
-        <input
-                type="text" class="form-control"
-                name="aeronave" id="inputAeronave" value="{{old('aeronave',$movimento->aeronave)}}"/>
+        <select name="aeronave" id="inputAeronave" class="form-control">
+            <option disabled selected> -- Selecione uma opção -- </option>
+            @foreach($matriculas as $matricula)
+            <option {{ old('aeronave',$movimento->aeronave) == "$matricula" ? 'selected' : '' }} value="{{$matricula}}">{{$matricula}}</option>
+            @endforeach
+        </select>
         @if ($errors->has('aeronave'))
             <em>{{ $errors->first('aeronave') }}</em>
         @endif
@@ -135,6 +138,24 @@
                 name="conta_horas_fim" id="inputContaHorasFim" value="{{old('conta_horas_fim',$movimento->conta_horas_fim)}}"/>
         @if ($errors->has('conta_horas_fim'))
             <em>{{ $errors->first('conta_horas_fim') }}</em>
+        @endif
+    </div>
+    <div class="form-group">
+        <label for="inputTempoVoo">Tempo de Voo</label>
+        <input
+                type="text" class="form-control"
+                name="tempo_voo" id="inputTempoVoo" value="{{old('tempo_voo',$movimento->tempo_voo)}}"/>
+        @if ($errors->has('tempo_voo'))
+            <em>{{ $errors->first('tempo_voo') }}</em>
+        @endif
+    </div>
+    <div class="form-group">
+        <label for="inputPrecoVoo">Preço do Voo</label>
+        <input
+                type="text" class="form-control"
+                name="preco_voo" id="inputPrecoVoo" value="{{old('preco_voo',$movimento->preco_voo)}}"/>
+        @if ($errors->has('preco_voo'))
+            <em>{{ $errors->first('preco_voo') }}</em>
         @endif
     </div>
     <div class="form-group">

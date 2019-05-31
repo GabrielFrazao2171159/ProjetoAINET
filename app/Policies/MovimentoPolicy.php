@@ -36,7 +36,7 @@ class MovimentoPolicy
 
     public function create(User $auth)
     {
-        if($auth->tipo_socio == "P"){
+        if($auth->tipo_socio == "P" || $auth->isDirecao()){
             return true;
         }
         return false;

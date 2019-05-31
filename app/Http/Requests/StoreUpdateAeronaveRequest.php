@@ -27,7 +27,7 @@ class StoreUpdateAeronaveRequest extends FormRequest
             'matricula' => 'required|max:8',
             'marca' => 'required|string|max:40',
             'modelo' => 'required|string|max:40',
-            'num_lugares' => 'required|integer|between:1,10',
+            'num_lugares' => 'required|integer|min:1',
             'conta_horas' => 'required|integer|min:0',
             'preco_hora' => 'required|numeric|min:0.00',
             'tempos' => 'required|array|min:10|max:10',
