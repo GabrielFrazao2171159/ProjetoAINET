@@ -10,7 +10,7 @@
         value="{{old('matricula',$aeronave->matricula)}}" readonly="readonly" />
     </div>
     @include('aeronaves.create-edit')  
-    <div class="form-group">
+    <div class="form-group col-md-12">
         <button type="submit" class="btn btn-success" name="ok">Save</button>
         <a href="{{route('aeronaves.index')}}" class="btn btn-default">Cancel</a>
     </div>

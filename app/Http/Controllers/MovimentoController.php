@@ -126,6 +126,20 @@ class MovimentoController extends Controller
             }
         }
 
+        //Têm de estar autorizados
+        if($movimento['natureza'] == "I"){
+            $aeronavesPiloto = $piloto->aeronaves()->get()->pluck('matricula')->toArray();
+            $aeronavesInst = $instrutor->aeronaves()->get()->pluck('matricula')->toArray();
+            if (!(in_array($aeronave->matricula,$aeronavesPiloto)&& in_array($aeronave->matricula,$aeronavesInst))) {
+                return back()->withInput($request->all())->withErrors(array('piloto_id' => 'O piloto e o instrutor têm de estar autorizados a voar na aeronave escolhida.','instrutor_id' => 'O piloto e o instrutor têm de estar autorizados a voar na aeronave escolhida.'));
+            }
+        }else{
+            $aeronavesPiloto = $piloto->aeronaves()->get()->pluck('matricula')->toArray();
+            if (!in_array($aeronave->matricula,$aeronavesPiloto)) {
+                return back()->withInput($request->all())->withErrors(array('piloto_id' => 'O piloto tem de estar autorizado a voar na aeronave escolhida.'));
+            }
+        }
+
         Movimento::create($movimento);
 
         return redirect()->route('movimentos.index')->with('sucesso', 'Voo inserido com sucesso!');
@@ -218,6 +232,20 @@ class MovimentoController extends Controller
                 if ($piloto->id != Auth::id()) {
                     return back()->withInput($request->all())->withErrors(array('piloto_id' => 'O piloto ID terá de pertencer ao ID do utilizador com login iniciado.'));
                 }
+            }
+        }
+
+        //Têm de estar autorizados
+        if($movimento->natureza == "I"){
+            $aeronavesPiloto = $piloto->aeronaves()->get()->pluck('matricula')->toArray();
+            $aeronavesInst = $instrutor->aeronaves()->get()->pluck('matricula')->toArray();
+            if (!(in_array($aeronave->matricula,$aeronavesPiloto)&& in_array($aeronave->matricula,$aeronavesInst))) {
+                return back()->withInput($request->all())->withErrors(array('piloto_id' => 'O piloto e o instrutor têm de estar autorizados a voar na aeronave escolhida.','instrutor_id' => 'O piloto e o instrutor têm de estar autorizados a voar na aeronave escolhida.'));
+            }
+        }else{
+            $aeronavesPiloto = $piloto->aeronaves()->get()->pluck('matricula')->toArray();
+            if (!in_array($aeronave->matricula,$aeronavesPiloto)) {
+                return back()->withInput($request->all())->withErrors(array('piloto_id' => 'O piloto tem de estar autorizado a voar na aeronave escolhida.'));
             }
         }
 

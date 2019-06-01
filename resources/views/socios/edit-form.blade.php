@@ -391,6 +391,37 @@
                 @endif
                 <!--cópia digital do certificado-->
             </div>
+            <div class="form-group col-md-12">
+                <br><br>
+                <label>Aeronaves em que está autorizado a pilotar</label>
+                @if(count($socio->aeronaves()->get())==0)
+                    <p>Não pode pilotar nenhuma aeronave</p>
+                @else
+                    <table class="table table-striped">
+                    <thead>
+                        <tr>                
+                            <th>Matricula</th>            
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>Número de lugares</th>
+                            <th>Conta Horas</th>
+                            <th>Preço Hora</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($socio->aeronaves()->get() as $aeronave)
+                            <tr>
+                                <td>{{($aeronave->matricula)}}</td>
+                                <td>{{($aeronave->marca)}}</td>
+                                <td>{{($aeronave->modelo)}}</td>
+                                <td>{{$aeronave->num_lugares}}</td>
+                                <td>{{$aeronave->conta_horas}}</td>
+                                <td>{{$aeronave->preco_hora}}</td>
+                            </tr>       
+                        @endforeach
+                    </table>
+                @endif
+            </div>
         @endif
     </div>
 </div>

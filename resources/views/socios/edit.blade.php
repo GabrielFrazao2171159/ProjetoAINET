@@ -5,11 +5,12 @@
 	<input type="hidden" name="_method" value="PUT">
     <input type="hidden" name="_token" value="{{csrf_token()}}">
     @include('socios.edit-form')  
-    <div class="form-group">
+    <div class="form-group col-md-12">
         <button type="submit" class="btn btn-success" name="ok">Save</button>
         <a href="{{route('socios.index')}}" class="btn btn-default">Cancel</a>
     </div>
 </form>
+<div class="form-group col-md-12">
 @can('enviarMail', App\User::class) 
     @if ($socio->email_verified_at == null)
         <form action="{{route('socios.reenviarEmail', $socio)}}" method="post">
@@ -19,4 +20,5 @@
         </form>
     @endif
 @endcan
+</div>
 @endsection

@@ -13,7 +13,7 @@
 	    @endif
 	</div>
     @include('aeronaves.create-edit')	
-    <div class="form-group">
+    <div class="form-group col-md-12">
         <button type="submit" class="btn btn-success" name="ok">Adicionar</button>
         <a href="{{route('aeronaves.index')}}" class="btn btn-default">Cancelar</a>
     </div>

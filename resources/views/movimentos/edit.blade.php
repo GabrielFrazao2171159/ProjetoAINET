@@ -5,11 +5,12 @@
         <input type="hidden" name="_method" value="PUT">
         <input type="hidden" name="_token" value="{{csrf_token()}}">
         @include('movimentos.create-edit')
-        <div class="form-group">
+        <div class="form-group col-md-12">
             <button type="submit" class="btn btn-success" name="ok">Save</button>
             <a href="{{route('movimentos.index')}}" class="btn btn-default">Cancel</a>
         </div>
     </form>
+<div class="form-group col-md-12">
 @can('confimarVoo', App\Movimento::class)
     @if ($movimento->confirmado == 0)
         <form action="{{route('movimentos.update', $movimento)}}" method="post">
@@ -20,5 +21,6 @@
         </form>
     @endif
 @endcan
+</div>
 @endsection
 

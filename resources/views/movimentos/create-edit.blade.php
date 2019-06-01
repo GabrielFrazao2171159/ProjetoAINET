@@ -188,7 +188,7 @@
             <em>{{ $errors->first('observacoes') }}</em>
         @endif
     </div>
-    <div col-md-12>
+    <div class="col-md-12">
         <h3>Caso seja de Instrução:</h3>
     </div>
     <div class="form-group col-md-6">
