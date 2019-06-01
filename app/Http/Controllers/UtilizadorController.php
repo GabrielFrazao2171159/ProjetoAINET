@@ -300,11 +300,19 @@ class UtilizadorController extends Controller
     public function certificado(User $piloto)
     {
         $name = 'certificado_' . $piloto->id . '.pdf';
-        return Storage::disk('local')->response('docs_piloto/' . $name);
+        if(file_exists('docs_piloto/' . $name)){
+            return Storage::disk('local')->response('docs_piloto/' . $name);
+        }
+        return back()->withInput($piloto->toArray())->withErrors(array('file_certificado' => 'Não existe certificado.'));
     }
 
     public function licenca(User $piloto)
     {
         $name = 'licenca_' . $piloto->id . '.pdf';
-        return Storage::disk('local')->response('docs_piloto/' . $name);    }
+        if(file_exists('docs_piloto/' . $name)){
+            return Storage::disk('local')->response('docs_piloto/' . $name);
+        }
+        return back()->withInput($piloto->toArray())->withErrors(array('file_licenca' => 'Não existe licença.'));
+    }
+        
 }

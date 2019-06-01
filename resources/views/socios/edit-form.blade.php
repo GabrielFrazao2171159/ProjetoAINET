@@ -378,6 +378,9 @@
                 </div>
                 <input type="file" name="file_licenca" class="form-control">
                 <!--cópia digital da licença-->
+                @if ($errors->has('file_licenca'))
+                    <em>{{ $errors->first('file_licenca') }}</em>
+                @endif
             </div>
             <label>Cópia digital do certificado</label>
             <div>
@@ -386,6 +389,9 @@
                 @endif
             </div>
             <input type="file" name="file_certificado" class="form-control">
+            @if ($errors->has('file_certificado'))
+                <em>{{ $errors->first('file_certificado') }}</em>
+            @endif
             <!--cópia digital do certificado-->
         @endif
     </div>
