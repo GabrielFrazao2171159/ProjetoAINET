@@ -100,6 +100,14 @@ class UpdateUserRequest extends FormRequest
             if(!empty($this->classe_certificado)){
                 $rules_base['classe_certificado'] = 'string|exists:classes_certificados,code';
             }
+
+            if(!empty($this->file_licenca)){
+                $rules['file_licenca'] = 'mimetypes:application/pdf';
+            }
+
+            if(!empty($this->file_certificado)){
+                $rules['file_certificado'] = 'mimetypes:application/pdf';
+            }
         }
 
         if(!empty($this->endereco)){

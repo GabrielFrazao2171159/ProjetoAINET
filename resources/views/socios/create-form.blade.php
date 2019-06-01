@@ -230,5 +230,31 @@
                 <em>{{ $errors->first('classe_certificado') }}</em>
             @endif
         </div>
+        <div class="col-md-6">
+        <label>Cópia digital da licença</label>
+            <div>
+                @if($socio->licenca_confirmada==1)
+                    <a href="{{  route('socios.licenca', $socio) }}">Ver licença</a>
+                @endif
+            </div>
+            <input type="file" name="file_licenca" class="form-control">
+            <!--cópia digital da licença-->
+            @if ($errors->has('file_licenca'))
+                <em>{{ $errors->first('file_licenca') }}</em>
+            @endif
+        </div>
+        <div class="col-md-6">
+            <label>Cópia digital do certificado</label>
+            <div>
+                @if($socio->certificado_confirmado==1)
+                    <a href="{{  route('socios.certificado', $socio) }}">Ver certificado</a>
+                @endif
+            </div>
+            <input type="file" name="file_certificado" class="form-control">
+            @if ($errors->has('file_certificado'))
+                <em>{{ $errors->first('file_certificado') }}</em>
+            @endif
+            <!--cópia digital do certificado-->
+        </div>
     </div>
 </div>
