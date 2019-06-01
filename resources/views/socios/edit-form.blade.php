@@ -15,7 +15,7 @@
     </div>
     <div class="col-md-8 text-center">
         @can('editInfo', App\User::class)
-            <div class="form-group">
+            <div class="form-group col-md-4">
                 <label for="inputNumeroSocio">Número de sócio</label>
                 <input
                         type="number" class="form-control"
@@ -24,7 +24,7 @@
                     <em>{{ $errors->first('num_socio') }}</em>
                 @endif
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-4">
                 <label for="inputTipo">Tipo</label>
                 <select name="tipo_socio" id="tipo_socio" class="form-control">
                     <option disabled selected> -- Selecione uma opção --</option>
@@ -40,7 +40,7 @@
                     <em>{{ $errors->first('tipo_socio') }}</em>
                 @endif
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-4">
                 <label for="inputSexo">Sexo</label>
                 <select name="sexo" id="sexo" class="form-control">
                     <option disabled selected> -- Selecione uma opção --</option>
@@ -52,7 +52,7 @@
                 @endif
             </div>
         @else
-            <div class="form-group">
+            <div class="form-group col-md-4">
                 <label for="inputNumeroSocio">Número de sócio</label>
                 <input
                         type="number" class="form-control"
@@ -62,7 +62,7 @@
                     <em>{{ $errors->first('num_socio') }}</em>
                 @endif
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-4">
                 <label for="inputTipo">Tipo</label>
                 <select name="tipo_socio" id="tipo_socio" class="form-control" disabled>
                     <option {{ old('tipo_socio',$socio->tipo_socio) == 'P' ? 'selected' : '' }} value="P">Piloto
@@ -77,7 +77,7 @@
                     <em>{{ $errors->first('tipo_socio') }}</em>
                 @endif
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-4">
                 <label for="inputSexo">Sexo</label>
                 <select name="sexo" id="sexo" class="form-control" disabled>
                     <option {{ old('sexo',$socio->sexo) == 'M' ? 'selected' : '' }} value="M">Masculino</option>
@@ -88,7 +88,7 @@
                 @endif
             </div>
         @endcan
-        <div class="form-group">
+        <div class="form-group col-md-9">
             <label for="inputNome">Nome</label>
             <input
                     type="text" class="form-control"
@@ -97,7 +97,7 @@
                 <em>{{ $errors->first('name') }}</em>
             @endif
         </div>
-        <div class="form-group">
+        <div class="form-group col-md-3">
             <label for="inputNomeInformal">Nome Informal</label>
             <input
                     type="text" class="form-control"
@@ -106,7 +106,7 @@
                 <em>{{ $errors->first('nome_informal') }}</em>
             @endif
         </div>
-        <div class="form-group">
+        <div class="form-group col-md-4">
             <label for="inputDataNascimento">Data Nascimento</label>
             <input
                     type="text" class="form-control"
@@ -116,23 +116,7 @@
                 <em>{{ $errors->first('data_nascimento') }}</em>
             @endif
         </div>
-        <div class="form-group">
-            <label for="inputEmail">Email</label>
-            <input
-                    type="text" class="form-control"
-                    name="email" id="inputEmail" value="{{old('email',$socio->email)}}"/>
-            @if ($errors->has('email'))
-                <em>{{ $errors->first('email') }}</em>
-            @endif
-        </div>
-        <div class="form-group">
-            <label for="inputEndereco">Endereco</label>
-            <textarea name="endereco" id="endereco" class="form-control">{{old('endereco',$socio->endereco)}}</textarea>
-            @if ($errors->has('endereco'))
-                <em>{{ $errors->first('endereco') }}</em>
-            @endif
-        </div>
-        <div class="form-group">
+        <div class="form-group col-md-4">
             <label for="inputNif">NIF</label>
             <input
                     type="number" class="form-control"
@@ -141,7 +125,7 @@
                 <em>{{ $errors->first('nif') }}</em>
             @endif
         </div>
-        <div class="form-group">
+        <div class="form-group col-md-4">
             <label for="inputTelefone">Telefone</label>
             <input
                     type="text" class="form-control"
@@ -150,76 +134,88 @@
                 <em>{{ $errors->first('telefone') }}</em>
             @endif
         </div>
+        <div class="form-group col-md-12">
+            <label for="inputEmail">Email</label>
+            <input
+                    type="text" class="form-control"
+                    name="email" id="inputEmail" value="{{old('email',$socio->email)}}"/>
+            @if ($errors->has('email'))
+                <em>{{ $errors->first('email') }}</em>
+            @endif
+        </div>
+        <div class="form-group col-md-12">
+            <label for="inputEndereco">Endereco</label>
+            <textarea name="endereco" id="endereco" class="form-control">{{old('endereco',$socio->endereco)}}</textarea>
+            @if ($errors->has('endereco'))
+                <em>{{ $errors->first('endereco') }}</em>
+            @endif
+        </div>
         @can('editInfo', App\User::class)
-            <div>
-                <div class="form-group col-md-4">
-                    <label class="form-check-label" for="inputDirecao">Direção</label>
-                    <input
-                            type="checkbox" class="form-check-input"
-                            id="inputDirecao" name="direcao"
-                            value="1" {{old('direcao',$socio->direcao) == 1 ? 'checked' : ''}}/>
-                    @if ($errors->has('direcao'))
-                        <em>{{ $errors->first('direcao') }}</em>
-                    @endif
-                </div>
-                <div class="form-group col-md-4">
-                    <label class="form-check-label" for="inputQuotaPaga">Quotas pagas</label>
-                    <input
-                            type="checkbox" class="form-check-input"
-                            name="quota_paga" id="inputQuotaPaga" value="1"
-                            {{old('quota_paga',$socio->quota_paga) == 1 ? 'checked' : ''}}/>
-                    @if ($errors->has('quota_paga'))
-                        <em>{{ $errors->first('quota_paga') }}</em>
-                    @endif
-                </div>
-                <div class="form-group col-md-4">
-                    <label class="form-check-label" for="inputAtivo">Ativo</label>
-                    <input
-                            type="checkbox" class="form-check-input"
-                            name="ativo" id="inputAtivo"
-                            value="1" {{old('ativo',$socio->ativo) == 1 ? 'checked' : ''}}/>
-                    @if ($errors->has('ativo'))
-                        <em>{{ $errors->first('ativo') }}</em>
-                    @endif
-                </div>
+            <div class="form-group col-md-4">
+                <label class="form-check-label" for="inputDirecao">Direção</label>
+                <input
+                        type="checkbox" class="form-check-input"
+                        id="inputDirecao" name="direcao"
+                        value="1" {{old('direcao',$socio->direcao) == 1 ? 'checked' : ''}}/>
+                @if ($errors->has('direcao'))
+                    <em>{{ $errors->first('direcao') }}</em>
+                @endif
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-check-label" for="inputQuotaPaga">Quotas pagas</label>
+                <input
+                        type="checkbox" class="form-check-input"
+                        name="quota_paga" id="inputQuotaPaga" value="1"
+                        {{old('quota_paga',$socio->quota_paga) == 1 ? 'checked' : ''}}/>
+                @if ($errors->has('quota_paga'))
+                    <em>{{ $errors->first('quota_paga') }}</em>
+                @endif
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-check-label" for="inputAtivo">Ativo</label>
+                <input
+                        type="checkbox" class="form-check-input"
+                        name="ativo" id="inputAtivo"
+                        value="1" {{old('ativo',$socio->ativo) == 1 ? 'checked' : ''}}/>
+                @if ($errors->has('ativo'))
+                    <em>{{ $errors->first('ativo') }}</em>
+                @endif
             </div>
         @else
-            <div>
-                <div class="form-group col-md-4">
-                    <label class="form-check-label" for="inputDirecao">Direção</label>
-                    <input
-                            type="checkbox" class="form-check-input"
-                            id="inputDirecao" name="direcao" disabled
-                            value="1" {{old('direcao',$socio->direcao) == 1 ? 'checked' : ''}}/>
-                    @if ($errors->has('direcao'))
-                        <em>{{ $errors->first('direcao') }}</em>
-                    @endif
-                </div>
-                <div class="form-group col-md-4">
-                    <label class="form-check-label" for="inputQuotaPaga">Quotas pagas</label>
-                    <input
-                            type="checkbox" class="form-check-input"
-                            name="quota_paga" id="inputQuotaPaga" disabled value="1"
-                            {{old('quota_paga',$socio->quota_paga) == 1 ? 'checked' : ''}}/>
-                    @if ($errors->has('quota_paga'))
-                        <em>{{ $errors->first('quota_paga') }}</em>
-                    @endif
-                </div>
-                <div class="form-group col-md-4">
-                    <label class="form-check-label" for="inputAtivo">Ativo</label>
-                    <input
-                            type="checkbox" class="form-check-input"
-                            name="ativo" id="inputAtivo" value="1"
-                            disabled {{old('ativo',$socio->ativo) == 1 ? 'checked' : ''}}/>
-                    @if ($errors->has('ativo'))
-                        <em>{{ $errors->first('ativo') }}</em>
-                    @endif
-                </div>
+            <div class="form-group col-md-4">
+                <label class="form-check-label" for="inputDirecao">Direção</label>
+                <input
+                        type="checkbox" class="form-check-input"
+                        id="inputDirecao" name="direcao" disabled
+                        value="1" {{old('direcao',$socio->direcao) == 1 ? 'checked' : ''}}/>
+                @if ($errors->has('direcao'))
+                    <em>{{ $errors->first('direcao') }}</em>
+                @endif
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-check-label" for="inputQuotaPaga">Quotas pagas</label>
+                <input
+                        type="checkbox" class="form-check-input"
+                        name="quota_paga" id="inputQuotaPaga" disabled value="1"
+                        {{old('quota_paga',$socio->quota_paga) == 1 ? 'checked' : ''}}/>
+                @if ($errors->has('quota_paga'))
+                    <em>{{ $errors->first('quota_paga') }}</em>
+                @endif
+            </div>
+            <div class="form-group col-md-4">
+                <label class="form-check-label" for="inputAtivo">Ativo</label>
+                <input
+                        type="checkbox" class="form-check-input"
+                        name="ativo" id="inputAtivo" value="1"
+                        disabled {{old('ativo',$socio->ativo) == 1 ? 'checked' : ''}}/>
+                @if ($errors->has('ativo'))
+                    <em>{{ $errors->first('ativo') }}</em>
+                @endif
             </div>
         @endcan
         <!-- Informação de piloto -->
         @if($socio->tipo_socio=="P")
-            <div class="form-group">
+            <div class="form-group col-md-6">
                 <label for="inputNumLicenca">Número Licença</label>
                 <input
                         type="text" class="form-control"
@@ -228,7 +224,7 @@
                     <em>{{ $errors->first('num_licenca') }}</em>
                 @endif
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-6">
                 <label for="inputTipoLicenca">Tipo Licença</label>
                 <select name="tipo_licenca" id="inputTipoLicenca" class="form-control">
                     <option disabled selected> -- Selecione uma opção -- </option>
@@ -241,7 +237,7 @@
                 @endif
             </div>
             @can('editInfo', App\User::class)
-                <div class="form-group">
+                <div class="form-group col-md-2">
                     <label class="form-check-label" for="inputInstrutor">Instrutor</label>
                     <input
                             type="checkbox" class="form-check-input"
@@ -252,7 +248,7 @@
                     @endif
                 </div>
                 @can('editInfo', App\User::class)
-                    <div class="form-group">
+                    <div class="form-group col-md-2">
                         <label class="form-check-label" for="inputAluno">Aluno</label>
                         <input
                                 type="checkbox" class="form-check-input"
@@ -263,7 +259,7 @@
                         @endif
                     </div>
                 @endcan
-                <div class="form-group">
+                <div class="form-group col-md-3">
                     <label class="form-check-label" for="inputLicencaConfirmada">Licença confirmada</label>
                     <input
                             type="checkbox" class="form-check-input"
@@ -273,7 +269,7 @@
                         <em>{{ $errors->first('licenca_confirmada') }}</em>
                     @endif
                 </div>
-                <div class="form-group">
+                <div class="form-group col-md-5">
                     <label class="form-check-label" for="inputCertificadoConfirmado">Certificado médico confirmado</label>
                     <input
                             type="checkbox" class="form-check-input"
@@ -284,7 +280,7 @@
                     @endif
                 </div>
             @else
-                <div class="form-group">
+                <div class="form-group col-md-6">
                     <label class="form-check-label" for="inputInstrutor">Instrutor</label>
                     <input
                             type="checkbox" class="form-check-input"
@@ -295,7 +291,7 @@
                     @endif
                 </div>
                 @can('editInfo', App\User::class)
-                    <div class="form-group">
+                    <div class="form-group col-md-6">
                         <label class="form-check-label" for="inputAluno">Aluno</label>
                         <input
                                 type="checkbox" class="form-check-input"
@@ -306,7 +302,7 @@
                         @endif
                     </div>
                 @endcan
-                <div class="form-group">
+                <div class="form-group col-md-3">
                     <label class="form-check-label" for="inputLicencaConfirmada">Licença confirmada</label>
                     <input
                             type="checkbox" class="form-check-input"
@@ -316,7 +312,7 @@
                         <em>{{ $errors->first('licenca_confirmada') }}</em>
                     @endif
                 </div>
-                <div class="form-group">
+                <div class="form-group col-md-5">
                     <label class="form-check-label" for="inputCertificadoConfirmado">Certificado médico confirmado</label>
                     <input
                             type="checkbox" class="form-check-input"
@@ -327,7 +323,7 @@
                     @endif
                 </div>
             @endcan
-            <div class="form-group">
+            <div class="form-group col-md-6">
                 <label for="inputValidadeLicenca">Validade Licença</label>
                 <input
                         type="text" class="form-control"
@@ -337,7 +333,7 @@
                     <em>{{ $errors->first('validade_licenca') }}</em>
                 @endif
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-6">
                 <label for="inputNumCertificado">Número Certificado</label>
                 <input
                         type="text" class="form-control"
@@ -347,7 +343,7 @@
                     <em>{{ $errors->first('num_certificado') }}</em>
                 @endif
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-6">
                 <label for="inputCertificadoConfirmado">Validade certificado médico</label>
                 <input
                         type="text" class="form-control"
@@ -357,7 +353,7 @@
                     <em>{{ $errors->first('validade_certificado') }}</em>
                 @endif
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-6">
                 <label for="inputClasseCertificado">Classe Certificado</label>
                 <select name="classe_certificado" id="inputClasseCertificado" class="form-control">
                     <option disabled selected> -- Selecione uma opção -- </option>
@@ -369,7 +365,7 @@
                     <em>{{ $errors->first('classe_certificado') }}</em>
                 @endif
             </div>
-            <div>
+            <div class="col-md-6">
             <label>Cópia digital da licença</label>
                 <div>
                     @if($socio->licenca_confirmada==1)
@@ -382,17 +378,19 @@
                     <em>{{ $errors->first('file_licenca') }}</em>
                 @endif
             </div>
-            <label>Cópia digital do certificado</label>
-            <div>
-                @if($socio->certificado_confirmado==1)
-                    <a href="{{  route('socios.certificado', $socio) }}">Ver certificado</a>
+            <div class="col-md-6">
+                <label>Cópia digital do certificado</label>
+                <div>
+                    @if($socio->certificado_confirmado==1)
+                        <a href="{{  route('socios.certificado', $socio) }}">Ver certificado</a>
+                    @endif
+                </div>
+                <input type="file" name="file_certificado" class="form-control">
+                @if ($errors->has('file_certificado'))
+                    <em>{{ $errors->first('file_certificado') }}</em>
                 @endif
+                <!--cópia digital do certificado-->
             </div>
-            <input type="file" name="file_certificado" class="form-control">
-            @if ($errors->has('file_certificado'))
-                <em>{{ $errors->first('file_certificado') }}</em>
-            @endif
-            <!--cópia digital do certificado-->
         @endif
     </div>
 </div>
