@@ -262,7 +262,7 @@ class UtilizadorController extends Controller
         //Mudar data para formato da BD (ela vem noutro formato para passar nos testes)
         $date = str_replace('/', '-', $socio->data_nascimento);
         $socio->data_nascimento = date("Y-m-d", strtotime($date));
-        dd($socio);
+
         $socio->save();
 
         return redirect()->route('socios.index')->with('sucesso', 'Sócio editado com sucesso!');

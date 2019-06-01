@@ -28,7 +28,8 @@ class MovimentoPolicy
 
     public function update(User $auth, Movimento $movimento)
     {
-        if((($auth->tipo_socio == "P" && ($auth->id == $movimento->piloto_id || $auth->id == $movimento->instrutor_id)) || $auth->isDirecao()) && $movimento->confirmado==0){
+        //Protege criar ou alterar movimento como user como password inicial user
+        if((($auth->tipo_socio == "P" && ($auth->id == $movimento->piloto_id || $auth->id == $movimento->instrutor_id)) || $auth->isDirecao()) && $movimento->confirmado==0 && $auth->password_inicial==0){
             return true;
         }
         return false;
@@ -36,7 +37,8 @@ class MovimentoPolicy
 
     public function create(User $auth)
     {
-        if($auth->tipo_socio == "P" || $auth->isDirecao()){
+        //Protege criar ou alterar movimento como user como password inicial user
+        if(($auth->tipo_socio == "P" || $auth->isDirecao()) && $auth->password_inicial==0){
             return true;
         }
         return false;
