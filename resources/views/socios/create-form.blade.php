@@ -129,5 +129,108 @@
                 @endif 
             </div>
         </div>
+        <div class="form-group">
+                <label for="inputNumLicenca">Número Licença</label>
+                <input
+                        type="text" class="form-control"
+                        name="num_licenca" id="inputNumLicenca" value="{{old('num_licenca', $socio->num_licenca)}}"/>
+                @if ($errors->has('num_licenca'))
+                    <em>{{ $errors->first('num_licenca') }}</em>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="inputTipoLicenca">Tipo Licença</label>
+                <select name="tipo_licenca" id="inputTipoLicenca" class="form-control">
+                    <option disabled selected> -- Selecione uma opção -- </option>
+                    @foreach(DB::table('tipos_licencas')->pluck('code') as $codigo)
+                    <option {{ old('tipo_licenca',$socio->tipo_licenca) == "$codigo" ? 'selected' : '' }} value="{{$codigo}}">{{$codigo}}</option>
+                    @endforeach
+                </select>
+                @if ($errors->has('tipo_licenca'))
+                    <em>{{ $errors->first('tipo_licenca') }}</em>
+                @endif
+            </div>
+            <div class="form-group">
+                <label class="form-check-label" for="inputInstrutor">Instrutor</label>
+                <input
+                        type="checkbox" class="form-check-input"
+                        name="instrutor" id="inputInstrutor" value="1"
+                        {{old('instrutor',$socio->instrutor) == 1 ? 'checked' : ''}}/>
+                @if ($errors->has('instrutor'))
+                    <em>{{ $errors->first('instrutor') }}</em>
+                @endif
+            </div>
+            <div class="form-group">
+                <label class="form-check-label" for="inputAluno">Aluno</label>
+                <input
+                        type="checkbox" class="form-check-input"
+                        name="aluno" id="inputAluno" value="1"
+                        {{old('aluno',$socio->aluno) == 1 ? 'checked' : ''}}/>
+                @if ($errors->has('aluno'))
+                    <em>{{ $errors->first('aluno') }}</em>
+                @endif
+            </div>
+            <div class="form-group">
+            <label class="form-check-label" for="inputLicencaConfirmada">Licença confirmada</label>
+            <input
+                    type="checkbox" class="form-check-input"
+                    name="licenca_confirmada" id="inputLicencaConfirmada" value="1"
+                    {{old('licenca_confirmada',$socio->licenca_confirmada) == 1 ? 'checked' : ''}}/>
+            @if ($errors->has('licenca_confirmada'))
+                <em>{{ $errors->first('licenca_confirmada') }}</em>
+            @endif
+        </div>
+        <div class="form-group">
+            <label class="form-check-label" for="inputCertificadoConfirmado">Certificado médico confirmado</label>
+            <input
+                    type="checkbox" class="form-check-input"
+                    name="certificado_confirmado" id="inputCertificadoConfirmado" value="1"
+                    {{old('certificado_confirmado',$socio->certificado_confirmado) == 1 ? 'checked' : ''}}/>
+            @if ($errors->has('certificado_confirmado'))
+                <em>{{ $errors->first('certificado_confirmado') }}</em>
+            @endif
+        </div>
+        <div class="form-group">
+            <label for="inputValidadeLicenca">Validade Licença</label>
+            <input
+                    type="text" class="form-control"
+                    name="validade_licenca" id="inputValidadeLicenca"
+                    value="{{old('validade_licenca',$socio->validade_licenca)}}"/>
+            @if ($errors->has('validade_licenca'))
+                <em>{{ $errors->first('validade_licenca') }}</em>
+            @endif
+        </div>
+        <div class="form-group">
+            <label for="inputNumCertificado">Número Certificado</label>
+            <input
+                    type="text" class="form-control"
+                    name="num_certificado" id="inputNumCertificado"
+                    value="{{old('num_certificado', $socio->num_certificado)}}"/>
+            @if ($errors->has('num_certificado'))
+                <em>{{ $errors->first('num_certificado') }}</em>
+            @endif
+        </div>
+        <div class="form-group">
+            <label for="inputCertificadoConfirmado">Validade certificado médico</label>
+            <input
+                    type="text" class="form-control"
+                    name="validade_certificado" id="inputCertificadoConfirmado"
+                    value="{{old('validade_certificado',$socio->validade_certificado)}}"/>
+            @if ($errors->has('validade_certificado'))
+                <em>{{ $errors->first('validade_certificado') }}</em>
+            @endif
+        </div>
+        <div class="form-group">
+            <label for="inputClasseCertificado">Classe Certificado</label>
+            <select name="classe_certificado" id="inputClasseCertificado" class="form-control">
+                <option disabled selected> -- Selecione uma opção -- </option>
+                @foreach(DB::table('classes_certificados')->pluck('code') as $classe)
+                <option {{ old('classe_certificado',$socio->classe_certificado) == "$classe" ? 'selected' : '' }} value="{{$classe}}">{{$classe}}</option>
+                @endforeach
+            </select>
+            @if ($errors->has('classe_certificado'))
+                <em>{{ $errors->first('classe_certificado') }}</em>
+            @endif
+        </div>
     </div>
 </div>

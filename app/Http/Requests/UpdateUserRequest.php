@@ -27,13 +27,19 @@ class UpdateUserRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'ativo' => isset($this->ativo) ? 1 : 0,
-            'quota_paga' => isset($this->quota_paga) ? 1 : 0,
-            'direcao' => isset($this->direcao) ? 1 : 0,
-            'instrutor' => isset($this->instrutor) ? 1 : 0,
-            'licenca_confirmada' => isset($this->licenca_confirmada) ? 1 : 0,
-            'certificado_confirmado' => isset($this->certificado_confirmado) ? 1 : 0,
+            'ativo' => isset($this->ativo) ? (int)$this->ativo : 0,
+            'quota_paga' => isset($this->quota_paga) ? (int)$this->quota_paga : 0,
+            'direcao' => isset($this->direcao) ? (int)$this->direcao : 0,
+            'instrutor' => isset($this->instrutor) ? (int)$this->instrutor : 0,
+            'licenca_confirmada' => isset($this->licenca_confirmada) ? (int)$this->licenca_confirmada : 0,
+            'certificado_confirmado' => isset($this->certificado_confirmado) ? (int)$this->certificado_confirmado : 0,
         ]);
+
+        if(User::find(Auth::id())->direcao == 1){
+            $this->merge([
+                'aluno' => isset($this->aluno) ? (int)$this->aluno : 0,
+            ]);
+        }
     }
 
     public function rules()
@@ -45,13 +51,7 @@ class UpdateUserRequest extends FormRequest
             'data_nascimento' => 'required|date_format:"d/m/Y"|before:'.date("d/m/Y", time()),  
             'endereco' => '',
             'nif' => '',
-            'telefone' => '',
-            'num_licenca' => '',
-            'tipo_licenca' => '',
-            'validade_licenca' => '',
-            'num_certificado' => '',
-            'validade_certificado' => '',
-            'classe_certificado' => '',
+            'telefone' => ''
         ];
 
         if(User::find(Auth::id())->direcao == 1){  
@@ -63,33 +63,45 @@ class UpdateUserRequest extends FormRequest
             $rules_base['quota_paga'] = 'required|in:1,0';
             $rules_base['ativo'] = 'required|in:1,0';
             $rules_base['instrutor'] = 'required|in:1,0';
+            $rules_base['aluno'] = 'required|in:1,0';
             $rules_base['licenca_confirmada'] = 'required|in:1,0';
             $rules_base['certificado_confirmado'] = 'required|in:1,0';
         }
 
-        if(!empty($this->num_licenca)){
-            $rules_base['num_licenca'] = 'integer';
+        if(User::find(Auth::id())->tipo_socio == "P" || Auth::user()->direcao==1){
+
+            $rules_base['num_licenca'] = '';
+            $rules_base['tipo_licenca'] = '';
+            $rules_base['validade_licenca'] = '';
+            $rules_base['num_certificado'] = '';
+            $rules_base['validade_certificado'] = '';
+            $rules_base['classe_certificado'] = '';
+
+            if(!empty($this->num_licenca)){
+                $rules_base['num_licenca'] = 'string|min:1|max:30';
+            }
+
+            if(!empty($this->tipo_licenca)){
+                $rules_base['tipo_licenca'] = 'string|exists:tipos_licencas,code';
+            }
+
+            if(!empty($this->validade_licenca)){
+                $rules_base['validade_licenca'] = 'date_format:"d/m/Y"';
+            }
+
+            if(!empty($this->num_certificado)){
+                $rules_base['num_certificado'] = 'string|min:1|max:30';
+            }
+
+            if(!empty($this->validade_certificado)){
+                $rules_base['validade_certificado'] = 'date_format:"d/m/Y"';
+            }
+
+            if(!empty($this->classe_certificado)){
+                $rules_base['classe_certificado'] = 'string|exists:classes_certificados,code';
+            }
         }
 
-        if(!empty($this->tipo_licenca)){
-            $rules_base['tipo_licenca'] = 'string|exists:tipos_licencas,code';
-        }
-
-        if(!empty($this->validade_licenca)){
-            $rules_base['validade_licenca'] = 'date';
-        }
-
-        if(!empty($this->num_certificado)){
-            $rules_base['num_certificado'] = 'string';
-        }
-
-        if(!empty($this->validade_certificado)){
-            $rules_base['validade_certificado'] = 'date';
-        }
-
-        if(!empty($this->classe_certificado)){
-            $rules_base['classe_certificado'] = 'string|exists:classes_certificados,code';
-        }
         if(!empty($this->endereco)){
             $rules_base['endereco'] = 'string';
         }
@@ -104,14 +116,6 @@ class UpdateUserRequest extends FormRequest
 
         if(!empty($this->file_foto)){
             $rules_base['file_foto'] = 'mimetypes:image/jpeg,image/png,image/jpg';
-        }
-
-        if(!empty($this->file_licenca)){
-            $rules_base['file_foto'] = 'mimetypes:application/pdf';
-        }
-
-        if(!empty($this->file_certificado)){
-            $rules_base['file_foto'] = 'mimetypes:application/pdf';
         }
 
         return $rules_base;

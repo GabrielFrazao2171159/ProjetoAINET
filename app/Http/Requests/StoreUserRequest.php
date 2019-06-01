@@ -24,9 +24,13 @@ class StoreUserRequest extends FormRequest
     protected function prepareForValidation()
     {
         $this->merge([
-            'ativo' => isset($this->ativo) ? 1 : 0,
-            'quota_paga' => isset($this->quota_paga) ? 1 : 0,
-            'direcao' => isset($this->direcao) ? 1 : 0,
+            'ativo' => isset($this->ativo) ? (int)$this->ativo : 0,
+            'quota_paga' => isset($this->quota_paga) ? (int)$this->quota_paga : 0,
+            'direcao' => isset($this->direcao) ? (int)$this->direcao : 0,
+            'instrutor' => isset($this->instrutor) ? (int)$this->instrutor : 0,
+            'aluno' => isset($this->aluno) ? (int)$this->aluno : 0,
+            'licenca_confirmada' => isset($this->licenca_confirmada) ? (int)$this->licenca_confirmada : 0,
+            'certificado_confirmado' => isset($this->certificado_confirmado) ? (int)$this->certificado_confirmado : 0,
         ]);
     }
 
@@ -46,7 +50,45 @@ class StoreUserRequest extends FormRequest
             'ativo' => 'required|in:1,0',
             'quota_paga' => 'required|in:1,0',
             'direcao' => 'required|in:1,0',
+            'instrutor' => 'required|in:1,0',
+            'aluno' => 'required|in:1,0'
         ]; 
+
+        if($this->tipo_socio == "P"){  
+        //Caso o sócio inserido seja piloto
+            $rules_base['licenca_confirmada'] = 'required|in:1,0';
+            $rules_base['certificado_confirmado'] = 'required|in:1,0';
+            $rules_base['num_licenca'] = '';
+            $rules_base['tipo_licenca'] = '';
+            $rules_base['validade_licenca'] = '';
+            $rules_base['num_certificado'] = '';
+            $rules_base['validade_certificado'] = '';
+            $rules_base['classe_certificado'] = '';
+
+            if(!empty($this->num_licenca)){
+                $rules_base['num_licenca'] = 'string|min:1|max:30';
+            }
+
+            if(!empty($this->tipo_licenca)){
+                $rules_base['tipo_licenca'] = 'string|exists:tipos_licencas,code';
+            }
+
+            if(!empty($this->validade_licenca)){
+                $rules_base['validade_licenca'] = 'date_format:"d/m/Y"';
+            }
+
+            if(!empty($this->num_certificado)){
+                $rules_base['num_certificado'] = 'string|min:1|max:30';
+            }
+
+            if(!empty($this->validade_certificado)){
+                $rules_base['validade_certificado'] = 'date_format:"d/m/Y"';
+            }
+
+            if(!empty($this->classe_certificado)){
+                $rules_base['classe_certificado'] = 'string|exists:classes_certificados,code';
+            }
+        }
 
         if(!empty($this->endereco)){
             $rules_base['endereco'] = 'string';

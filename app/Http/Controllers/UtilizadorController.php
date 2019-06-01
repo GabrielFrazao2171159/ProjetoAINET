@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Aeronave;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UpdatePasswordRequest;
@@ -67,6 +68,10 @@ class UtilizadorController extends Controller
     {
         $this->authorize('create', User::class);
 
+       if ($request->aluno == 1 && $request->instrutor == 1) {
+            return back()->withInput($request->all())->withErrors(array('aluno' => 'Não pode ser aluno e instrutor ao mesmo tempo.', 'instrutor' => 'Não pode ser instrutor e aluno ao mesmo tempo.'));
+        }
+
         $socio = $request->validated();
 
         $foto = null;
@@ -75,12 +80,21 @@ class UtilizadorController extends Controller
             unset($socio['file_foto']);
         }
 
+        if($socio['tipo_socio'] == "P"){
+            $date = str_replace('/', '-', $socio['validade_licenca']);
+            $socio['validade_licenca'] = date("Y-m-d", strtotime($date));
+
+            $date = str_replace('/', '-', $socio['validade_certificado']);
+            $socio['validade_certificado'] = date("Y-m-d", strtotime($date));
+        }
+
         //Mudar data para formato da BD (ela vem noutro formato para passar nos testes)
         $date = str_replace('/', '-', $socio['data_nascimento']);
         $socio['data_nascimento'] = date("Y-m-d", strtotime($date));
 
         //Definir pass automática
         $socio['password'] = password_hash($socio['data_nascimento'], PASSWORD_DEFAULT);
+
         $user = User::create($socio);
 
         //Foto
@@ -150,8 +164,13 @@ class UtilizadorController extends Controller
 
     public function edit(User $socio)
     {
-        $socio->data_nascimento = date('d/m/Y', strtotime($socio->data_nascimento));
         $this->authorize('update', $socio);
+        $socio->data_nascimento = date('d/m/Y', strtotime($socio->data_nascimento));
+
+        if($socio->tipo_socio == "P"){
+            $socio->validade_licenca = date('d/m/Y', strtotime($socio->validade_licenca));
+            $socio->validade_certificado = date('d/m/Y', strtotime($socio->validade_certificado));
+        }
 
         return view('socios.edit', compact('socio'));
     }
@@ -160,14 +179,38 @@ class UtilizadorController extends Controller
     {
         $this->authorize('update', $socio);
 
+       if ($request->aluno == 1 && $request->instrutor == 1) {
+            return back()->withInput($request->all())->withErrors(array('aluno' => 'Não pode ser aluno e instrutor ao mesmo tempo.', 'instrutor' => 'Não pode ser instrutor e aluno ao mesmo tempo.'));
+        }
+
         //Regra de unicidade
         $rules = array();
         $rules['email'] = 'unique:users,email,' . $socio->id . ',id';
         if (User::find(Auth::id())->direcao == 1) {
             $rules['num_socio'] = 'unique:users,num_socio,' . $socio->id . ',id';
         }
-        $request->validate($rules);
         //Fim_Regra Unicidade (Faço aqui para ter acesso à variável socio)
+        if(User::find(Auth::id())->tipo_socio == "P" && Auth::user()->id==$socio->id){
+            if(!empty($this->file_licenca)){
+                $rules['file_licenca'] = 'mimetypes:application/pdf';
+            }
+
+            if(!empty($this->file_certificado)){
+                $rules['file_certificado'] = 'mimetypes:application/pdf';
+            }
+        }
+
+        $request->validate($rules);
+        
+        if(Auth::user()->tipo_socio=="P"){
+            if($request->num_licenca != $socio->num_licenca){
+                $socio->licenca_confirmada = 0;
+            }
+
+            if($request->num_certificado != $socio->num_certificado){
+                $socio->certificado_confirmado = 0;
+            }
+        }
 
         $socio->fill($request->validated());
 
@@ -181,25 +224,34 @@ class UtilizadorController extends Controller
             $socio->foto_url = $name;
         }
 
+        if(User::find(Auth::id())->tipo_socio == "P" && Auth::user()->id==$socio->id){
+            if ($request->hasFile('file_licenca')) {
+                $pdf = $request->file('file_licenca');
+                $name = 'licenca_' . $socio->id . '.' . $pdf->getClientOriginalExtension();
+                $path = $request->file('file_licenca')->storeAs('/docs_piloto', $name);
+                $socio->licenca_confirmada = 0;
+            }
 
-        if ($request->hasFile('file_licenca')) {
-            $pdf = $request->file('file_licenca');
-            $name = 'licenca_' . $socio->id . '.' . $pdf->getClientOriginalExtension();
-            $path = $request->file('file_licenca')->storeAs('/docs_piloto', $name);
-            $socio->licenca_confirmada = 0;
+            if ($request->hasFile('file_certificado')) {
+                $pdf = $request->file('file_certificado');
+                $name = 'certificado_' . $socio->id . '.' . $pdf->getClientOriginalExtension();
+                $path = $request->file('file_certificado')->storeAs('/docs_piloto', $name);
+                $socio->certificado_confirmado = 0;
+            }
         }
 
-        if ($request->hasFile('file_certificado')) {
-            $pdf = $request->file('file_certificado');
-            $name = 'certificado_' . $socio->id . '.' . $pdf->getClientOriginalExtension();
-            $path = $request->file('file_certificado')->storeAs('/docs_piloto', $name);
-            $socio->certificado_confirmado = 0;
-        }
+        if(User::find(Auth::id())->tipo_socio == "P" || User::find(Auth::id())->direcao == 1){
+            $date = str_replace('/', '-', $socio->validade_licenca);
+            $socio->validade_licenca = date("Y-m-d", strtotime($date));
 
+            $date = str_replace('/', '-', $socio->validade_certificado);
+            $socio->validade_certificado = date("Y-m-d", strtotime($date));
+        }
 
         //Mudar data para formato da BD (ela vem noutro formato para passar nos testes)
         $date = str_replace('/', '-', $socio->data_nascimento);
         $socio->data_nascimento = date("Y-m-d", strtotime($date));
+
         $socio->save();
 
         return redirect()->route('socios.index')->with('sucesso', 'Sócio editado com sucesso!');
