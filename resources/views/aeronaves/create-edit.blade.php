@@ -1,4 +1,4 @@
-<div class="form-group">
+<div class="form-group col-md-4">
     <label for="inputMarca">Marca</label>
     <input
         type="text" class="form-control"
@@ -7,7 +7,7 @@
         <em>{{ $errors->first('marca') }}</em>
     @endif 
 </div>
-<div class="form-group">
+<div class="form-group col-md-4">
     <label for="inputModelo">Modelo</label>
     <input
         type="text" class="form-control"
@@ -16,7 +16,7 @@
         <em>{{ $errors->first('modelo') }}</em>
     @endif 
 </div>
-<div class="form-group">
+<div class="form-group col-md-4">
     <label for="inputLugares">Número de Lugares</label>
     <input
         type="text" class="form-control"
@@ -25,7 +25,7 @@
         <em>{{ $errors->first('num_lugares') }}</em>
     @endif 
 </div>
-<div class="form-group">
+<div class="form-group col-md-4">
     <label for="inputHoras">Horas</label>
     <input
         type="text" class="form-control"
@@ -34,7 +34,7 @@
         <em>{{ $errors->first('conta_horas') }}</em>
     @endif 
 </div>
-<div class="form-group">
+<div class="form-group col-md-4">
     <label for="inputPrecoHora">Preço por Hora</label>
     <input
         type="text" class="form-control"
@@ -43,7 +43,7 @@
         <em>{{ $errors->first('preco_hora') }}</em>
     @endif 
 </div>
-<div class="form-group">
+<div class="form-group col-md-12">
     <table class="table table-striped">
         <thead>
             <tr>

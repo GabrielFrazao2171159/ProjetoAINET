@@ -3,7 +3,7 @@
 @section('content')
 <form method="POST" action="{{route('aeronaves.store')}}" class="form-group">
     <input type="hidden" name="_token" value="{{csrf_token()}}">
-    <div class="form-group">
+    <div class="form-group col-md-4">
 	    <label for="inputMatricula">Matricula</label>
 	    <input
 	        type="text" class="form-control"

@@ -4,7 +4,7 @@
 <form method="POST" action="{{route('aeronaves.update',$aeronave)}}" class="form-group">
 	<input type="hidden" name="_method" value="PUT">
     <input type="hidden" name="_token" value="{{csrf_token()}}">
-    <div class="form-group">
+    <div class="form-group col-md-4">
     	<label for="inputMatricula">Matricula</label>
         <input type="text" class="form-control" name="matricula" id="inputMatricula" 
         value="{{old('matricula',$aeronave->matricula)}}" readonly="readonly" />
