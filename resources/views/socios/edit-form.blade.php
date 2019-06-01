@@ -258,7 +258,7 @@
             @endif
         </div>
         <div class="form-group">
-            <label class="form-check-label" for="inputCertificadoConfirmado">certificado médico confirmado</label>
+            <label class="form-check-label" for="inputCertificadoConfirmado">Certificado médico confirmado</label>
             <input
                     type="checkbox" class="form-check-input"
                     name="certificado_confirmado" id="inputCertificadoConfirmado" value="1"
