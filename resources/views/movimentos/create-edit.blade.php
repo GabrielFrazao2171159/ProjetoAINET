@@ -1,5 +1,5 @@
 <div>
-    <div class="form-group">
+    <div class="form-group col-md-4">
         <label for="inputData">Data</label>
         <input
                 type="text" class="form-control"
@@ -8,7 +8,7 @@
             <em>{{ $errors->first('data') }}</em>
         @endif
     </div>
-    <div class="form-group">
+    <div class="form-group col-md-4">
         <label for="inputHoraDescolagem">Hora de Descolagem</label>
         <input
                 type="text" class="form-control"
@@ -17,7 +17,7 @@
             <em>{{ $errors->first('hora_descolagem') }}</em>
         @endif
     </div>
-    <div class="form-group">
+    <div class="form-group col-md-4">
         <label for="inputHoraAterragem">Hora de Aterragem</label>
         <input
                 type="text" class="form-control"
@@ -26,7 +26,7 @@
             <em>{{ $errors->first('hora_aterragem') }}</em>
         @endif
     </div>
-    <div class="form-group">
+    <div class="form-group col-md-4">
         <label for="inputAeronave">Aeronave</label>
         <select name="aeronave" id="inputAeronave" class="form-control">
             <option disabled selected> -- Selecione uma opção -- </option>
@@ -38,7 +38,7 @@
             <em>{{ $errors->first('aeronave') }}</em>
         @endif
     </div>
-    <div class="form-group">
+    <div class="form-group col-md-4">
         <label for="inputNumDiario">Nº Diário</label>
         <input
                 type="text" class="form-control"
@@ -47,7 +47,7 @@
             <em>{{ $errors->first('num_diario') }}</em>
         @endif
     </div>
-    <div class="form-group">
+    <div class="form-group col-md-4">
         <label for="inputNumServico">Nº Serviço</label>
         <input
                 type="text" class="form-control"
@@ -56,7 +56,7 @@
             <em>{{ $errors->first('num_servico') }}</em>
         @endif
     </div>
-    <div class="form-group">
+    <div class="form-group col-md-4">
         <label for="inputPiloto">ID de Piloto</label>
         <input
                 type="text" class="form-control"
@@ -65,7 +65,7 @@
             <em>{{ $errors->first('piloto_id') }}</em>
         @endif
     </div>
-    <div class="form-group">
+    <div class="form-group col-md-4">
         <label for="inputNatureza">Natureza</label>
         <select name="natureza" id="inputNatureza" class="form-control">
             <option disabled selected> -- Selecione uma opção -- </option>
@@ -77,7 +77,7 @@
             <em>{{ $errors->first('natureza') }}</em>
         @endif
     </div>
-    <div class="form-group">
+    <div class="form-group col-md-4">
         <label for="inputAerodromoPartida">Aeródromo de Partida</label>
         <input
                 type="text" class="form-control"
@@ -86,7 +86,7 @@
             <em>{{ $errors->first('aerodromo_partida') }}</em>
         @endif
     </div>
-    <div class="form-group">
+    <div class="form-group col-md-4">
         <label for="inputAerodromoChegada">Aeródromo de Chegada</label>
         <input
                 type="text" class="form-control"
@@ -95,7 +95,7 @@
             <em>{{ $errors->first('aerodromo_chegada') }}</em>
         @endif
     </div>
-    <div class="form-group">
+    <div class="form-group col-md-4">
         <label for="inputNumAterragens">Nº Aterragens</label>
         <input
                 type="text" class="form-control"
@@ -104,7 +104,7 @@
             <em>{{ $errors->first('num_aterragens') }}</em>
         @endif
     </div>
-    <div class="form-group">
+    <div class="form-group col-md-4">
         <label for="inputNumDescolagens">Nº Descolagens</label>
         <input
                 type="text" class="form-control"
@@ -113,7 +113,7 @@
             <em>{{ $errors->first('num_descolagens') }}</em>
         @endif
     </div>
-    <div class="form-group">
+    <div class="form-group col-md-4">
         <label for="inputNumPessoas">Nº Pessoas</label>
         <input
                 type="text" class="form-control"
@@ -122,7 +122,7 @@
             <em>{{ $errors->first('num_pessoas') }}</em>
         @endif
     </div>
-    <div class="form-group">
+    <div class="form-group col-md-4">
         <label for="inputContaHorasInicio">Conta-horas Inicial</label>
         <input
                 type="text" class="form-control"
@@ -131,7 +131,7 @@
             <em>{{ $errors->first('conta_horas_inicio') }}</em>
         @endif
     </div>
-    <div class="form-group">
+    <div class="form-group col-md-4">
         <label for="inputContaHorasFim">Conta-horas Final</label>
         <input
                 type="text" class="form-control"
@@ -140,7 +140,7 @@
             <em>{{ $errors->first('conta_horas_fim') }}</em>
         @endif
     </div>
-    <div class="form-group">
+    <div class="form-group col-md-3">
         <label for="inputTempoVoo">Tempo de Voo</label>
         <input
                 type="text" class="form-control"
@@ -149,7 +149,7 @@
             <em>{{ $errors->first('tempo_voo') }}</em>
         @endif
     </div>
-    <div class="form-group">
+    <div class="form-group col-md-3">
         <label for="inputPrecoVoo">Preço do Voo</label>
         <input
                 type="text" class="form-control"
@@ -158,7 +158,7 @@
             <em>{{ $errors->first('preco_voo') }}</em>
         @endif
     </div>
-    <div class="form-group">
+    <div class="form-group col-md-3">
         <label for="inputModoPagamento">Modo de pagamento</label>
         <select name="modo_pagamento" id="inputModoPagamento" class="form-control">
             <option disabled selected> -- Selecione uma opção -- </option>
@@ -171,7 +171,7 @@
             <em>{{ $errors->first('modo_pagamento') }}</em>
         @endif
     </div>
-    <div class="form-group">
+    <div class="form-group col-md-3">
         <label for="inputNumRecibo">Nº de recibo</label>
         <input
                 type="text" class="form-control"
@@ -180,7 +180,7 @@
             <em>{{ $errors->first('num_recibo') }}</em>
         @endif
     </div>
-    <div class="form-group">
+    <div class="form-group col-md-12">
         <label for="inputObeservacoes">Observações</label>
         <textarea name="observacoes" id="observacoes" rows="5" cols="48" style="resize: none"
                   class="form-control">{{old('observacoes',$movimento->observacoes)}}</textarea>
@@ -188,8 +188,10 @@
             <em>{{ $errors->first('observacoes') }}</em>
         @endif
     </div>
-    <h3>Caso seja de Instrução:</h3>
-    <div class="form-group">
+    <div col-md-12>
+        <h3>Caso seja de Instrução:</h3>
+    </div>
+    <div class="form-group col-md-6">
         <label for="inputTipoInstrucao">Tipo de Instrução</label>
         <select name="tipo_instrucao" id="inputTipoInstrucao" class="form-control">
             <option disabled selected> -- Selecione uma opção  -- </option>
@@ -200,7 +202,7 @@
             <em>{{ $errors->first('tipo_instrucao') }}</em>
         @endif
     </div>
-    <div class="form-group">
+    <div class="form-group col-md-6">
         <label for="inputInstrutorID">ID de Instrutor</label>
         <input
                 type="text" class="form-control"
