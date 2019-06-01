@@ -370,7 +370,7 @@
                 @endif
             </div>
             <div>
-                <label>Cópia digital da licença</label>
+            <label>Cópia digital da licença</label>
                 <div>
                     @if($socio->licenca_confirmada==1)
                         <a href="{{  route('socios.licenca', $socio) }}">Ver licença</a>
