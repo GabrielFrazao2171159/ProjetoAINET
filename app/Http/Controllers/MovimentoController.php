@@ -117,7 +117,7 @@ class MovimentoController extends Controller
         if(Auth::user()->direcao==0){
             if($movimento['natureza'] == "I"){
                 if (($piloto->id != Auth::id()) && ($instrutor->id != Auth::id())) {
-                    return back()->withInput($request->all())->withErrors(array('instrutor_id' => 'O piloto ID ou o instrutor ID terão de pertencer ao ID do utilizador com login iniciado.'));
+                    return back()->withInput($request->all())->withErrors(array('instrutor_id' => 'O piloto ID ou o instrutor ID terão de pertencer ao ID do utilizador com login iniciado.','piloto_id' => 'O piloto ID ou o instrutor ID terão de pertencer ao ID do utilizador com login iniciado.'));
                 }
             }else{
                 if ($piloto->id != Auth::id()) {
@@ -201,7 +201,7 @@ class MovimentoController extends Controller
             if ($instrutor->instrutor != "1" && $instrutor->tipo_socio != "P") {
                 return back()->withInput($request->all())->withErrors(array('instrutor_id' => 'O instrutor inserido tem de ser piloto e instrutor.'));
             }
-            $movimento->num_certificado_instrutor = $instrutor->num_licenca;
+            $movimento->num_licenca_instrutor = $instrutor->num_licenca;
             $movimento->tipo_licenca_instrutor = $instrutor->tipo_licenca;
             $movimento->validade_licenca_instrutor = $instrutor->validade_licenca;
             $movimento->num_certificado_instrutor = $instrutor->num_certificado;

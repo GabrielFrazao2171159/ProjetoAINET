@@ -741,6 +741,7 @@ class US16_ATest extends USTestBase
 
         $newdata = ["instrutor_id" =>  "897328746"];
         $requestData = array_merge($this->movToSave, $newdata);
+        var_dump($requestData);
         $response = $this->makeRequest($requestData);
         $response->assertInvalid('instrutor_id', "O campo [instrutor_id] aceita valores que não existem na base de dados");
         if(array_key_exists("id", $this->movToSave)) { 

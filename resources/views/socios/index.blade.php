@@ -102,7 +102,11 @@
             <td>{{($socio->num_socio)}}</td>
             <td>{{($socio->nome_informal)}}</td>
             <td>{{($socio->email)}}</td>
-            <td>{{($socio->telefone)}}</td>
+            @if($socio->telefone!=null)
+                <td>{{$socio->telefone}}</td>
+            @else
+                <td>-----</td>
+            @endif
             <td>{{($socio->typeToStr())}}</td>
             <td>{{($socio->direcaoToStr())}}</td>
             @can('verInfoDirecao', App\User::class)
